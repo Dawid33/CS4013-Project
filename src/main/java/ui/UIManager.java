@@ -20,16 +20,19 @@ public class UIManager {
     Stage stage;
     Scene current_scene;
 
-    public UIManager(Stage stage, int x, int y) {
+    public Scene getScene() {
+        return current_scene;
+    }
+
+    public UIManager(int x, int y) {
         current_scene = new MainMenuUI(this);
-        this.stage = stage;
-        stage.setWidth(800);
-        stage.setHeight(600);
-        stage.setScene(current_scene);
-        stage.setTitle("CS4013 Application");
     }
 
     public void setScene(Scene value) {
         stage.setScene(value);
+    }
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
     }
 }
