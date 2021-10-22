@@ -3,11 +3,9 @@
 
 # Requirements
 
-* Application UI.
-* Reservation system.
-* CRC cards
-* UML diagram
-* Application GUI
-* reservations.csv
-* analytics.csv
-* CSV file for every transaction
+* CRC cards - nova^lunosis
+* UML diagram - Carlos
+* Application GUI - Mallard
+* reservations.csv - danuis
+* analytics.csv  - Carlos
+* CSV file for every transaction - nova^lunosis 
