@@ -14,6 +14,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 
 public class BaseUI extends Scene {
+    public static final int COMPANY_TITLE_FONT_SIZE = 20;
     ScrollPane contentPane;
     VBox sideBar;
 
@@ -21,7 +22,7 @@ public class BaseUI extends Scene {
         // We will set a new root in this fuction.
         super(new Label("Dummy"));
         Label companyLabel = new Label("BestSolutions");
-        companyLabel.setFont(new Font(UIManager.COMPANY_TITLE_FONT_SIZE));
+        companyLabel.setFont(new Font(COMPANY_TITLE_FONT_SIZE));
 
         Button makeReservation = new Button("Make Reservation");
         makeReservation.setPrefSize(150, 50);
@@ -32,13 +33,13 @@ public class BaseUI extends Scene {
         Button viewAnalysis = new Button("Analysis");
         viewAnalysis.setPrefSize(150, 50);
         viewAnalysis.setOnMouseClicked((event) -> {
-            
+            contentPane.setContent(new AnalysisUI());
         });
 
         Button viewData = new Button("Data");
         viewData.setPrefSize(150, 50);
         viewData.setOnMouseClicked((event) -> {
-            
+            contentPane.setContent(new DataUI());
         });
     
         sideBar = new VBox(companyLabel, makeReservation, viewAnalysis, viewData);

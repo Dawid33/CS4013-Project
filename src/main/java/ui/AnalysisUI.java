@@ -5,7 +5,8 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 
 public class AnalysisUI extends HBox {
-    public AnalysisUI(UIManager manager) {
+    public AnalysisUI() {
         Label label = new Label("Analysis UI");
+        getChildren().add(label);
     }
 }

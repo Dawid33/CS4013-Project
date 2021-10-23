@@ -5,7 +5,8 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 
 public class DataUI extends HBox {
-    public DataUI(UIManager manager) {
+    public DataUI() {
         Label label = new Label("Data UI");
+        getChildren().add(label);
     }
 }

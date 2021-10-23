@@ -6,7 +6,6 @@ import javafx.stage.Stage;
 import ui.*;
 
 public class Program extends Application {
-    public static UIManager uiManager;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -20,9 +19,6 @@ public class Program extends Application {
     }
 
     public static void main(String[] args) {
-        //Program.uiManager = new UIManager(800, 600);
-        
-
         launch(args);
     }
 }
