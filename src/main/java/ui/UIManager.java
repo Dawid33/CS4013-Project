@@ -14,7 +14,7 @@ public class UIManager {
     }
 
     public UIManager(int x, int y) {
-        current_scene = new MainMenuUI(this);
+        current_scene = new BaseUI();
     }
 
     public void setScene(Scene value) {

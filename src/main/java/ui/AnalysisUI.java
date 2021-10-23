@@ -4,14 +4,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 
-public class AnalysisUI extends SceneUI {
+public class AnalysisUI extends HBox {
     public AnalysisUI(UIManager manager) {
         Label label = new Label("Analysis UI");
-        backButton.setText("Back");
-        backButton.setOnMouseClicked((event) -> {
-            manager.setScene(new MainMenuUI(manager));
-        });
-
-        this.contentPanel.getChildren().addAll(label);
     }
 }
