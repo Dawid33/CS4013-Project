@@ -1,8 +1,33 @@
-.my-rect {
-    -fx-fill: yellow;
-    -fx-stroke: green;
-    -fx-stroke-width: 5;
-    -fx-stroke-dash-array: 12 2 4 2;
-    -fx-stroke-dash-offset: 6;
-    -fx-stroke-line-cap: butt;
+.root {
+    -fx-font-family: "Quicksand";
+    -fx-font-size: 14;
 }
+.button {
+    -fx-border-width: 1px;
+    -fx-background-insets: 0;
+    -fx-border-radius: 0px;
+    -fx-border-color: white;
+    -fx-background-color: rgb(58, 114, 218);
+    -fx-text-fill: white;
+}
+.button:hover {
+    -fx-background-insets: 0;
+    -fx-border-width: 1px;
+    -fx-border-radius: 0px;
+    -fx-border-color: rgb(58, 114, 218);
+    -fx-background-color: white;
+    -fx-text-fill: rgb(58, 114, 218);
+}
+.button:selected {
+    -fx-border-radius: 0px;
+    -fx-border-width: 1px;
+    -fx-border-color: rgb(58, 114, 218);
+    -fx-background-color: black;
+    -fx-text-fill: rgb(58, 114, 218);
+}
+.company-label {
+    -fx-font-family: "Source Sans Pro Semibold";
+    -fx-font-size: 20;
+}
+
+  
