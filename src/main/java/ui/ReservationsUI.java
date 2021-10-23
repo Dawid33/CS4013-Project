@@ -1,15 +1,17 @@
 package ui;
 import java.time.LocalDate;
 
-import core.ReservationFormSaveExeception;
 import core.ReservationFormState;
+import core.exceptions.ReservationFormSaveExeception;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.Separator;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
@@ -56,7 +58,21 @@ public class ReservationsUI extends VBox {
         gp.add(checkIn, 1, 1);
         gp.add(checkOutLabel, 2, 1);
         gp.add(checkOut, 3, 1);
-        
+
+        // Line 3 and 4
+        RadioButton standardReservation = new RadioButton("Standard Reservation");
+        RadioButton apReservation = new RadioButton("Advance Purchase Reservation");
+        ToggleGroup group = new ToggleGroup();
+        standardReservation.setToggleGroup(group);
+        standardReservation.setSelected(true);
+        GridPane.setHgrow(standardReservation, Priority.ALWAYS);
+        apReservation.setToggleGroup(group);
+        GridPane.setHgrow(apReservation, Priority.ALWAYS);
+
+        gp.add(standardReservation, 0, 3, 2, 1);
+        gp.add(apReservation, 0, 4 , 2, 1);
+
+
         Button saveButton = new Button("Save");
         saveButton.setOnMouseClicked((event) -> {
             try {

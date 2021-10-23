@@ -29,5 +29,10 @@
     -fx-font-family: "Source Sans Pro Semibold";
     -fx-font-size: 20;
 }
-
-  
+.help-title {
+    -fx-font-family: "Source Sans Pro Semibold";
+    -fx-font-size: 20;
+}
+.help-text {
+    
+}

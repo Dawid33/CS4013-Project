@@ -1,8 +1,6 @@
 package ui;
 
 import core.ReservationFormState;
-import java.util.function.Consumer;
-
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -12,7 +10,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
+import ui.interfaces.OnSave;
 
 public class UI extends Scene {
     public static final int COMPANY_TITLE_FONT_SIZE = 16;
@@ -36,8 +34,6 @@ public class UI extends Scene {
 
         Button makeReservation = new Button("Make Reservation");
         makeReservation.setPrefSize(150, 50);
-        makeReservation.getStyleClass().add("sidebar-button");
-        //makeReservation.setPadding(new Insets(10, 10, 10, 10));
         makeReservation.setOnMouseClicked((event) -> {
             contentPane.setContent(new ReservationsUI(this));
         });
@@ -53,6 +49,11 @@ public class UI extends Scene {
         viewData.setOnMouseClicked((event) -> {
             contentPane.setContent(new DataUI(this));
         });
+        Button viewHelp = new Button("Help");
+        viewHelp.setPrefSize(150, 50);
+        viewHelp.setOnMouseClicked((event) -> {
+            contentPane.setContent(new HelpUI(this));
+        });
 
         Button exit = new Button("Exit");
         exit.setPrefSize(150, 50);
@@ -60,12 +61,12 @@ public class UI extends Scene {
             System.exit(0);
         });
     
-        sidebar = new VBox(centeredCompanyLabel, makeReservation, viewAnalysis, viewData, exit);
+        sidebar = new VBox(centeredCompanyLabel, makeReservation, viewAnalysis, viewData, viewHelp, exit);
         sidebar.setSpacing(10);
         sidebar.setPadding(new Insets(10));        
 
         contentPane = new ScrollPane();
-        HBox.setHgrow(contentPane, Priority.ALWAYS);;
+        HBox.setHgrow(contentPane, Priority.SOMETIMES);;
         contentPane.setFitToWidth(true);
 
         HBox hbox = new HBox(contentPane);
