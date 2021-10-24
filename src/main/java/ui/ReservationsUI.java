@@ -1,7 +1,6 @@
 package ui;
 import java.time.LocalDate;
 
-import core.ReservationFormState;
 import core.exceptions.ReservationFormSaveExeception;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -16,14 +15,26 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import state.ReservationFormState;
 
 public class ReservationsUI extends VBox {
 
     DatePicker checkIn;
     DatePicker checkOut;
+    TextField emailTxtField;
+    TextField nameTxtField;
+
+    ToggleGroup group;
+    
 
     public ReservationsUI(UI baseUI) {
-        
+        Text title = new Text("Rerservations Screen");
+        title.getStyleClass().add("title");
+
+        HBox centeredTitle = new HBox(title);
+        centeredTitle.setAlignment(Pos.CENTER);
+
         GridPane gp = new GridPane();
         gp.setHgap(4);
         gp.setVgap(4);
@@ -32,10 +43,10 @@ public class ReservationsUI extends VBox {
         
         // Line one.
         Label emailLabel = new Label("Email :");
-        TextField emailTxtField = new TextField();
+        emailTxtField = new TextField();
 
         Label nameLabel = new Label("Name :");
-        TextField nameTxtField = new TextField();
+        nameTxtField = new TextField();
         GridPane.setHgrow(emailTxtField, Priority.ALWAYS);
         GridPane.setHgrow(nameTxtField, Priority.ALWAYS);
 
@@ -62,7 +73,7 @@ public class ReservationsUI extends VBox {
         // Line 3 and 4
         RadioButton standardReservation = new RadioButton("Standard Reservation");
         RadioButton apReservation = new RadioButton("Advance Purchase Reservation");
-        ToggleGroup group = new ToggleGroup();
+        group = new ToggleGroup();
         standardReservation.setToggleGroup(group);
         standardReservation.setSelected(true);
         GridPane.setHgrow(standardReservation, Priority.ALWAYS);
@@ -97,8 +108,9 @@ public class ReservationsUI extends VBox {
         bottomBar.setPadding(new Insets(0, 10, 0, 0));
         bottomBar.setAlignment(Pos.CENTER_RIGHT);
 
-        getChildren().addAll(gp, sep, bottomBar);
-        setMargin(gp, new Insets(20));
+        getChildren().addAll(centeredTitle ,gp, sep, bottomBar);
+        setSpacing(UI.DEFAULT_SPACING);
+        setPadding(new Insets(UI.DEFAULT_SPACING));
     }
 
     ReservationFormState generateState () {
@@ -107,6 +119,9 @@ public class ReservationsUI extends VBox {
     }
 
     void clearState() {
-        //TODO
+        emailTxtField.clear();
+        nameTxtField.clear();
+        checkIn.setValue(null);
+        checkOut.setValue(null);
     }
 }

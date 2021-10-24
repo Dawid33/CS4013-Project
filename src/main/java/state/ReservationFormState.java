@@ -1,4 +1,4 @@
-package core;
+package state;
 import java.time.LocalDate;
 
 public class ReservationFormState {

@@ -1,10 +1,20 @@
 package ui;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
+import javafx.scene.text.Text;
 
-public class DataUI extends HBox {
+public class DataUI extends VBox {
     public DataUI(UI baseUI) {
-        Label label = new Label("Data UI");
-        getChildren().add(label);
+        Text title = new Text("Data Screen");
+        title.getStyleClass().add("title");
+
+        HBox centeredTitle = new HBox(title);
+        centeredTitle.setAlignment(Pos.CENTER);
+
+        getChildren().add(centeredTitle);
+        setSpacing(UI.DEFAULT_SPACING);
+        setPadding(new Insets(UI.DEFAULT_SPACING));
     }
 }
