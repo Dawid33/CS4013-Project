@@ -1,0 +1,19 @@
+.root {
+    -fx-font-family: "Quicksand";
+    -fx-font-size: 14;
+}
+.company-label {
+    -fx-font-family: "Source Sans Pro Semibold";
+    -fx-font-size: 20;
+}
+.title {
+    -fx-font-family: "Source Sans Pro Semibold";
+    -fx-font-size: 25;
+}
+.sub-title {
+    -fx-font-family: "Source Sans Pro Semibold";
+    -fx-font-size: 20;
+}
+.titled-pane {
+    -fx-font-size: 10;
+}
