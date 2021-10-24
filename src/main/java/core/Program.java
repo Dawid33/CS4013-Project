@@ -10,6 +10,7 @@ public class Program extends Application {
     public static final int MIN_APPLICATION_WIDTH = 1024;
     public static final int MIN_APPLICATION_HEIGHT = 720;
     public static final String SAVE_FILE_PATH = "./settings.save";
+    public static final String CSS_FOLDER_PATH = "./css/";
 
     Stage stage = null;
     UI ui = null;
@@ -47,7 +48,7 @@ public class Program extends Application {
 
     public void onThemeChange(Theme theme) {
         ui.getStylesheets().clear();
-        ui.getStylesheets().addAll("main.css", themeToFileName(theme));
+        ui.getStylesheets().addAll(CSS_FOLDER_PATH + "main.css", CSS_FOLDER_PATH + themeToFileName(theme));
     }
 
     public void saveData(ReservationFormState state) throws ReservationFormSaveExeception {

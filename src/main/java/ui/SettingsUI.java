@@ -22,7 +22,10 @@ public class SettingsUI extends VBox {
         HBox centeredTitle = new HBox(title);
         centeredTitle.setAlignment(Pos.CENTER);
 
-        RadioButton defaultTheme = new RadioButton("Default");
+        Text themeTitle = new Text("Available Themes");
+        themeTitle.getStyleClass().add("sub-title");
+
+        RadioButton defaultTheme = new RadioButton("Blue");
         RadioButton purpleTheme = new RadioButton("Purple");
         RadioButton unicornTheme = new RadioButton("Unicorn");
         purpleTheme.setUserData(Theme.Purple);
@@ -57,7 +60,8 @@ public class SettingsUI extends VBox {
             } 
         });
         
-        getChildren().addAll(centeredTitle, defaultTheme, purpleTheme, unicornTheme);
+        getChildren().addAll(centeredTitle, themeTitle ,defaultTheme, purpleTheme, unicornTheme);
         setPadding(new Insets(UI.DEFAULT_SPACING));
+        setSpacing(5);
     }
 }

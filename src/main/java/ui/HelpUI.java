@@ -44,7 +44,6 @@ public class HelpUI extends VBox {
 
         getChildren().addAll(centeredTitle, introduction, reservation, cancelReservation);
         setAlignment(Pos.TOP_LEFT);
-        getStyleClass().add("help-text");
         setSpacing(UI.DEFAULT_SPACING);
         setPadding(new Insets(UI.DEFAULT_SPACING));
     }
