@@ -1,9 +1,9 @@
 package core;
 
-import core.exceptions.ReservationFormSaveExeception;
+import core.exceptions.BookingFormSaveExeception;
 import javafx.application.Application;
 import javafx.stage.Stage;
-import state.ReservationFormState;
+import state.BookingFormState;
 import ui.*;
 
 public class Program extends Application {
@@ -51,7 +51,9 @@ public class Program extends Application {
         ui.getStylesheets().addAll(CSS_FOLDER_PATH + "main.css", CSS_FOLDER_PATH + themeToFileName(theme));
     }
 
-    public void saveData(ReservationFormState state) throws ReservationFormSaveExeception {
-        throw new ReservationFormSaveExeception("Not implemented");
+    public void saveData(BookingFormState state) throws BookingFormSaveExeception {
+
+        
+        throw new BookingFormSaveExeception("Not implemented");
     }
 }

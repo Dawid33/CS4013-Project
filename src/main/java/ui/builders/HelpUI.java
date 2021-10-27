@@ -1,4 +1,4 @@
-package ui;
+package ui.builders;
 
 import core.Program;
 import javafx.geometry.Insets;
@@ -9,6 +9,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
+import ui.UI;
 
 public class HelpUI extends VBox {
     static String introductionRaw = 

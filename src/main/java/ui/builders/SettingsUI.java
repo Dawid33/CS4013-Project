@@ -1,7 +1,10 @@
-package ui;
+package ui.builders;
 
 import core.SettingsIO;
 import state.SettingsState;
+import ui.Theme;
+import ui.UI;
+
 import java.io.IOException;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -48,7 +51,7 @@ public class SettingsUI extends VBox {
             public void changed(ObservableValue<? extends Toggle> ov, Toggle old_toggle, Toggle new_toggle) {
                 if (group.getSelectedToggle() != null) {
                     Theme selectedTheme = (Theme)group.getSelectedToggle().getUserData();
-                    baseUI.onThemeChange.accept(selectedTheme);
+                    baseUI.getOnThemeChange().accept(selectedTheme);
                     state.theme = selectedTheme;
 
                     try {

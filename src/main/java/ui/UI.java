@@ -15,15 +15,21 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-import state.ReservationFormState;
+import state.BookingFormState;
 import state.SettingsState;
+import ui.builders.AnalysisUI;
+import ui.builders.CancelBookingUI;
+import ui.builders.DataUI;
+import ui.builders.HelpUI;
+import ui.builders.MakeBookingUI;
+import ui.builders.SettingsUI;
 import ui.interfaces.OnSave;
 
 public class UI extends Scene {
     public static final int COMPANY_TITLE_FONT_SIZE = 16;
     public static final double DEFAULT_SPACING = 10;
 
-    public void setOnSave(OnSave<ReservationFormState> value) {
+    public void setOnSave(OnSave<BookingFormState> value) {
         onSave = value;
     }
 
@@ -31,13 +37,23 @@ public class UI extends Scene {
         this.onThemeChange = value;
     }
 
+    public OnSave<BookingFormState> getOnSave() {
+        return onSave;
+    }
+
+    public Consumer<Theme> getOnThemeChange() {
+        return onThemeChange;
+    }
+
     Consumer<Theme> onThemeChange;
-    OnSave<ReservationFormState> onSave;
+    OnSave<BookingFormState> onSave;
     Pane contentPane;
     VBox sidebar;
 
     public UI() {
+        // super needs a parameter for the root node.
         // We will set a new root in this fuction.
+        
         super(new Label("Dummy"));
         Label companyLabel = new Label("BestSolutions Ltd");
         companyLabel.getStyleClass().add("company-label");
@@ -45,10 +61,16 @@ public class UI extends Scene {
         HBox centeredCompanyLabel = new HBox(companyLabel);
         centeredCompanyLabel.setAlignment(Pos.CENTER);
 
-        Button makeReservation = new Button("Make Reservation");
+        Button makeReservation = new Button("Make Booking");
         makeReservation.setPrefSize(150, 50);
         makeReservation.setOnMouseClicked((event) -> {
-            setContentPane(new ReservationsUI(this));
+            setContentPane(new MakeBookingUI(this));
+        });
+
+        Button cancelReservation = new Button("Cancel Booking");
+        cancelReservation.setPrefSize(150, 50);
+        cancelReservation.setOnMouseClicked((event) -> {
+            setContentPane(new CancelBookingUI(this));
         });
 
         Button viewAnalysis = new Button("Analysis");
@@ -88,7 +110,7 @@ public class UI extends Scene {
             System.exit(0);
         });
     
-        sidebar = new VBox(centeredCompanyLabel, makeReservation, viewAnalysis, viewData, viewHelp, viewSettings, exit);
+        sidebar = new VBox(centeredCompanyLabel, makeReservation, cancelReservation, viewAnalysis, viewData, viewHelp, viewSettings, exit);
         sidebar.setSpacing(UI.DEFAULT_SPACING);
         sidebar.setPadding(new Insets(UI.DEFAULT_SPACING));
         sidebar.getStyleClass().add("sidebar");

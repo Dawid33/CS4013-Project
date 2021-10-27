@@ -1,8 +1,9 @@
-package ui;
+package ui.builders;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
+import ui.UI;
 
 public class AnalysisUI extends VBox {
     public AnalysisUI(UI baseUI) {
