@@ -12,7 +12,6 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.Separator;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.control.cell.CheckBoxListCell;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
@@ -38,7 +37,15 @@ Hotel type 	Room type	     Number of Rooms	Occupancy-min	Occupancy-max	Rates
 import ui.UI;
 
 
-public class MakeBookingUI extends VBox {
+public class BookingUI extends VBox {
+    
+    TextField emailTxtField;
+    TextField nameTxtField;
+    
+    DatePicker checkIn;
+    DatePicker checkOut;
+
+    ToggleGroup bookingTypeGroup;
 
     CheckBox deluxeDouble;
     CheckBox deluxeTwin;
@@ -52,15 +59,8 @@ public class MakeBookingUI extends VBox {
     CheckBox classicDouble;
     CheckBox classicTwin;
     CheckBox classicSingle;
-
-    DatePicker checkIn;
-    DatePicker checkOut;
-    TextField emailTxtField;
-    TextField nameTxtField;
-    ToggleGroup bookingTypeGroup;
-    ToggleGroup hotelTypeGroup;
     
-    public MakeBookingUI(UI baseUI) {
+    public BookingUI(UI baseUI) {
         Text title = new Text("Booking Screen");
         title.getStyleClass().add("title");
 
@@ -193,8 +193,12 @@ public class MakeBookingUI extends VBox {
     }
 
     BookingFormState getState () {
-        //TODO
-        return new BookingFormState();
+        BookingFormState state = new BookingFormState();
+        state.email = emailTxtField.getText();
+        state.name = nameTxtField.getText();
+        state.checkInDate = checkIn.getValue();
+        state.checkOutDate = checkOut.getValue();
+        return state;
     }
 
     void clearState() {

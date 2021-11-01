@@ -52,8 +52,8 @@ public class Program extends Application {
     }
 
     public void saveData(BookingFormState state) throws BookingFormSaveExeception {
-
         
-        throw new BookingFormSaveExeception("Not implemented");
+        
+        System.out.println(state.toString());
     }
 }
