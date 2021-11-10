@@ -15,8 +15,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-import state.BookingFormState;
-import state.SettingsState;
 import ui.builders.AnalysisUI;
 import ui.builders.CancelBookingUI;
 import ui.builders.DataUI;
@@ -29,7 +27,7 @@ public class UI extends Scene {
     public static final int COMPANY_TITLE_FONT_SIZE = 16;
     public static final double DEFAULT_SPACING = 10;
 
-    public void setOnSave(OnSave<BookingFormState> value) {
+    public void setOnSave(OnSave<BookingForm> value) {
         onSave = value;
     }
 
@@ -37,7 +35,7 @@ public class UI extends Scene {
         this.onThemeChange = value;
     }
 
-    public OnSave<BookingFormState> getOnSave() {
+    public OnSave<BookingForm> getOnSave() {
         return onSave;
     }
 
@@ -46,7 +44,7 @@ public class UI extends Scene {
     }
 
     Consumer<Theme> onThemeChange;
-    OnSave<BookingFormState> onSave;
+    OnSave<BookingForm> onSave;
     Pane contentPane;
     VBox sidebar;
 
@@ -95,7 +93,7 @@ public class UI extends Scene {
         viewSettings.setPrefSize(150, 50);
         viewSettings.setOnMouseClicked((event) -> {
             // Read settings from file
-            SettingsState state = new SettingsState();;
+            Settings state = new Settings();;
             try {
                 state = SettingsIO.loadSettings();
             } catch (IOException e) {

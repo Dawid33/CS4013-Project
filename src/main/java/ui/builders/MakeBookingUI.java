@@ -12,14 +12,13 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.Separator;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.control.cell.CheckBoxListCell;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import state.BookingFormState;
+import ui.BookingForm;
 /*
 Hotel type 	Room type	     Number of Rooms	Occupancy-min	Occupancy-max	Rates						
                                                                                 Mon Tue Wed Thur Fri  Sat  Sun
@@ -58,7 +57,10 @@ public class MakeBookingUI extends VBox {
     TextField emailTxtField;
     TextField nameTxtField;
     ToggleGroup bookingTypeGroup;
+
     ToggleGroup hotelTypeGroup;
+    RadioButton standardBooking;
+    RadioButton apBooking;
     
     public MakeBookingUI(UI baseUI) {
         Text title = new Text("Booking Screen");
@@ -103,8 +105,8 @@ public class MakeBookingUI extends VBox {
         gp.add(checkOut, 3, 1);
 
         // Line 3 and 4
-        RadioButton standardBooking = new RadioButton("Standard Booking");
-        RadioButton apBooking = new RadioButton("Advance Purchase Booking");
+        standardBooking = new RadioButton("Standard Booking");
+        apBooking = new RadioButton("Advance Purchase Booking");
         bookingTypeGroup = new ToggleGroup();
         standardBooking.setToggleGroup(bookingTypeGroup);
         standardBooking.setSelected(true);
@@ -192,9 +194,31 @@ public class MakeBookingUI extends VBox {
         gp.add(finalBox, 0, 5, 5, 1);
     }
 
-    BookingFormState getState () {
-        //TODO
-        return new BookingFormState();
+    BookingForm getState () {
+        BookingForm state = new BookingForm();
+
+        state.setEmail(emailTxtField.getText());
+        state.setName(nameTxtField.getText());
+
+        
+
+        state.setCheckInDate(checkIn.getValue());
+        state.setCheckOutDate(checkOut.getValue());
+
+        state.setDeluxeDouble(deluxeDouble.isSelected());
+        state.setDeluxeFamily(deluxeFamily.isSelected());
+        state.setDeluxeSingle(deluxeSingle.isSelected());
+        state.setDeluxeTwin(deluxeTwin.isSelected());
+
+        state.setExecutiveDouble(executiveDouble.isSelected());
+        state.setExecutiveSingle(executiveDouble.isSelected());
+        state.setExecutiveTwin(executiveTwin.isSelected());
+
+        state.setClassicDouble(classicDouble.isSelected());
+        state.setClassicSingle(classicDouble.isSelected());
+        state.setClassicTwin(classicTwin.isSelected());
+
+        return state;
     }
 
     void clearState() {

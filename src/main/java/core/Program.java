@@ -3,7 +3,6 @@ package core;
 import core.exceptions.BookingFormSaveExeception;
 import javafx.application.Application;
 import javafx.stage.Stage;
-import state.BookingFormState;
 import ui.*;
 
 public class Program extends Application {
@@ -12,12 +11,10 @@ public class Program extends Application {
     public static final String SAVE_FILE_PATH = "./settings.save";
     public static final String CSS_FOLDER_PATH = "./css/";
 
-    Stage stage = null;
     UI ui = null;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        this.stage = primaryStage;
         primaryStage.setWidth(MIN_APPLICATION_WIDTH);
         primaryStage.setHeight(MIN_APPLICATION_HEIGHT);
         primaryStage.setTitle("CS4013 Application");
@@ -33,7 +30,8 @@ public class Program extends Application {
     }
 
     public static void main(String[] args) {
-        //System.out.println(javafx.scene.text.Font.getFamilies());
+
+
         launch(args);
     }
 
@@ -51,9 +49,7 @@ public class Program extends Application {
         ui.getStylesheets().addAll(CSS_FOLDER_PATH + "main.css", CSS_FOLDER_PATH + themeToFileName(theme));
     }
 
-    public void saveData(BookingFormState state) throws BookingFormSaveExeception {
-
-        
-        throw new BookingFormSaveExeception("Not implemented");
+    public void saveData(BookingForm state) throws BookingFormSaveExeception {
+        System.out.println(state);
     }
 }

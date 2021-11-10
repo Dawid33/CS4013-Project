@@ -1,6 +1,5 @@
 package core;
 
-import state.SettingsState;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -9,16 +8,21 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+import ui.Settings;
+
 
 public class SettingsIO {
-    public static SettingsState loadSettings() throws IOException {
-        SettingsState state = new SettingsState();
-        try (FileInputStream fIn = new FileInputStream(Program.SAVE_FILE_PATH)){
+    public static Settings loadSettings() throws IOException {
+        Settings state = new Settings();
+
+        try (FileInputStream fIn = new FileInputStream(Program.SAVE_FILE_PATH)) {
             ObjectInputStream in = new ObjectInputStream(fIn);
             try {
-                state = (SettingsState)in.readObject();
+                state = (Settings)in.readObject();
             } catch (ClassNotFoundException e) {
                 System.out.println("Class not found exception.");
+            } catch (IOException e) {
+
             } finally {
                 in.close();
                 fIn.close();
@@ -27,11 +31,10 @@ public class SettingsIO {
             saveSettings(state);
             return state;
         }
-
         return state;
     }
 
-    public static void saveSettings(SettingsState state) throws IOException {
+    public static void saveSettings(Settings state) throws IOException {
         File settingsFile = new File(Program.SAVE_FILE_PATH);
 
         if (settingsFile.exists()) {

@@ -1,7 +1,7 @@
 package ui.builders;
 
 import core.SettingsIO;
-import state.SettingsState;
+import ui.Settings;
 import ui.Theme;
 import ui.UI;
 
@@ -18,7 +18,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 public class SettingsUI extends VBox {
-    public SettingsUI(UI baseUI, SettingsState state) {
+    public SettingsUI(UI baseUI, Settings state) {
         Text title = new Text("Settings Screen");
         title.getStyleClass().add("title");
 

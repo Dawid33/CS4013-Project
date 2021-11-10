@@ -13,17 +13,11 @@ import ui.UI;
 
 public class HelpUI extends VBox {
     static String introductionRaw = 
-    """
-    This section contains an overview on how to use various parts of this software. The latter half contains a section which describes common actions.
-    """;
+    "This section contains an overview on how to use various parts of this software. The latter half contains a section which describes common actions.";
     static String reservationTextRaw = 
-    """
-    How to make a reservation
-    """;
+    "How to make a reservation";
     static String cancelReservationRaw = 
-    """
-    How to cancel a reservation
-    """;
+    "How to cancel a reservation";
 
     public HelpUI(UI baseUI) {
         Text title = new Text("Help Screen");
