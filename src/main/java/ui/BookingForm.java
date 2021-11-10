@@ -86,7 +86,7 @@ public class BookingForm {
 
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        
+
         if (name != null)
             builder.append("Check in date : " + email + "\n");
         else 
