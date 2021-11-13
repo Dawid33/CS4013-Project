@@ -37,7 +37,15 @@ Hotel type 	Room type	     Number of Rooms	Occupancy-min	Occupancy-max	Rates
 import ui.UI;
 
 
-public class MakeBookingUI extends VBox {
+public class BookingUI extends VBox {
+    
+    TextField emailTxtField;
+    TextField nameTxtField;
+    
+    DatePicker checkIn;
+    DatePicker checkOut;
+
+    ToggleGroup bookingTypeGroup;
 
     CheckBox deluxeDouble;
     CheckBox deluxeTwin;
@@ -52,17 +60,11 @@ public class MakeBookingUI extends VBox {
     CheckBox classicTwin;
     CheckBox classicSingle;
 
-    DatePicker checkIn;
-    DatePicker checkOut;
-    TextField emailTxtField;
-    TextField nameTxtField;
-    ToggleGroup bookingTypeGroup;
-
     ToggleGroup hotelTypeGroup;
     RadioButton standardBooking;
     RadioButton apBooking;
     
-    public MakeBookingUI(UI baseUI) {
+    public BookingUI(UI baseUI) {
         Text title = new Text("Booking Screen");
         title.getStyleClass().add("title");
 

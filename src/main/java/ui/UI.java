@@ -19,13 +19,13 @@ import ui.builders.AnalysisUI;
 import ui.builders.CancelBookingUI;
 import ui.builders.DataUI;
 import ui.builders.HelpUI;
-import ui.builders.MakeBookingUI;
+import ui.builders.BookingUI;
 import ui.builders.SettingsUI;
 import ui.interfaces.OnSave;
 
 public class UI extends Scene {
     public static final int COMPANY_TITLE_FONT_SIZE = 16;
-    public static final double DEFAULT_SPACING = 10;
+    public static final double DEFAULT_SPACING = 15;
 
     public void setOnSave(OnSave<BookingForm> value) {
         onSave = value;
@@ -46,13 +46,12 @@ public class UI extends Scene {
     Consumer<Theme> onThemeChange;
     OnSave<BookingForm> onSave;
     Pane contentPane;
-    VBox sidebar;
 
     public UI() {
         // super needs a parameter for the root node.
         // We will set a new root in this fuction.
-        
         super(new Label("Dummy"));
+        
         Label companyLabel = new Label("BestSolutions Ltd");
         companyLabel.getStyleClass().add("company-label");
 
@@ -62,7 +61,7 @@ public class UI extends Scene {
         Button makeReservation = new Button("Make Booking");
         makeReservation.setPrefSize(150, 50);
         makeReservation.setOnMouseClicked((event) -> {
-            setContentPane(new MakeBookingUI(this));
+            setContentPane(new BookingUI(this));
         });
 
         Button cancelReservation = new Button("Cancel Booking");
@@ -108,7 +107,7 @@ public class UI extends Scene {
             System.exit(0);
         });
     
-        sidebar = new VBox(centeredCompanyLabel, makeReservation, cancelReservation, viewAnalysis, viewData, viewHelp, viewSettings, exit);
+        VBox sidebar = new VBox(centeredCompanyLabel, makeReservation, cancelReservation, viewAnalysis, viewData, viewHelp, viewSettings, exit);
         sidebar.setSpacing(UI.DEFAULT_SPACING);
         sidebar.setPadding(new Insets(UI.DEFAULT_SPACING));
         sidebar.getStyleClass().add("sidebar");
