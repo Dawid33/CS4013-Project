@@ -1,13 +1,7 @@
 package core;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Iterator;
-
-import javafx.util.StringConverter;
-import javafx.util.converter.DateTimeStringConverter;
-import javafx.util.converter.LocalDateStringConverter;
 
 public class CSV implements Iterable<String> {
     String contents = "";
@@ -73,5 +67,9 @@ public class CSV implements Iterable<String> {
             rows.add(new CSV(s));
         }
         return rows;
+    }
+
+    public String toString() {
+        return contents;
     }
 }

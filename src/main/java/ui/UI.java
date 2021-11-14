@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.function.Consumer;
 
 import core.Program;
-import core.BookingForm;
+import core.Booking;
 import core.IO;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -28,7 +28,7 @@ public class UI extends Scene {
     public static final int COMPANY_TITLE_FONT_SIZE = 16;
     public static final double DEFAULT_SPACING = 15;
 
-    public void setOnSave(OnSave<BookingForm> value) {
+    public void setOnSave(OnSave<Booking> value) {
         onSave = value;
     }
 
@@ -36,7 +36,7 @@ public class UI extends Scene {
         this.onThemeChange = value;
     }
 
-    public OnSave<BookingForm> getOnSave() {
+    public OnSave<Booking> getOnSave() {
         return onSave;
     }
 
@@ -45,7 +45,7 @@ public class UI extends Scene {
     }
 
     Consumer<Theme> onThemeChange;
-    OnSave<BookingForm> onSave;
+    OnSave<Booking> onSave;
     Pane contentPane;
 
     public UI() {

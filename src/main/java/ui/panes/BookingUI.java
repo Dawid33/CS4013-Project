@@ -1,7 +1,7 @@
 package ui.panes;
 import java.time.LocalDate;
 
-import core.BookingForm;
+import core.Booking;
 import core.exceptions.BookingFormSaveExeception;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -199,8 +199,8 @@ public class BookingUI extends VBox {
         return finalBox;
     }
 
-    BookingForm getState () {
-        BookingForm state = new BookingForm();
+    Booking getState () {
+        Booking state = new Booking();
 
         /*
         state.setEmail(emailTxtField.getText());

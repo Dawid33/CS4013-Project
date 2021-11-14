@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.Iterator;
 
 import core.exceptions.BookingFormSaveExeception;
@@ -38,16 +39,6 @@ public class Program extends Application {
     }
 
     public static void main(String[] args) {
-
-        CSV file = new CSV("email,name,2002-10-22,2002-10-22,type;2, my type;100");
-        BookingForm form = new BookingForm();
-        try {
-            form.fromCSV(file);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        System.out.println(form.toString());
-
         launch(args);
     }
 
@@ -65,7 +56,9 @@ public class Program extends Application {
         ui.getStylesheets().addAll(CSS_FOLDER_PATH + "main.css", CSS_FOLDER_PATH + themeToFileName(theme));
     }
 
-    public void saveData(BookingForm state) throws BookingFormSaveExeception {
+    public void saveData(Booking state) throws BookingFormSaveExeception {
+
+
         throw new BookingFormSaveExeception("This is my error.");
     }
 }
