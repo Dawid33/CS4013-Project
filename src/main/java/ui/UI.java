@@ -4,7 +4,8 @@ import java.io.IOException;
 import java.util.function.Consumer;
 
 import core.Program;
-import core.SettingsIO;
+import core.BookingForm;
+import core.IO;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -15,13 +16,13 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-import ui.builders.AnalysisUI;
-import ui.builders.CancelBookingUI;
-import ui.builders.DataUI;
-import ui.builders.HelpUI;
-import ui.builders.BookingUI;
-import ui.builders.SettingsUI;
 import ui.interfaces.OnSave;
+import ui.panes.AnalysisUI;
+import ui.panes.BookingUI;
+import ui.panes.CancelBookingUI;
+import ui.panes.DataUI;
+import ui.panes.HelpUI;
+import ui.panes.SettingsUI;
 
 public class UI extends Scene {
     public static final int COMPANY_TITLE_FONT_SIZE = 16;
@@ -94,7 +95,7 @@ public class UI extends Scene {
             // Read settings from file
             Settings state = new Settings();;
             try {
-                state = SettingsIO.loadSettings();
+                state = IO.loadSettings();
             } catch (IOException e) {
                 System.out.println("IOException when trying to read settings file : " + e.getMessage());
             }

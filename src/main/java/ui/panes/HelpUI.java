@@ -1,4 +1,4 @@
-package ui.builders;
+package ui.panes;
 
 import core.Program;
 import javafx.geometry.Insets;

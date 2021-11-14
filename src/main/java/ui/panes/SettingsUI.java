@@ -1,6 +1,6 @@
-package ui.builders;
+package ui.panes;
 
-import core.SettingsIO;
+import core.IO;
 import ui.Settings;
 import ui.Theme;
 import ui.UI;
@@ -55,7 +55,7 @@ public class SettingsUI extends VBox {
                     state.theme = selectedTheme;
 
                     try {
-                        SettingsIO.saveSettings(state);
+                        IO.saveSettings(state);
                     } catch (IOException e) {
                         System.out.println("IOException when trying save settings file : " + e.getMessage());
                     }

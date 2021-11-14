@@ -1,6 +1,7 @@
-package ui.builders;
+package ui.panes;
 import java.time.LocalDate;
 
+import core.BookingForm;
 import core.exceptions.BookingFormSaveExeception;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -18,7 +19,6 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import ui.BookingForm;
 /*
 Hotel type 	Room type	     Number of Rooms	Occupancy-min	Occupancy-max	Rates						
                                                                                 Mon Tue Wed Thur Fri  Sat  Sun
@@ -63,6 +63,8 @@ public class BookingUI extends VBox {
     ToggleGroup hotelTypeGroup;
     RadioButton standardBooking;
     RadioButton apBooking;
+
+    Text errorText = new Text();
     
     public BookingUI(UI baseUI) {
         Text title = new Text("Booking Screen");
@@ -119,15 +121,16 @@ public class BookingUI extends VBox {
         gp.add(standardBooking, 0, 3, 2, 1);
         gp.add(apBooking, 0, 4 , 2, 1);
 
+        gp.add(createHotelSelection(), 0, 5, 5, 1);
 
-        addHotelSelection(gp);
+        gp.add(errorText, 0, 6);
 
         Button saveButton = new Button("Make Reservation");
         saveButton.setOnMouseClicked((event) -> {
             try {
                 baseUI.getOnSave().onSave(getState());
             } catch (BookingFormSaveExeception e) {
-                System.out.println(e.getMessage());
+                errorText.setText(e.getMessage());
             }
         });
 
@@ -151,7 +154,7 @@ public class BookingUI extends VBox {
         setPadding(new Insets(UI.DEFAULT_SPACING));
     }
 
-    void addHotelSelection(GridPane gp) {
+    HBox createHotelSelection() {
         Label fiveStar = new Label ("5 Star Hotel");
         Label  fourStar = new Label ("4 Star Hotel");
         Label  threeStar = new Label ("3 Star Hotel");
@@ -193,16 +196,15 @@ public class BookingUI extends VBox {
 
         GridPane.setHgrow(finalBox, Priority.ALWAYS);
 
-        gp.add(finalBox, 0, 5, 5, 1);
+        return finalBox;
     }
 
     BookingForm getState () {
         BookingForm state = new BookingForm();
 
+        /*
         state.setEmail(emailTxtField.getText());
         state.setName(nameTxtField.getText());
-
-        
 
         state.setCheckInDate(checkIn.getValue());
         state.setCheckOutDate(checkOut.getValue());
@@ -213,20 +215,36 @@ public class BookingUI extends VBox {
         state.setDeluxeTwin(deluxeTwin.isSelected());
 
         state.setExecutiveDouble(executiveDouble.isSelected());
-        state.setExecutiveSingle(executiveDouble.isSelected());
+        state.setExecutiveSingle(executiveSingle.isSelected());
         state.setExecutiveTwin(executiveTwin.isSelected());
 
         state.setClassicDouble(classicDouble.isSelected());
-        state.setClassicSingle(classicDouble.isSelected());
+        state.setClassicSingle(classicSingle.isSelected());
         state.setClassicTwin(classicTwin.isSelected());
-
+        */
         return state;
     }
 
     void clearState() {
         emailTxtField.clear();
         nameTxtField.clear();
+        
         checkIn.setValue(null);
         checkOut.setValue(null);
+
+        deluxeDouble.setSelected(false);
+        deluxeFamily.setSelected(false);
+        deluxeSingle.setSelected(false);
+        deluxeTwin.setSelected(false);
+
+        executiveDouble.setSelected(false);
+        executiveSingle.setSelected(false);
+        executiveTwin.setSelected(false);
+
+        classicDouble.setSelected(false);
+        classicSingle.setSelected(false);
+        classicTwin.setSelected(false);
+
+        errorText.setText("");
     }
 }
