@@ -1,0 +1,29 @@
+.root {
+    -fx-font-family: "Quicksand";
+    -fx-font-size: 14;
+}
+.company-label {
+    -fx-font-family: "Source Sans Pro Semibold";
+    -fx-font-size: 20;
+}
+.title {
+    -fx-font-family: "Source Sans Pro Semibold";
+    -fx-font-size: 25;
+}
+.sub-title {
+    -fx-font-family: "Source Sans Pro Semibold";
+    -fx-font-size: 20;
+}
+.titled-pane {
+    -fx-font-size: 10;
+}
+.hotel-label {
+    -fx-font-size: 15;
+}
+.button {
+    -fx-border-width: 1px;
+    -fx-background-insets: 0;
+    -fx-border-radius: 20px;
+    -fx-background-radius: 20px; 
+}
+

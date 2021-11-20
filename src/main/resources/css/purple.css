@@ -1,0 +1,21 @@
+.button {
+    -fx-border-color: white;
+    -fx-background-color: rgb(127, 80, 116);
+    -fx-text-fill: white;
+}
+.button:hover {
+    -fx-border-color: rgb(127, 80, 116);
+    -fx-background-color: white;
+    -fx-text-fill: rgb(127, 80, 116);
+}
+.button:selected {
+    -fx-border-color: rgb(127, 80, 116);
+    -fx-background-color: black;
+    -fx-text-fill: rgb(127, 80, 116);
+}
+.sidebar {
+    -fx-background-color: rgb(210, 191, 210);
+}
+.content-pane {
+    -fx-background-color: white;
+}
