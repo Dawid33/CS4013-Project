@@ -1,18 +1,12 @@
 package reservations;
 
+import java.util.StringTokenizer;
+
 public class Room {
     private String type;
     private int occupancyMin;
     private int occupancyMax;
     private int[] rates = new int[7];
-
-    public Room(String type, int occupancyMin, int occupancyMax, int[] rates) {
-        this.type = type;
-        this.occupancyMin = occupancyMin;
-        this.occupancyMax = occupancyMax;
-        this.rates = rates;
-    }
-
     
     /** 
      * Returns room type
@@ -20,6 +14,10 @@ public class Room {
      */
     public String getType() {
         return this.type;
+    }
+
+    public void setType(String s) {
+        this.type = s;
     }
 
     
@@ -31,6 +29,10 @@ public class Room {
         return this.occupancyMin;
     }
 
+    public void setOccupancyMin(int i) {
+        this.occupancyMin = i;
+    }
+
     
     /** 
      * Returns the maximum occupancy for the room
@@ -40,6 +42,10 @@ public class Room {
         return this.occupancyMax;
     }
 
+    public void setOccupancyMax(int i) {
+        this.occupancyMax = i;
+    }
+
     
     /** 
      * Returns the rates per night of the room as an array
@@ -47,5 +53,9 @@ public class Room {
      */
     public int[] getRates() {
         return this.rates;
+    }
+
+    public void setRates(int[] rates) {
+        this.rates = rates;
     }
 }
