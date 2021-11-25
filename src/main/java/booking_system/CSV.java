@@ -1,4 +1,4 @@
-package core;
+package booking_system;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -67,6 +67,10 @@ public class CSV implements Iterable<String> {
             rows.add(new CSV(s));
         }
         return rows;
+    }
+
+    public void push(String str) {
+        contents = contents + str;
     }
 
     public String toString() {

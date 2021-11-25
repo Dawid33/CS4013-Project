@@ -1,13 +1,12 @@
 package core;
 
 import java.io.File;
-import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.Iterator;
-
-import core.exceptions.BookingFormSaveExeception;
+import booking_system.Booking;
+import booking_system.BookingFormSaveExeception;
+import booking_system.BookingSystem;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import ui.*;
@@ -17,13 +16,20 @@ public class Program extends Application {
     public static final int MIN_APPLICATION_HEIGHT = 720;
     public static final String RESOURCES_PATH = "src/main/resources/";
     public static final String SAVE_FILE_PATH = "settings.save";
+    public static final String BOOKINGS_PATH = RESOURCES_PATH + "bookings.csv";
     public static final String CSS_FOLDER_PATH = "css/";
-    public static final String DUMMY_DATA_PATH = "dummy/";
 
     UI ui = null;
+    BookingSystem bookingSystem = new BookingSystem();
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        // Setup booking system.
+        // Import bookings from file
+        bookingSystem.getBookingsFromFile(new File(BOOKINGS_PATH));
+        // Add reservations to booking system.
+
+        // Setup UI
         primaryStage.setWidth(MIN_APPLICATION_WIDTH);
         primaryStage.setHeight(MIN_APPLICATION_HEIGHT);
         primaryStage.setTitle("CS4013 Application");
@@ -31,6 +37,8 @@ public class Program extends Application {
         ui = new UI();
         ui.setOnSave(this::saveData);
         ui.setOnThemeChange(this::onThemeChange);
+        ui.setBookingSystem(bookingSystem);
+
         // Apply CSS.
         onThemeChange(IO.loadSettings().theme);
 
@@ -42,11 +50,14 @@ public class Program extends Application {
         launch(args);
     }
 
-    public static String themeToFileName (Theme theme) {
-        switch(theme) {
-            case Blue: return "blue.css";
-            case Purple: return "purple.css";
-            case Unicorn: return "unicorn.css";
+    public static String themeToFileName(Theme theme) {
+        switch (theme) {
+        case Blue:
+            return "blue.css";
+        case Purple:
+            return "purple.css";
+        case Unicorn:
+            return "unicorn.css";
         }
         return "main.css";
     }
@@ -56,9 +67,26 @@ public class Program extends Application {
         ui.getStylesheets().addAll(CSS_FOLDER_PATH + "main.css", CSS_FOLDER_PATH + themeToFileName(theme));
     }
 
-    public void saveData(Booking state) throws BookingFormSaveExeception {
+    public boolean saveData(Booking newBooking) throws BookingFormSaveExeception {
+        File f = new File(BOOKINGS_PATH);
+        if (f.exists()) {
+            try {
+                f.createNewFile();
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+                throw new BookingFormSaveExeception("Found no bookings file. Could not create new file.");
+            }
+        }
 
+        try (FileWriter fw = new FileWriter(BOOKINGS_PATH, true)) {
+            //System.out.println(newBooking.toCSV().toString());
+            fw.append(newBooking.toCSV().toString());
+        } catch (IOException e) {
+            System.out.print(e.getMessage());
+            throw new BookingFormSaveExeception("Cannot append booking to reservations file.");
+        }
 
-        throw new BookingFormSaveExeception("This is my error.");
+        bookingSystem.addBooking(newBooking);
+        return true;
     }
 }

@@ -1,8 +1,9 @@
 package ui.panes;
 import java.time.LocalDate;
 
-import core.Booking;
-import core.exceptions.BookingFormSaveExeception;
+import booking_system.Booking;
+import booking_system.BookingFormSaveExeception;
+import booking_system.Room;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -88,10 +89,10 @@ public class BookingUI extends VBox {
         GridPane.setHgrow(emailTxtField, Priority.ALWAYS);
         GridPane.setHgrow(nameTxtField, Priority.ALWAYS);
 
-        gp.add(emailLabel, 0, 0);
-        gp.add(emailTxtField, 1, 0);
-        gp.add(nameLabel, 2, 0);
-        gp.add(nameTxtField, 3, 0);
+        gp.add(nameLabel , 0, 0);
+        gp.add(nameTxtField, 1, 0);
+        gp.add(emailLabel, 2, 0);
+        gp.add(emailTxtField, 3, 0);
 
         // Line two
         Label checkInLabel = new Label("Check in :");
@@ -127,6 +128,7 @@ public class BookingUI extends VBox {
 
         Button saveButton = new Button("Make Reservation");
         saveButton.setOnMouseClicked((event) -> {
+            errorText.setText("Success!");
             try {
                 baseUI.getOnSave().onSave(getState());
             } catch (BookingFormSaveExeception e) {
@@ -202,25 +204,31 @@ public class BookingUI extends VBox {
     Booking getState () {
         Booking state = new Booking();
 
+        
+        state.email = emailTxtField.getText();
+        state.name = nameTxtField.getText();
+
+        state.checkInDate = checkIn.getValue();
+        state.checkOutDate = checkOut.getValue();
+
+        if (deluxeDouble.isSelected()) state.addRoom(new Room("Deluxe Double;" + 10));
+        if (deluxeFamily.isSelected()) state.addRoom(new Room("Deluxe Family;" + 10));
+        if (deluxeSingle.isSelected()) state.addRoom(new Room("Deluxe Single;" + 10));
+        if (deluxeTwin.isSelected()) state.addRoom(new Room("Deluxe Twin;" + 10));
+
         /*
-        state.setEmail(emailTxtField.getText());
-        state.setName(nameTxtField.getText());
+        state.DeluxeDouble = deluxeDouble.isSelected();
+        state.DeluxeFamily = deluxeFamily.isSelected();
+        state.DeluxeSingle = deluxeSingle.isSelected();
+        state.DeluxeTwin = deluxeTwin.isSelected();
 
-        state.setCheckInDate(checkIn.getValue());
-        state.setCheckOutDate(checkOut.getValue());
+        state.ExecutiveDouble = executiveDouble.isSelected();
+        state.ExecutiveSingle = executiveSingle.isSelected());
+        state.ExecutiveTwin = executiveTwin.isSelected();
 
-        state.setDeluxeDouble(deluxeDouble.isSelected());
-        state.setDeluxeFamily(deluxeFamily.isSelected());
-        state.setDeluxeSingle(deluxeSingle.isSelected());
-        state.setDeluxeTwin(deluxeTwin.isSelected());
-
-        state.setExecutiveDouble(executiveDouble.isSelected());
-        state.setExecutiveSingle(executiveSingle.isSelected());
-        state.setExecutiveTwin(executiveTwin.isSelected());
-
-        state.setClassicDouble(classicDouble.isSelected());
-        state.setClassicSingle(classicSingle.isSelected());
-        state.setClassicTwin(classicTwin.isSelected());
+        state.ClassicDouble = classicDouble.isSelected());
+        state.ClassicSingle = classicSingle.isSelected());
+        state.ClassicTwin = classicTwin.isSelected();
         */
         return state;
     }

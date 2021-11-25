@@ -1,11 +1,12 @@
 package ui.panes;
 
-import core.IO;
 import ui.Settings;
 import ui.Theme;
 import ui.UI;
 
 import java.io.IOException;
+
+import core.IO;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;

@@ -3,9 +3,10 @@ package ui;
 import java.io.IOException;
 import java.util.function.Consumer;
 
-import core.Program;
-import core.Booking;
+import booking_system.Booking;
+import booking_system.BookingSystem;
 import core.IO;
+import core.Program;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -21,12 +22,17 @@ import ui.panes.AnalysisUI;
 import ui.panes.BookingUI;
 import ui.panes.CancelBookingUI;
 import ui.panes.DataUI;
-import ui.panes.HelpUI;
 import ui.panes.SettingsUI;
+
 
 public class UI extends Scene {
     public static final int COMPANY_TITLE_FONT_SIZE = 16;
     public static final double DEFAULT_SPACING = 15;
+
+    Consumer<Theme> onThemeChange;
+    OnSave<Booking> onSave;
+    Pane contentPane;
+    BookingSystem bookingSystem = null;
 
     public void setOnSave(OnSave<Booking> value) {
         onSave = value;
@@ -44,9 +50,13 @@ public class UI extends Scene {
         return onThemeChange;
     }
 
-    Consumer<Theme> onThemeChange;
-    OnSave<Booking> onSave;
-    Pane contentPane;
+    public void setBookingSystem(BookingSystem input) {
+        bookingSystem = input;
+    }
+
+    public BookingSystem getBookingSystem() {
+        return bookingSystem;
+    }
 
     public UI() {
         // super needs a parameter for the root node.
@@ -82,12 +92,6 @@ public class UI extends Scene {
         viewData.setOnMouseClicked((event) -> {
             setContentPane(new DataUI(this));
         });
-
-        Button viewHelp = new Button("Help");
-        viewHelp.setPrefSize(150, 50);
-        viewHelp.setOnMouseClicked((event) -> {
-            setContentPane(new HelpUI(this));
-        });    
         
         Button viewSettings = new Button("Settings");
         viewSettings.setPrefSize(150, 50);
@@ -108,7 +112,8 @@ public class UI extends Scene {
             System.exit(0);
         });
     
-        VBox sidebar = new VBox(centeredCompanyLabel, makeReservation, cancelReservation, viewAnalysis, viewData, viewHelp, viewSettings, exit);
+        
+        VBox sidebar = new VBox(centeredCompanyLabel, makeReservation, cancelReservation, viewAnalysis, viewData, viewSettings, exit);
         sidebar.setSpacing(UI.DEFAULT_SPACING);
         sidebar.setPadding(new Insets(UI.DEFAULT_SPACING));
         sidebar.getStyleClass().add("sidebar");
@@ -123,8 +128,11 @@ public class UI extends Scene {
         
         HBox hbox = new HBox(contentPane);
         HBox.setHgrow(hbox, Priority.SOMETIMES);
+
+        HBox left = new HBox(sidebar);
+        HBox.setHgrow(hbox, Priority.ALWAYS);
         
-        HBox wholeScene = new HBox(sidebar, hbox);
+        HBox wholeScene = new HBox(left, hbox);
 
         setRoot(wholeScene);
     }
