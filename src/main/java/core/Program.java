@@ -3,13 +3,14 @@ package core;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
+
 import booking_system.Booking;
 import booking_system.BookingFormSaveExeception;
 import booking_system.BookingSystem;
 import javafx.application.Application;
 import javafx.stage.Stage;
-import ui.*;
+import ui.Theme;
+import ui.UI;
 
 public class Program extends Application {
     public static final int MIN_APPLICATION_WIDTH = 1024;

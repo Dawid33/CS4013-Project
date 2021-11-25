@@ -3,27 +3,29 @@ import java.time.LocalDate;
 
 import booking_system.Booking;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.*;
-import javafx.scene.text.Text;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 import ui.UI;
 
 public class DataUI extends VBox {
+
+    @SuppressWarnings("unchecked")
     public DataUI(UI baseUI) {
-        TableView table = new TableView<>();
+        TableView<Booking> table = new TableView<>();
 
         table.setEditable(true);
 
-        TableColumn<Booking, String> nameCol = new TableColumn("Name");
-        TableColumn<Booking, String> emailCol = new TableColumn("Email");
-        TableColumn<Booking, LocalDate> checkInCol = new TableColumn("Check In");
-        TableColumn<Booking, LocalDate> checkOutCol = new TableColumn("Check Out");
-        TableColumn<Booking, LocalDate> isApPurchase = new TableColumn("Advanced Purchase");
-        TableColumn<Booking, LocalDate> numberOfRooms = new TableColumn("Total Rooms");
-        TableColumn<Booking, LocalDate> totalCost = new TableColumn("Total Cost");
+        
+        TableColumn<Booking, String> nameCol = new TableColumn<>("Name");
+        TableColumn<Booking, String> emailCol = new TableColumn<>("Email");
+        TableColumn<Booking, LocalDate> checkInCol = new TableColumn<>("Check In");
+        TableColumn<Booking, LocalDate> checkOutCol = new TableColumn<>("Check Out");
+        TableColumn<Booking, LocalDate> isApPurchase = new TableColumn<>("Advanced Purchase");
+        TableColumn<Booking, LocalDate> numberOfRooms = new TableColumn<>("Total Rooms");
+        TableColumn<Booking, LocalDate> totalCost = new TableColumn<>("Total Cost");
     
 
         nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));

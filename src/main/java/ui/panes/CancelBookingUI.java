@@ -1,16 +1,9 @@
 package ui.panes;
 
-import java.time.LocalDate;
-
-import javax.swing.GroupLayout.Alignment;
-
-import booking_system.Booking;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.*;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import ui.UI;
 

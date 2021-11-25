@@ -1,7 +1,6 @@
 package booking_system;
 
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -53,7 +52,7 @@ public class BookingSystem {
     }
 
     public void updateBookingsInFile(File file) throws IOException {
-        FileWriter writer = new FileWriter(file);
+        //FileWriter writer = new FileWriter(file);
     }
 
     public void printBookings() {
