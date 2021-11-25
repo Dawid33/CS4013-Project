@@ -10,16 +10,14 @@ import core.IO;
 public class BookingSystem {
     ArrayList<Booking> bookings = new ArrayList<>();
 
-    public BookingSystem() {
-
-    }
+    public BookingSystem() {}
 
     public ArrayList<Booking> getBookings() {
         return bookings;
     }
 
     public void removeBooking(Booking booking) {
-        
+        this.bookings.remove(booking);
     }
 
     public void addBooking(Booking booking) {

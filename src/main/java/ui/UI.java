@@ -34,30 +34,55 @@ public class UI extends Scene {
     Pane contentPane;
     BookingSystem bookingSystem = null;
 
+    
+    /** 
+     * Set the function that is executed when the user presses the make reservation button in the make reservation UI.
+     * @param value The function that is executed.
+     */
     public void setOnSave(OnSave<Booking> value) {
         onSave = value;
     }
-
+    
+    /** 
+     * Set the function that is executed when the user changes a theme.
+     * @param value The function that is executed.
+     */
     public void setOnThemeChange(Consumer<Theme> value) {
         this.onThemeChange = value;
     }
-
+    
+    /** 
+     * Get the function that is executed when the user presses the make reservation button in the make reservation UI.
+     * @return OnSave The function that is executed.
+     */
     public OnSave<Booking> getOnSave() {
         return onSave;
     }
-
+    
+    /** 
+     * Get the function that is executed when the user changes a theme.
+     * @return Consumer The function that is executed.
+     */
     public Consumer<Theme> getOnThemeChange() {
         return onThemeChange;
     }
 
+    /** 
+     * @param input The booking system that keeps track of booking information regarding bookings.
+     */
     public void setBookingSystem(BookingSystem input) {
         bookingSystem = input;
     }
 
+    
+    /** 
+     * @return BookingSystem
+     */
     public BookingSystem getBookingSystem() {
         return bookingSystem;
     }
 
+    
     public UI() {
         // super needs a parameter for the root node.
         // We will set a new root in this fuction.
@@ -137,6 +162,11 @@ public class UI extends Scene {
         setRoot(wholeScene);
     }
 
+    
+    /** 
+     * This function resets the content pane to a new node. The content pane is the right hand side blank area that contains most UI functions. It is changed by the buttons in the sidebar.
+     * @param node Node to set the content pane to.
+     */
     void setContentPane(Node node) {
         contentPane.getChildren().clear();
         contentPane.getChildren().addAll(node);

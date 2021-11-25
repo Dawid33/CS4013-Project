@@ -43,7 +43,7 @@ public class Hotel {
     
     /** 
      * Returns the rooms in the hotel as an ArrayList
-     * @return ArrayList<Room>
+     * @return ArrayList
      */
     public ArrayList<Room> getRooms() {
         return rooms;
