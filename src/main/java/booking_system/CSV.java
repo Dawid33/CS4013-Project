@@ -57,10 +57,18 @@ public class CSV implements Iterable<String> {
         }
     }
     
+    
+    /** 
+     * @return Iterator<String>
+     */
     public Iterator<String> iterator() {
         return new CSVFileIterator();
     }
 
+    
+    /** 
+     * @return ArrayList<CSV>
+     */
     public ArrayList<CSV> getRows() {
         ArrayList<CSV> rows = new ArrayList<>();
         for(String s : contents.split("\n")) {
@@ -69,10 +77,18 @@ public class CSV implements Iterable<String> {
         return rows;
     }
 
+    
+    /** 
+     * @param str
+     */
     public void push(String str) {
         contents = contents + str;
     }
 
+    
+    /** 
+     * @return String
+     */
     public String toString() {
         return contents;
     }

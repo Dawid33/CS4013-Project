@@ -14,27 +14,73 @@ public class Booking {
     ArrayList<Room> rooms = new ArrayList<>();
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
+    
+    /** 
+     * @param getIsApPurchase(
+     * @return String
+     */
     public String getEmail() { return email; }
+    
+    /** 
+     * @param getIsApPurchase(
+     * @return String
+     */
     public String getName() { return name; }
+    
+    /** 
+     * @param getIsApPurchase(
+     * @return LocalDate
+     */
     public LocalDate getCheckInDate() { return checkInDate; }
+    
+    /** 
+     * @param getIsApPurchase(
+     * @return LocalDate
+     */
     public LocalDate getCheckOutDate() { return checkOutDate; }
+    
+    /** 
+     * @return String
+     */
     public String getIsApPurchase() {
         if (isApPurchase)
             return "Yes";
         else
             return "No";        
     }
+    
+    /** 
+     * @param room
+     * @return int
+     */
     public int getNumberOfRooms() { return numberOfRooms; }
+    
+    /** 
+     * @param room
+     * @return int
+     */
     public int getTotalCost() { return totalCost; }
 
+    
+    /** 
+     * @param room
+     */
     public void addRoom(Room room) {
         rooms.add(room);
     }
 
+    
+    /** 
+     * @return String
+     */
     public String toString() {
         return this.toCSV().toString();
     }
 
+    
+    /** 
+     * @return CSV
+     */
     public CSV toCSV() {
         StringBuilder builder = new StringBuilder();
         builder.append(name + ",");
@@ -51,6 +97,14 @@ public class Booking {
         return new CSV(builder.toString());
     }
 
+    
+    /** 
+     * @param csv
+     * @throws Exception
+     */
+    /*
+     *  @param 
+     */
     public void fromCSV(CSV csv) throws Exception {
         java.lang.reflect.Field[] allFields = this.getClass().getFields();
         int i = 0;

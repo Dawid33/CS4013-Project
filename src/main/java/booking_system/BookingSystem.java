@@ -12,22 +12,43 @@ public class BookingSystem {
 
     public BookingSystem() {}
 
+    
+    /** 
+     * @return ArrayList<Booking>
+     */
     public ArrayList<Booking> getBookings() {
         return bookings;
     }
 
+    
+    /** 
+     * @param booking
+     */
     public void removeBooking(Booking booking) {
         this.bookings.remove(booking);
     }
 
+    
+    /** 
+     * @param booking
+     */
     public void addBooking(Booking booking) {
         this.bookings.add(booking);
     }
 
+    
+    /** 
+     * @param bookings
+     */
     public void addAllBookings(Collection<? extends Booking> bookings) {
         this.bookings.addAll(bookings);
     }
 
+    
+    /** 
+     * @param file
+     * @throws IOException
+     */
     public void getBookingsFromFile(File file) throws IOException{
         // Read file
         String fileContents = IO.readFile(file);
@@ -49,6 +70,11 @@ public class BookingSystem {
         }
     }
 
+    
+    /** 
+     * @param file
+     * @throws IOException
+     */
     public void updateBookingsInFile(File file) throws IOException {
         //FileWriter writer = new FileWriter(file);
     }

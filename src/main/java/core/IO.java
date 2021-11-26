@@ -14,6 +14,11 @@ import ui.Settings;
 
 
 public class IO {
+    
+    /** 
+     * @return Settings
+     * @throws IOException
+     */
     public static Settings loadSettings() throws IOException {
         Settings state = new Settings();
 
@@ -36,6 +41,11 @@ public class IO {
         return state;
     }
 
+    
+    /** 
+     * @param state
+     * @throws IOException
+     */
     public static void saveSettings(Settings state) throws IOException {
         File settingsFile = new File(Program.SAVE_FILE_PATH);
 
@@ -56,6 +66,12 @@ public class IO {
         fOut.close();
     }
 
+    
+    /** 
+     * @param file
+     * @return String
+     * @throws IOException
+     */
     public static String readFile(File file) throws IOException {
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             StringBuilder builder = new StringBuilder();
