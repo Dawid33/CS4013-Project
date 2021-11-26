@@ -20,7 +20,6 @@ public class Room {
         this.type = s;
     }
 
-    
     /** 
      * Returns the minimum occupancy for the room
      * @return int
@@ -33,7 +32,6 @@ public class Room {
         this.occupancyMin = i;
     }
 
-    
     /** 
      * Returns the maximum occupancy for the room
      * @return int
@@ -46,7 +44,6 @@ public class Room {
         this.occupancyMax = i;
     }
 
-    
     /** 
      * Returns the rates per night of the room as an array
      * @return int[]
