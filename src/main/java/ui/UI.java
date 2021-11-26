@@ -18,11 +18,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import ui.interfaces.OnSave;
-import ui.panes.AnalysisUI;
-import ui.panes.BookingUI;
-import ui.panes.CancelBookingUI;
-import ui.panes.DataUI;
-import ui.panes.SettingsUI;
+import ui.panes.*;
 
 
 public class UI extends Scene {
@@ -100,9 +96,9 @@ public class UI extends Scene {
             setContentPane(new BookingUI(this));
         });
 
-        Button cancelReservation = new Button("Cancel Booking");
-        cancelReservation.setPrefSize(150, 50);
-        cancelReservation.setOnMouseClicked((event) -> {
+        Button manageReservation = new Button("Manage Bookings");
+        manageReservation.setPrefSize(150, 50);
+        manageReservation.setOnMouseClicked((event) -> {
             setContentPane(new CancelBookingUI(this));
         });
 
@@ -110,12 +106,6 @@ public class UI extends Scene {
         viewAnalysis.setPrefSize(150, 50);
         viewAnalysis.setOnMouseClicked((event) -> {
             setContentPane(new AnalysisUI(this));
-        });
-
-        Button viewData = new Button("Data");
-        viewData.setPrefSize(150, 50);
-        viewData.setOnMouseClicked((event) -> {
-            setContentPane(new DataUI(this));
         });
         
         Button viewSettings = new Button("Settings");
@@ -138,7 +128,7 @@ public class UI extends Scene {
         });
     
         
-        VBox sidebar = new VBox(centeredCompanyLabel, makeReservation, cancelReservation, viewData, viewAnalysis, viewSettings, exit);
+        VBox sidebar = new VBox(centeredCompanyLabel, makeReservation, manageReservation, viewAnalysis, viewSettings, exit);
         sidebar.setSpacing(UI.DEFAULT_SPACING);
         sidebar.setPadding(new Insets(UI.DEFAULT_SPACING));
         sidebar.getStyleClass().add("sidebar");

@@ -1,7 +1,5 @@
 package reservations;
 
-import java.util.StringTokenizer;
-
 public class Room {
     private String type;
     private int occupancyMin;
