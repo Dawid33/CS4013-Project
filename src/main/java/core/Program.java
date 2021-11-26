@@ -21,7 +21,7 @@ public class Program extends Application {
     public static final String CSS_FOLDER_PATH = "css/";
 
     UI ui = null;
-    BookingSystem bookingSystem = new BookingSystem();
+    BookingSystem bookingSystem = null;
 
     
     /** 
@@ -33,7 +33,7 @@ public class Program extends Application {
     public void start(Stage primaryStage) throws Exception {
         // Setup booking system.
         // Import bookings from file
-        bookingSystem.getBookingsFromFile(new File(BOOKINGS_PATH));
+        bookingSystem = new BookingSystem(new File(BOOKINGS_PATH));
         // Add reservations to booking system.
 
         // Setup UI

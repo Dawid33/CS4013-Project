@@ -9,6 +9,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TablePosition;
@@ -16,7 +17,10 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TableView.TableViewSelectionModel;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -24,8 +28,8 @@ import ui.UI;
 
 public class DataUI extends VBox {
 
-    TableView<Booking> table = new TableView<>();;
-    TableView<Room> rooms = new TableView<>();;
+    TableView<Booking> table = new TableView<>();
+    TableView<Room> rooms = new TableView<>();
 
     @SuppressWarnings("unchecked")
     public DataUI(UI baseUI) {
@@ -54,7 +58,8 @@ public class DataUI extends VBox {
         totalCost.setCellValueFactory(new PropertyValueFactory<>("numberOfRooms"));
         
         table.getColumns().addAll(nameCol, emailCol, checkInCol, checkOutCol, isApPurchase, numberOfRooms, totalCost);
-        table.getItems().addAll(baseUI.getBookingSystem().getBookings());
+        if (!baseUI.getBookingSystem().getBookings().isEmpty())
+            table.getItems().addAll(baseUI.getBookingSystem().getBookings());
 
         TableColumn<Room, String> roomCol = new TableColumn<>("Room Type");
         TableColumn<Room, String> roomOccupancyCol = new TableColumn<>("Number of People");
@@ -71,22 +76,15 @@ public class DataUI extends VBox {
                    TableViewSelectionModel selectionModel = table.getSelectionModel();
                    ObservableList selectedCells = selectionModel.getSelectedItems();
                    if(selectedCells.size() == 1) {
-                       setRoomData(((Booking)selectedCells.get(0)).getRooms());
+                       rooms.getItems().clear();
+                       rooms.getItems().addAll(((Booking)selectedCells.get(0)).getRooms());
                    }
                 }
             }
         });
 
-        VBox box = new VBox(table, rooms);
-        box.setPadding(new Insets(UI.DEFAULT_SPACING));
-        getChildren().addAll(box);
-
+        getChildren().addAll(table, rooms);
         setSpacing(UI.DEFAULT_SPACING);
         setPadding(new Insets(UI.DEFAULT_SPACING));
-    }
-
-    public void setRoomData(ArrayList<Room> newRooms) {
-        rooms.getItems().clear();
-        rooms.getItems().addAll(newRooms);
     }
 }

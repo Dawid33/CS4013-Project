@@ -9,8 +9,33 @@ import core.IO;
 
 public class BookingSystem {
     ArrayList<Booking> bookings = new ArrayList<>();
+    File bookingFile;
 
-    public BookingSystem() {}
+    /** 
+     * @param file File object that represents the file that contains booking information as a CSV.
+     * @throws IOException
+     */
+    public BookingSystem(File file) throws IOException{
+        bookingFile = file;
+        // Read file
+        String fileContents = IO.readFile(file);
+        // The fileContents variable contains the entire file as one long String
+        // Loop over each line of the file by splitting it up at every new line character.
+        for(String line : fileContents.split("\n")) {
+            // Create csv object from the current line
+            CSV rawBooking = new CSV(line);
+            Booking booking = new Booking();
+            try {
+                // Populate booking with data from csv
+                booking.fromCSV(rawBooking);
+            } catch (Exception e) {
+                System.out.println("Cannot parse csv file into booking object : " + e.getMessage());
+                // If an exception occurs, booking is empty so we move on to the next booking.
+                continue;
+            }
+            bookings.add(booking);
+        }
+    }
 
     
     /** 
@@ -43,38 +68,11 @@ public class BookingSystem {
         this.bookings.addAll(bookings);
     }
 
-    
-    /** 
-     * @param file File object that represents the file that contains booking information as a CSV.
-     * @throws IOException
-     */
-    public void getBookingsFromFile(File file) throws IOException{
-        // Read file
-        String fileContents = IO.readFile(file);
-        // The fileContents variable contains the entire file as one long String
-        // Loop over each line of the file by splitting it up at every new line character.
-        for(String line : fileContents.split("\n")) {
-            // Create csv object from the current line
-            CSV rawBooking = new CSV(line);
-            Booking booking = new Booking();
-            try {
-                // Populate booking with data from csv
-                booking.fromCSV(rawBooking);
-            } catch (Exception e) {
-                System.out.println("Cannot parse csv file into booking object : " + e.getMessage());
-                // If an exception occurs, booking is empty so we move on to the next booking.
-                continue;
-            }
-            bookings.add(booking);
-        }
-    }
-
-    
     /** 
      * @param file Update bookings in the file represented by the file object.
      * @throws IOException
      */
-    public void updateBookingsInFile(File file) throws IOException {
+    public void updateBookingsToFile() throws IOException {
         //FileWriter writer = new FileWriter(file);
     }
 

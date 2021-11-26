@@ -138,24 +138,24 @@ public class UI extends Scene {
         });
     
         
-        VBox sidebar = new VBox(centeredCompanyLabel, makeReservation, cancelReservation, viewAnalysis, viewData, viewSettings, exit);
+        VBox sidebar = new VBox(centeredCompanyLabel, makeReservation, cancelReservation, viewData, viewAnalysis, viewSettings, exit);
         sidebar.setSpacing(UI.DEFAULT_SPACING);
         sidebar.setPadding(new Insets(UI.DEFAULT_SPACING));
         sidebar.getStyleClass().add("sidebar");
         HBox.setHgrow(sidebar, Priority.NEVER);
 
         contentPane = new VBox();
-        HBox.setHgrow(contentPane, Priority.SOMETIMES);;
-        contentPane.setMinHeight(Program.MIN_APPLICATION_HEIGHT);
+        HBox.setHgrow(contentPane, Priority.SOMETIMES);
+        //contentPane.setMinHeight(Program.MIN_APPLICATION_HEIGHT);
         //If contentPane is a vbox
         //contentPane.setFitToWidth(true);
         contentPane.getStyleClass().add("content-pane");
         
         HBox hbox = new HBox(contentPane);
         HBox.setHgrow(hbox, Priority.SOMETIMES);
+        VBox.setVgrow(hbox, Priority.ALWAYS);
 
         HBox left = new HBox(sidebar);
-        HBox.setHgrow(hbox, Priority.ALWAYS);
         
         HBox wholeScene = new HBox(left, hbox);
 
