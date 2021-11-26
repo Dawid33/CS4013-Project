@@ -76,7 +76,7 @@ public class UI extends Scene {
 
     
     /** 
-     * @return BookingSystem
+     * @return BookingSystem Get the booking system used by the UI.
      */
     public BookingSystem getBookingSystem() {
         return bookingSystem;

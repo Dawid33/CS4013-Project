@@ -59,7 +59,7 @@ public class CSV implements Iterable<String> {
     
     
     /** 
-     * @return Iterator<String>
+     * @return Iterator Get iterator that iterates through elements in the CSV.
      */
     public Iterator<String> iterator() {
         return new CSVFileIterator();
@@ -67,11 +67,11 @@ public class CSV implements Iterable<String> {
 
     
     /** 
-     * @return ArrayList<CSV>
+     * @return ArrayList Get a list of CSV objects that are delimited by a new line.
      */
-    public ArrayList<CSV> getRows() {
+    public ArrayList<CSV> getSplitBy(String input) {
         ArrayList<CSV> rows = new ArrayList<>();
-        for(String s : contents.split("\n")) {
+        for(String s : contents.split(input)) {
             rows.add(new CSV(s));
         }
         return rows;
@@ -79,7 +79,7 @@ public class CSV implements Iterable<String> {
 
     
     /** 
-     * @param str
+     * @param str Add raw content to the CSV
      */
     public void push(String str) {
         contents = contents + str;
@@ -87,7 +87,7 @@ public class CSV implements Iterable<String> {
 
     
     /** 
-     * @return String
+     * @return String Get the string representation of the CSV.
      */
     public String toString() {
         return contents;

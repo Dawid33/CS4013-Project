@@ -16,31 +16,27 @@ public class Booking {
 
     
     /** 
-     * @param getIsApPurchase(
-     * @return String
+     * @return String Get the email fo the client who booked this booking.
      */
     public String getEmail() { return email; }
     
-    /** 
-     * @param getIsApPurchase(
-     * @return String
+    /**
+     * @return String Get the name of the client who booked this booking.
      */
     public String getName() { return name; }
     
     /** 
-     * @param getIsApPurchase(
-     * @return LocalDate
+     * @return LocalDate Get the checkin date of the booking
      */
     public LocalDate getCheckInDate() { return checkInDate; }
     
     /** 
-     * @param getIsApPurchase(
-     * @return LocalDate
+     * @return LocalDate Get the checkout date of the booking.
      */
     public LocalDate getCheckOutDate() { return checkOutDate; }
     
     /** 
-     * @return String
+     * @return String Returns "Yes" if the booking is an advanced purchase, "No" if it is not.
      */
     public String getIsApPurchase() {
         if (isApPurchase)
@@ -50,36 +46,35 @@ public class Booking {
     }
     
     /** 
-     * @param room
-     * @return int
+     * @return int Gets the number of rooms booked by this booking.
      */
     public int getNumberOfRooms() { return numberOfRooms; }
     
     /** 
-     * @param room
-     * @return int
+     * @return int Gets the total cost of the booking
      */
     public int getTotalCost() { return totalCost; }
 
-    
+    public ArrayList<Room> getRooms() {
+        return rooms;
+    }
+
     /** 
-     * @param room
+     * @param room Add room to the booking.
      */
     public void addRoom(Room room) {
         rooms.add(room);
     }
-
     
     /** 
-     * @return String
+     * @return String Print the Booking as a string for debug purposes.
      */
     public String toString() {
         return this.toCSV().toString();
     }
-
-    
+ 
     /** 
-     * @return CSV
+     * @return CSV Create a CSV object from the booking.
      */
     public CSV toCSV() {
         StringBuilder builder = new StringBuilder();
@@ -99,11 +94,8 @@ public class Booking {
 
     
     /** 
-     * @param csv
-     * @throws Exception
-     */
-    /*
-     *  @param 
+     * @param csv CSV object to convert into booking.
+     * @throws Exception Exception if the conversion failed.
      */
     public void fromCSV(CSV csv) throws Exception {
         java.lang.reflect.Field[] allFields = this.getClass().getFields();

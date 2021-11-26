@@ -25,6 +25,7 @@ public class Program extends Application {
 
     
     /** 
+     * 
      * @param primaryStage
      * @throws Exception
      */
@@ -94,7 +95,7 @@ public class Program extends Application {
      */
     public boolean saveData(Booking newBooking) throws BookingFormSaveExeception {
         File f = new File(BOOKINGS_PATH);
-        if (f.exists()) {
+        if (!f.exists()) {
             try {
                 f.createNewFile();
             } catch (IOException e) {
