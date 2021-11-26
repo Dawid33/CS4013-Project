@@ -9,6 +9,17 @@ public class Room {
         name = room[0];
         occupancy = Integer.valueOf(room[1]);
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getOccupancy() {
+        return occupancy;
+    }
+    /** 
+     * @return String Get the string representation for the room.
+     */
     public String toString() {
         return name + ";" + occupancy;
     }

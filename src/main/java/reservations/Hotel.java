@@ -49,10 +49,20 @@ public class Hotel {
         return rooms;
     }
 
+    
+    /** 
+     * @param index
+     * @return int
+     */
     public int getNumRooms(int index) {
         return numRooms[index];
     }
 
+    
+    /** 
+     * @param num
+     * @param str
+     */
     public void addRooms(int num, String str) {
         Room r = new Room();
         StringTokenizer t = new StringTokenizer(str, ",");

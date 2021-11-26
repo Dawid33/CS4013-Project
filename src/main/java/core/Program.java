@@ -23,6 +23,12 @@ public class Program extends Application {
     UI ui = null;
     BookingSystem bookingSystem = new BookingSystem();
 
+    
+    /** 
+     * 
+     * @param primaryStage
+     * @throws Exception
+     */
     @Override
     public void start(Stage primaryStage) throws Exception {
         // Setup booking system.
@@ -47,10 +53,19 @@ public class Program extends Application {
         primaryStage.show();
     }
 
+    
+    /** 
+     * @param args
+     */
     public static void main(String[] args) {
         launch(args);
     }
 
+    
+    /** 
+     * @param theme
+     * @return String
+     */
     public static String themeToFileName(Theme theme) {
         switch (theme) {
         case Blue:
@@ -63,14 +78,24 @@ public class Program extends Application {
         return "main.css";
     }
 
+    
+    /** 
+     * @param theme
+     */
     public void onThemeChange(Theme theme) {
         ui.getStylesheets().clear();
         ui.getStylesheets().addAll(CSS_FOLDER_PATH + "main.css", CSS_FOLDER_PATH + themeToFileName(theme));
     }
 
+    
+    /** 
+     * @param newBooking
+     * @return boolean
+     * @throws BookingFormSaveExeception
+     */
     public boolean saveData(Booking newBooking) throws BookingFormSaveExeception {
         File f = new File(BOOKINGS_PATH);
-        if (f.exists()) {
+        if (!f.exists()) {
             try {
                 f.createNewFile();
             } catch (IOException e) {

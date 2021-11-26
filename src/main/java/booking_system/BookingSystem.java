@@ -12,22 +12,42 @@ public class BookingSystem {
 
     public BookingSystem() {}
 
+    
+    /** 
+     * @return ArrayList Get bookings in the booking system.
+     */
     public ArrayList<Booking> getBookings() {
         return bookings;
     }
 
+    /** 
+     * @param booking Remove booking from the booking system.
+     */
     public void removeBooking(Booking booking) {
         this.bookings.remove(booking);
     }
 
+    
+    /** 
+     * @param booking A booking to add to the booking system.
+     */
     public void addBooking(Booking booking) {
         this.bookings.add(booking);
     }
 
+    
+    /** 
+     * @param bookings Bookings to add into the booking system.
+     */
     public void addAllBookings(Collection<? extends Booking> bookings) {
         this.bookings.addAll(bookings);
     }
 
+    
+    /** 
+     * @param file File object that represents the file that contains booking information as a CSV.
+     * @throws IOException
+     */
     public void getBookingsFromFile(File file) throws IOException{
         // Read file
         String fileContents = IO.readFile(file);
@@ -49,10 +69,18 @@ public class BookingSystem {
         }
     }
 
+    
+    /** 
+     * @param file Update bookings in the file represented by the file object.
+     * @throws IOException
+     */
     public void updateBookingsInFile(File file) throws IOException {
         //FileWriter writer = new FileWriter(file);
     }
 
+    /**
+     * Print all bookings for debug purposes.
+     */
     public void printBookings() {
         for(Booking b : bookings) {
             System.out.println(b.toString());

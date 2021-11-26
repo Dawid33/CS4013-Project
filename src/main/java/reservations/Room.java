@@ -16,6 +16,9 @@ public class Room {
         return this.type;
     }
 
+    /** 
+     * @param s
+     */
     public void setType(String s) {
         this.type = s;
     }
@@ -28,6 +31,9 @@ public class Room {
         return this.occupancyMin;
     }
 
+    /** 
+     * @param i
+     */
     public void setOccupancyMin(int i) {
         this.occupancyMin = i;
     }
@@ -40,6 +46,9 @@ public class Room {
         return this.occupancyMax;
     }
 
+    /** 
+     * @param i
+     */
     public void setOccupancyMax(int i) {
         this.occupancyMax = i;
     }
@@ -52,6 +61,9 @@ public class Room {
         return this.rates;
     }
 
+    /** 
+     * @param rates
+     */
     public void setRates(int[] rates) {
         this.rates = rates;
     }

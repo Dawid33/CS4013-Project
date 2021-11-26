@@ -14,6 +14,12 @@ import ui.Settings;
 
 
 public class IO {
+    
+    /** 
+     * This function loads a settings object from the default Program.SAVE_FILE_PATH. The file has to be a deserializable version of the object.
+     * @return Settings The settings object that has been loaded
+     * @throws IOException An IO excetion that signifies problems with reading/writing the save file.
+     */
     public static Settings loadSettings() throws IOException {
         Settings state = new Settings();
 
@@ -36,6 +42,12 @@ public class IO {
         return state;
     }
 
+    
+    /** 
+     * This function serializes a settings object into the default file path specified by Program.SAVE_FILE_PATH.
+     * @param state The settings object to be saved into a file.
+     * @throws IOException An IO excetion that signifies problems with reading/writing the save file.
+     */
     public static void saveSettings(Settings state) throws IOException {
         File settingsFile = new File(Program.SAVE_FILE_PATH);
 
@@ -56,6 +68,13 @@ public class IO {
         fOut.close();
     }
 
+    
+    /** 
+     * Read contents of a file into a string.
+     * @param file The file to be read.
+     * @return String The contents of the string
+     * @throws IOException The 
+     */
     public static String readFile(File file) throws IOException {
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             StringBuilder builder = new StringBuilder();

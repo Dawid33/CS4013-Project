@@ -156,6 +156,10 @@ public class BookingUI extends VBox {
         setPadding(new Insets(UI.DEFAULT_SPACING));
     }
 
+    
+    /** 
+     * @return HBox
+     */
     HBox createHotelSelection() {
         Label fiveStar = new Label ("5 Star Hotel");
         Label  fourStar = new Label ("4 Star Hotel");
@@ -201,6 +205,10 @@ public class BookingUI extends VBox {
         return finalBox;
     }
 
+    
+    /** 
+     * @return Booking
+     */
     Booking getState () {
         Booking state = new Booking();
 
