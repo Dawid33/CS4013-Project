@@ -15,6 +15,7 @@ import javafx.scene.control.TablePosition;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TableView.TableViewSelectionModel;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
@@ -66,23 +67,20 @@ public class DataUI extends VBox {
         table.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
             @Override
             public void changed(ObservableValue observableValue, Object oldValue, Object newValue) {
-                //Check whether item is selected and set value of selected item to Label
                 if(table.getSelectionModel().getSelectedItem() != null) {    
                    TableViewSelectionModel selectionModel = table.getSelectionModel();
                    ObservableList selectedCells = selectionModel.getSelectedItems();
                    if(selectedCells.size() == 1) {
                        setRoomData(((Booking)selectedCells.get(0)).getRooms());
                    }
-                   //TablePosition tablePosition = (TablePosition) selectedCells.get(0);
-                   //Object val = tablePosition.getTableColumn().getCellData(newValue);
-                   //System.out.println("Selected Value" + val);
                 }
             }
         });
 
         VBox box = new VBox(table, rooms);
-        ScrollPane pane = new ScrollPane(box);
-        getChildren().addAll(pane);
+        box.setPadding(new Insets(UI.DEFAULT_SPACING));
+        getChildren().addAll(box);
+
         setSpacing(UI.DEFAULT_SPACING);
         setPadding(new Insets(UI.DEFAULT_SPACING));
     }
