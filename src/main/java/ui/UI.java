@@ -93,13 +93,13 @@ public class UI extends Scene {
         Button makeReservation = new Button("Make Booking");
         makeReservation.setPrefSize(150, 50);
         makeReservation.setOnMouseClicked((event) -> {
-            setContentPane(new BookingUI(this));
+            setContentPane(new MakeBookingUI(this));
         });
 
         Button manageReservation = new Button("Manage Bookings");
         manageReservation.setPrefSize(150, 50);
         manageReservation.setOnMouseClicked((event) -> {
-            setContentPane(new CancelBookingUI(this));
+            setContentPane(new ManageBookingUI(this));
         });
 
         Button viewAnalysis = new Button("Analysis");
@@ -128,7 +128,7 @@ public class UI extends Scene {
         });
     
         
-        VBox sidebar = new VBox(centeredCompanyLabel, makeReservation, manageReservation, viewAnalysis, viewSettings, exit);
+        VBox sidebar = new VBox(centeredCompanyLabel, manageReservation, makeReservation, viewAnalysis, viewSettings, exit);
         sidebar.setSpacing(UI.DEFAULT_SPACING);
         sidebar.setPadding(new Insets(UI.DEFAULT_SPACING));
         sidebar.getStyleClass().add("sidebar");
@@ -149,6 +149,7 @@ public class UI extends Scene {
         
         HBox wholeScene = new HBox(left, hbox);
 
+        setContentPane(new MakeBookingUI(this));
         setRoot(wholeScene);
     }
 

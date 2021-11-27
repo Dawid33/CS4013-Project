@@ -11,6 +11,7 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import ui.Theme;
 import ui.UI;
+import ui.Login;
 
 public class Program extends Application {
     public static final int MIN_APPLICATION_WIDTH = 1024;
@@ -20,10 +21,11 @@ public class Program extends Application {
     public static final String BOOKINGS_PATH = RESOURCES_PATH + "bookings.csv";
     public static final String CSS_FOLDER_PATH = "css/";
 
+    Login login;
+
     UI ui = null;
     BookingSystem bookingSystem = null;
 
-    
     /** 
      * 
      * @param primaryStage
@@ -41,15 +43,20 @@ public class Program extends Application {
         primaryStage.setHeight(MIN_APPLICATION_HEIGHT);
         primaryStage.setTitle("CS4013 Application");
 
+        
+
         ui = new UI();
         ui.setOnSave(this::saveData);
         ui.setOnThemeChange(this::onThemeChange);
         ui.setBookingSystem(bookingSystem);
 
+        login = new Login(primaryStage);
+        login.setMainUI(ui);
+
         // Apply CSS.
         onThemeChange(IO.loadSettings().theme);
 
-        primaryStage.setScene(ui);
+        primaryStage.setScene(login);
         primaryStage.show();
     }
 

@@ -38,7 +38,7 @@ Hotel type 	Room type	     Number of Rooms	Occupancy-min	Occupancy-max	Rates
 import ui.UI;
 
 
-public class BookingUI extends VBox {
+public class MakeBookingUI extends VBox {
     
     TextField emailTxtField;
     TextField nameTxtField;
@@ -67,7 +67,7 @@ public class BookingUI extends VBox {
 
     Text errorText = new Text();
     
-    public BookingUI(UI baseUI) {
+    public MakeBookingUI(UI baseUI) {
         Text title = new Text("Booking Screen");
         title.getStyleClass().add("title");
 

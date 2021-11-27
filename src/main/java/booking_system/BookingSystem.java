@@ -1,6 +1,7 @@
 package booking_system;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -18,7 +19,13 @@ public class BookingSystem {
     public BookingSystem(File file) throws IOException{
         bookingFile = file;
         // Read file
-        String fileContents = IO.readFile(file);
+        try {
+            String fileContents = IO.readFile(file);
+        } catch (IOException e) {
+            if (e instanceof FileNotFoundException) {
+                file.createNewFile();
+            }
+        }
         // The fileContents variable contains the entire file as one long String
         // Loop over each line of the file by splitting it up at every new line character.
         for(String line : fileContents.split("\n")) {

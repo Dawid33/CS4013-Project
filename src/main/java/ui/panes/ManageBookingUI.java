@@ -21,7 +21,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import ui.UI;
 
-public class CancelBookingUI extends VBox{
+public class ManageBookingUI extends VBox{
 
     TableView<Booking> table = new TableView<>();
     TableView<Room> rooms = new TableView<>();
@@ -29,7 +29,7 @@ public class CancelBookingUI extends VBox{
     ObservableList<Booking> currentlySelectedCells = null;
 
     @SuppressWarnings("unchecked")
-    public CancelBookingUI(UI baseUI) {
+    public ManageBookingUI(UI baseUI) {
         Text title = new Text("Cancel Booking Screen");
         title.getStyleClass().add("title");
         HBox centeredTitle = new HBox(title);
