@@ -40,9 +40,7 @@ public class Login extends Scene {
 
         Button login = new Button("Login");
         login.setOnMouseClicked((event) -> {
-            if () {
-                
-            }
+            //core.IO.readFile(new File)
             stage.setScene(mainUI);
         });
 
