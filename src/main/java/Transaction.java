@@ -16,7 +16,9 @@ public class Transaction {
     private double totalCost;      //total cost
 
     /** create a constructor of the transaction class */
-    public Transactions(String resNum, String name, LocalDate checkIn, String hotelTypes, String roomType, boolean ap, double totalCost) {
+    public Transaction(){}
+    
+    public Transaction(String resNum, String name, LocalDate checkIn, String hotelTypes, String roomType, boolean ap, double totalCost) {
         this.resNum = resNum;
         this.name = name;
         this.checkIn = checkIn;
@@ -25,6 +27,7 @@ public class Transaction {
         this.ap = ap;
         this.totalCost = totalCost;
     }
+    
 
     /** Create a csv file and write all the transaction data to it */
     public void writeToCsv() throws IOException {
