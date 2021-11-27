@@ -10,6 +10,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class Login extends Scene {
@@ -19,13 +20,16 @@ public class Login extends Scene {
         mainUI = value;
     }
 
+    TextField username;
+    TextField password;
+
     public Login(Stage stage) {
         super(new Label("Dummy text"));
 
         GridPane gp = new GridPane();
 
-        TextField username = new TextField();
-        TextField password = new TextField();
+        username = new TextField();
+        password = new TextField();
         Label usernameLabel = new Label("Username");
         Label passwordLabel = new Label("Password");
 
@@ -36,6 +40,9 @@ public class Login extends Scene {
 
         Button login = new Button("Login");
         login.setOnMouseClicked((event) -> {
+            if () {
+                
+            }
             stage.setScene(mainUI);
         });
 

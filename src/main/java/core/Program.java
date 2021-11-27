@@ -45,8 +45,6 @@ public class Program extends Application {
         primaryStage.setHeight(MIN_APPLICATION_HEIGHT);
         primaryStage.setTitle("CS4013 Application");
 
-        
-
         ui = new UI();
         ui.setOnSave(this::saveData);
         ui.setOnThemeChange(this::onThemeChange);

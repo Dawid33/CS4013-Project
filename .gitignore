@@ -7,4 +7,3 @@ bin
 .project
 .classpath
 settings.save
-src/main/resources/bookings.csv
