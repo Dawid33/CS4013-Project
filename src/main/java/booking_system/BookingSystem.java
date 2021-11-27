@@ -1,6 +1,7 @@
 package booking_system;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -8,6 +9,7 @@ import java.util.Collection;
 import core.IO;
 
 public class BookingSystem {
+    public static int bookingIDCount = 0;
     ArrayList<Booking> bookings = new ArrayList<>();
     File bookingFile;
 
@@ -18,7 +20,18 @@ public class BookingSystem {
     public BookingSystem(File file) throws IOException{
         bookingFile = file;
         // Read file
-        String fileContents = IO.readFile(file);
+        String fileContents = "";
+        try {
+            fileContents = IO.readFile(file);
+        } catch (IOException e) {
+            if (!file.exists()) {
+                try {
+                    file.createNewFile();
+                } catch (IOException e2) {
+                    System.out.println(e2.getMessage());
+                }
+            }
+        }
         // The fileContents variable contains the entire file as one long String
         // Loop over each line of the file by splitting it up at every new line character.
         for(String line : fileContents.split("\n")) {
@@ -35,6 +48,8 @@ public class BookingSystem {
             }
             bookings.add(booking);
         }
+
+        this.bookingIDCount = bookings.size();
     }
 
     
@@ -48,11 +63,16 @@ public class BookingSystem {
     /** 
      * @param booking Remove booking from the booking system.
      */
-    public void removeBooking(Booking booking) {
-        this.bookings.remove(booking);
+    public void removeBooking(Booking b) {
+        System.out.println("Removing booking");
+        bookings.remove(b);
+        try {
+            updateBookingsToFile();
+        } catch(IOException e) {
+            System.out.println(e);
+        }
     }
 
-    
     /** 
      * @param booking A booking to add to the booking system.
      */
@@ -60,7 +80,6 @@ public class BookingSystem {
         this.bookings.add(booking);
     }
 
-    
     /** 
      * @param bookings Bookings to add into the booking system.
      */
@@ -73,7 +92,13 @@ public class BookingSystem {
      * @throws IOException
      */
     public void updateBookingsToFile() throws IOException {
-        //FileWriter writer = new FileWriter(file);
+        bookingFile.delete();
+        bookingFile.createNewFile();
+        FileWriter writer = new FileWriter(bookingFile);
+        for(Booking b : bookings) {
+            writer.append(b.toString() + "\n");
+        }
+        writer.close();
     }
 
     /**

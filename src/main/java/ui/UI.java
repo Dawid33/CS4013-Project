@@ -99,7 +99,7 @@ public class UI extends Scene {
         Button manageReservation = new Button("Manage Bookings");
         manageReservation.setPrefSize(150, 50);
         manageReservation.setOnMouseClicked((event) -> {
-            setContentPane(new CancelBookingUI(this));
+            setContentPane(new ManageBookingUI(this));
         });
 
         Button viewAnalysis = new Button("Analysis");

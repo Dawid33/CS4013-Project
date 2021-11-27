@@ -2,6 +2,7 @@ package ui.panes;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 import booking_system.Booking;
 import booking_system.Room;
@@ -21,16 +22,16 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import ui.UI;
 
-public class CancelBookingUI extends VBox{
+public class ManageBookingUI extends VBox{
 
     TableView<Booking> table = new TableView<>();
     TableView<Room> rooms = new TableView<>();
 
-    ObservableList<Booking> currentlySelectedCells = null;
+    ArrayList<Booking> currentlySelectedCells = null;
 
     @SuppressWarnings("unchecked")
-    public CancelBookingUI(UI baseUI) {
-        Text title = new Text("Cancel Booking Screen");
+    public ManageBookingUI(UI baseUI) {
+        Text title = new Text("Manage Bookings Screen");
         title.getStyleClass().add("title");
         HBox centeredTitle = new HBox(title);
         centeredTitle.setAlignment(Pos.CENTER);
@@ -69,34 +70,34 @@ public class CancelBookingUI extends VBox{
         table.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
             @Override
             public void changed(ObservableValue observableValue, Object oldValue, Object newValue) {
-                if(table.getSelectionModel().getSelectedItem() != null) {    
-                   TableViewSelectionModel selectionModel = table.getSelectionModel();
-                   currentlySelectedCells = selectionModel.getSelectedItems();
-                    if(currentlySelectedCells.size() == 1) {
-                        rooms.getItems().clear();
-                        rooms.getItems().addAll(((Booking)currentlySelectedCells.get(0)).getRooms());
-                    }   
+                currentlySelectedCells = new ArrayList<>(table.getSelectionModel().getSelectedItems());
+                if (currentlySelectedCells.size() == 1) {
+                    rooms.getItems().clear();
+                    rooms.getItems().addAll(currentlySelectedCells.get(0).getRooms());
                 }
+
             }
         });
 
-        Button button = new Button("Delete Selected");
-        button.setOnMouseClicked((event) -> {
+        Button deleteButton = new Button("Delete Selected");
+        deleteButton.setOnMouseClicked((event) -> {
             if (this.currentlySelectedCells != null) {
-                table.getItems().removeAll(currentlySelectedCells);
-                currentlySelectedCells.forEach((e) -> {
-                    baseUI.getBookingSystem().removeBooking(e);
-                });
-                rooms.getItems().clear();
-                try {
-                    baseUI.getBookingSystem().updateBookingsToFile();
-                } catch (IOException e) {
-                    System.out.println(e);
+                for (Booking b : currentlySelectedCells) {
+                    baseUI.getBookingSystem().removeBooking(b);
                 }
+                table.getItems().removeAll(currentlySelectedCells);
+                rooms.getItems().clear();
+                //table.getSelectionModel().clearSelection();
+                //this.currentlySelectedCells = null;
+                table.refresh();
             }
         });
 
-        HBox bottomBar = new HBox(button);
+        Button purgeOldButton = new Button("Purge old records");
+        purgeOldButton.setOnMouseClicked((event) -> {
+            System.out.println("Not implemented");
+        });
+        HBox bottomBar = new HBox(purgeOldButton, deleteButton);
         bottomBar.setSpacing(10);
         bottomBar.setPadding(new Insets(0, 10, 0, 0));
         bottomBar.setAlignment(Pos.CENTER_RIGHT);

@@ -15,7 +15,7 @@ public class CSV implements Iterable<String> {
 
         public boolean hasNext() {
             boolean exists = false;
-            if (index >= contents.length() - 1)
+            if (index >= contents.length())
                 return false;
 
             for (int i = index; i < contents.length(); i++) {
@@ -57,7 +57,6 @@ public class CSV implements Iterable<String> {
         }
     }
     
-    
     /** 
      * @return Iterator Get iterator that iterates through elements in the CSV.
      */
@@ -65,19 +64,18 @@ public class CSV implements Iterable<String> {
         return new CSVFileIterator();
     }
 
-    
     /** 
      * @return ArrayList Get a list of CSV objects that are delimited by a new line.
      */
     public ArrayList<CSV> getSplitBy(String input) {
         ArrayList<CSV> rows = new ArrayList<>();
+
         for(String s : contents.split(input)) {
             rows.add(new CSV(s));
         }
         return rows;
     }
 
-    
     /** 
      * @param str Add raw content to the CSV
      */
@@ -91,5 +89,13 @@ public class CSV implements Iterable<String> {
      */
     public String toString() {
         return contents;
+    }
+
+    public ArrayList<String> toArray() {
+        ArrayList<String> output = new ArrayList<>();
+        for(String s : this) {
+            output.add(s);
+        }
+        return output;
     }
 }

@@ -3,6 +3,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+import core.Program;
+
 public class Booking {
     public String email = null;
     public String name = null;
@@ -12,7 +14,6 @@ public class Booking {
     public int numberOfRooms = 0;
     public int totalCost = 0;
     ArrayList<Room> rooms = new ArrayList<>();
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     
     /** 
@@ -80,8 +81,8 @@ public class Booking {
         StringBuilder builder = new StringBuilder();
         builder.append(name + ",");
         builder.append(email + ",");
-        builder.append(checkInDate.getDayOfMonth() + "/" + checkInDate.getMonthValue() + "/" + checkInDate.getYear() + ",");
-        builder.append(checkOutDate.getDayOfMonth() + "/" + checkOutDate.getMonthValue() + "/" + checkOutDate.getYear() + ",");
+        builder.append(checkInDate.format(Program.formatter) + ",");
+        builder.append(checkOutDate.format(Program.formatter) +  ",");
         builder.append(isApPurchase + ",");
         builder.append(numberOfRooms + ",");
         builder.append(totalCost);
@@ -100,7 +101,11 @@ public class Booking {
     public void fromCSV(CSV csv) throws Exception {
         java.lang.reflect.Field[] allFields = this.getClass().getFields();
         int i = 0;
-        for(String s : csv) {
+        ArrayList<String> list = csv.toArray();
+        if (list.size() < allFields.length) {
+            throw new Exception("Not enough items in CSV populate booking object.");
+        }
+        for(String s : list) {
             if (i < allFields.length){
                 try {
                     if (allFields[i].getType() == int.class) {
@@ -110,7 +115,8 @@ public class Booking {
                         Boolean b = Boolean.valueOf(s);
                         allFields[i].set(this, b);
                     } else if (allFields[i].getType() == LocalDate.class) {
-                        LocalDate date = LocalDate.parse(s, formatter);
+                        LocalDate date = LocalDate.parse(s, Program.formatter);
+                        
                         allFields[i].set(this, date);
                     } else if (allFields[i].getType() == String.class) {
                         allFields[i].set(this, s);

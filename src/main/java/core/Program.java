@@ -3,6 +3,7 @@ package core;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.format.DateTimeFormatter;
 
 import booking_system.Booking;
 import booking_system.BookingFormSaveExeception;
@@ -19,11 +20,11 @@ public class Program extends Application {
     public static final String SAVE_FILE_PATH = "settings.save";
     public static final String BOOKINGS_PATH = RESOURCES_PATH + "bookings.csv";
     public static final String CSS_FOLDER_PATH = "css/";
+    public static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");;
 
     UI ui = null;
     BookingSystem bookingSystem = null;
 
-    
     /** 
      * 
      * @param primaryStage
@@ -104,8 +105,10 @@ public class Program extends Application {
             }
         }
 
+        // Make sure dates are in the correct format.
+        System.out.println(newBooking.checkOutDate.toString());
+
         try (FileWriter fw = new FileWriter(BOOKINGS_PATH, true)) {
-            //System.out.println(newBooking.toCSV().toString());
             fw.append(newBooking.toCSV().toString());
         } catch (IOException e) {
             System.out.print(e.getMessage());
