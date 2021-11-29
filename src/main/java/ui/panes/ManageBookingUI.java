@@ -8,14 +8,12 @@ import booking_system.Booking;
 import booking_system.Room;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TableView.TableViewSelectionModel;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -26,6 +24,7 @@ public class ManageBookingUI extends VBox{
 
     TableView<Booking> table = new TableView<>();
     TableView<Room> rooms = new TableView<>();
+    
 
     ArrayList<Booking> currentlySelectedCells = null;
 
@@ -44,6 +43,7 @@ public class ManageBookingUI extends VBox{
         TableColumn<Booking, String> emailCol = new TableColumn<>("Email");
         TableColumn<Booking, LocalDate> checkInCol = new TableColumn<>("Check In");
         TableColumn<Booking, LocalDate> checkOutCol = new TableColumn<>("Check Out");
+        TableColumn<Booking, LocalDate> creationDateCol = new TableColumn<>("Booking Creation Date");
         TableColumn<Booking, LocalDate> isApPurchase = new TableColumn<>("Advanced Purchase");
         TableColumn<Booking, LocalDate> numberOfRooms = new TableColumn<>("Total Rooms");
         TableColumn<Booking, LocalDate> totalCost = new TableColumn<>("Total Cost");
@@ -52,11 +52,12 @@ public class ManageBookingUI extends VBox{
         emailCol.setCellValueFactory(new PropertyValueFactory<>("email"));
         checkInCol.setCellValueFactory(new PropertyValueFactory<>("checkInDate"));
         checkOutCol.setCellValueFactory(new PropertyValueFactory<>("checkOutDate"));
+        creationDateCol.setCellValueFactory(new PropertyValueFactory<>("creationDate"));
         isApPurchase.setCellValueFactory(new PropertyValueFactory<>("isApPurchase"));
-        numberOfRooms.setCellValueFactory(new PropertyValueFactory<>("totalCost"));
-        totalCost.setCellValueFactory(new PropertyValueFactory<>("numberOfRooms"));
+        numberOfRooms.setCellValueFactory(new PropertyValueFactory<>("numberOfRooms"));
+        totalCost.setCellValueFactory(new PropertyValueFactory<>("totalCost"));
         
-        table.getColumns().addAll(nameCol, emailCol, checkInCol, checkOutCol, isApPurchase, numberOfRooms, totalCost);
+        table.getColumns().addAll(nameCol, emailCol, checkInCol, checkOutCol, creationDateCol, isApPurchase, numberOfRooms, totalCost);
         table.getItems().addAll(baseUI.getBookingSystem().getBookings());
 
         TableColumn<Room, String> roomCol = new TableColumn<>("Room Type");
@@ -87,15 +88,17 @@ public class ManageBookingUI extends VBox{
                 }
                 table.getItems().removeAll(currentlySelectedCells);
                 rooms.getItems().clear();
-                //table.getSelectionModel().clearSelection();
-                //this.currentlySelectedCells = null;
                 table.refresh();
             }
         });
 
         Button purgeOldButton = new Button("Purge old records");
         purgeOldButton.setOnMouseClicked((event) -> {
-            System.out.println("Not implemented");
+            try {
+                baseUI.getBookingSystem().purgeOldBookingsFromArchive();
+            } catch (IOException e) {
+                System.out.println(e);
+            }
         });
         HBox bottomBar = new HBox(purgeOldButton, deleteButton);
         bottomBar.setSpacing(10);

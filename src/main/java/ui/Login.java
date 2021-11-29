@@ -1,16 +1,21 @@
 package ui;
 
-import javax.swing.GroupLayout.Alignment;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
 
+import booking_system.CSV;
+import core.Program;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class Login extends Scene {
@@ -40,19 +45,63 @@ public class Login extends Scene {
 
         Button login = new Button("Login");
         login.setOnMouseClicked((event) -> {
-            //core.IO.readFile(new File)
-            stage.setScene(mainUI);
+            ArrayList<Credentials> users = getUsers();
+            boolean loggedIn = false;
+            for (Credentials user : users) {
+                if (user.username.equals(username.getText()) && user.password.equals(password.getText())) {
+                    loggedIn = true;
+                    stage.setScene(mainUI);
+                }
+            }
+            if (!loggedIn) {
+                System.out.println("Invalid credentials");
+            }
         });
 
         Button register = new Button("Register");
         register.setOnMouseClicked((event) -> {
-
+            addUser(new Credentials(username.getText(), password.getText()));
+            username.clear();
+            password.clear();
         });
 
-        BorderPane bp = new BorderPane();
         HBox buttons = new HBox(login, register);
+        buttons.setAlignment(Pos.CENTER_RIGHT);
         VBox panel = new VBox(gp, buttons);
-        bp.setCenter(panel);
-        setRoot(bp);
+
+        HBox h = new HBox(panel);
+        panel.setAlignment(Pos.CENTER);
+        h.setAlignment(Pos.CENTER);
+
+        setRoot(h);
+    }
+
+    public ArrayList<Credentials> getUsers() {
+        ArrayList<Credentials> output = new ArrayList<>();
+        try {
+            CSV file = new CSV(core.IO.readFile(new File(Program.USERS_PATH)));
+            for(CSV row : file.getSplitBy("\n")) {
+                Iterator<String> iter = row.iterator();
+                String username = iter.next();
+                String password = iter.next();
+                Credentials user = new Credentials(username, password);
+                output.add(user);
+            }
+            
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+        return output;
+    }
+    
+    public void addUser(Credentials user) {
+        String s = "\n" + user.username + "," + user.password;
+        try {
+            FileWriter writer = new FileWriter(new File(Program.USERS_PATH),true);
+            writer.append(s);
+            writer.close();
+        } catch (IOException e) {
+            System.out.println(e);
+        }
     }
 }
