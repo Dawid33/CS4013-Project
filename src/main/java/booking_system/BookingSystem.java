@@ -11,14 +11,23 @@ import core.IO;
 public class BookingSystem {
     public static int bookingIDCount = 0;
     ArrayList<Booking> bookings = new ArrayList<>();
+    ArrayList<Booking> bookingsArchive = new ArrayList<>();
     File bookingFile;
+    File bookingArchive;
 
     /** 
      * @param file File object that represents the file that contains booking information as a CSV.
      * @throws IOException
      */
-    public BookingSystem(File file) throws IOException{
-        bookingFile = file;
+    public BookingSystem(File bookingFile, File bookingArchive) throws IOException{
+        this.bookingFile = bookingFile;
+        this.bookingArchive = bookingArchive;
+        bookings = readArrayIntoFile(bookingFile);
+        bookingsArchive = readArrayIntoFile(bookingArchive);
+    }
+
+    private ArrayList<Booking> readArrayIntoFile(File file) throws IOException{
+        ArrayList<Booking> bookings = new ArrayList<>();
         // Read file
         String fileContents = "";
         try {
@@ -48,8 +57,7 @@ public class BookingSystem {
             }
             bookings.add(booking);
         }
-
-        this.bookingIDCount = bookings.size();
+        return bookings;
     }
 
     
@@ -64,9 +72,10 @@ public class BookingSystem {
      * @param booking Remove booking from the booking system.
      */
     public void removeBooking(Booking b) {
-        System.out.println("Removing booking");
         bookings.remove(b);
+        bookingsArchive.add(b);
         try {
+            updateArchiveToFile();
             updateBookingsToFile();
         } catch(IOException e) {
             System.out.println(e);
@@ -99,6 +108,30 @@ public class BookingSystem {
             writer.append(b.toString() + "\n");
         }
         writer.close();
+    }
+
+    public void updateArchiveToFile() throws IOException{
+        bookingArchive.delete();
+        bookingArchive.createNewFile();
+        FileWriter writer = new FileWriter(bookingArchive);
+        for(Booking b : bookingsArchive) {
+            writer.append(b.toString());
+        }
+        writer.close();
+    }
+
+    public void purgeOldBookingsFromArchive() throws IOException{
+        ArrayList<Booking> toDelete = new ArrayList<>();
+        for(Booking b : bookingsArchive) {
+            if (b.creationDate.isBefore(b.checkInDate.minusYears(7))) {
+                toDelete.add(b);
+            }
+        }
+        if(!toDelete.isEmpty()) {
+            System.out.print("Has updated archive");
+            bookingsArchive.removeAll(toDelete);
+            updateArchiveToFile();
+        }
     }
 
     /**

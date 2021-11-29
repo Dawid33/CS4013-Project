@@ -1,13 +1,18 @@
 package ui.panes;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 import booking_system.Booking;
 import booking_system.BookingFormSaveExeception;
 import booking_system.Room;
+import core.Program;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
@@ -20,6 +25,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.util.Pair;
 /*
 Hotel type 	Room type	     Number of Rooms	Occupancy-min	Occupancy-max	Rates						
                                                                                 Mon Tue Wed Thur Fri  Sat  Sun
@@ -48,22 +54,17 @@ public class MakeBookingUI extends VBox {
 
     ToggleGroup bookingTypeGroup;
 
-    CheckBox deluxeDouble;
-    CheckBox deluxeTwin;
-    CheckBox deluxeSingle;
-    CheckBox deluxeFamily;
+    ChoiceBox<String> hotelType;
+    ChoiceBox<String> roomType;
 
-    CheckBox executiveDouble;
-    CheckBox executiveTwin;
-    CheckBox executiveSingle;
+    TextField occupancy;
 
-    CheckBox classicDouble;
-    CheckBox classicTwin;
-    CheckBox classicSingle;
-
-    ToggleGroup hotelTypeGroup;
     RadioButton standardBooking;
     RadioButton apBooking;
+
+    Text rooms;
+
+    ArrayList<Room> bookedRooms = new ArrayList<>();
 
     Text errorText = new Text();
     
@@ -122,9 +123,62 @@ public class MakeBookingUI extends VBox {
         gp.add(standardBooking, 0, 3, 2, 1);
         gp.add(apBooking, 0, 4 , 2, 1);
 
-        gp.add(createHotelSelection(), 0, 5, 5, 1);
+        Separator roomSeperator = new Separator();
+        roomSeperator.setPadding(new Insets(10));
 
-        gp.add(errorText, 0, 6);
+        gp.add(roomSeperator, 0, 5 , 4, 1);
+
+        Label hotelTypeLabel = new Label("Hotel");
+        Label roomLabel = new Label("Room Type");
+        Label occupancyLabel = new Label("Occupancy");
+
+        hotelType = new ChoiceBox<>();
+        hotelType.getItems().addAll("3 Star", "4 Star", "5 Star");
+        hotelType.getSelectionModel().select(0);
+
+        roomType = new ChoiceBox<>();
+        roomType.getItems().addAll(
+            "Deluxe Double", "Deluxe Twin", "Deluxe Single", "Deluxe Family",
+            "Executive Double", "Executive Twin", "Executive Single",
+            "Classic Double", "Classic Twin", "Classic Single"
+        );
+        
+        occupancy = new TextField();
+
+        // force the field to be numeric only
+        occupancy.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, 
+                String newValue) {
+                if (!newValue.matches("\\d*")) {
+                    occupancy.setText(newValue.replaceAll("[^\\d]", ""));
+                }
+            }
+        });
+
+        Button addRoom = new Button("Add Room");
+        addRoom.setOnAction((event) -> {
+            bookedRooms.add(new Room(hotelType.getValue() + ";" + roomType.getValue() + ";" + occupancy.getText()));
+            StringBuilder builder = new StringBuilder();
+            for(Room r : bookedRooms) {
+                builder.append(r.toString() + "\n");
+            }
+            rooms.setText(builder.toString());
+        });
+
+        gp.add(hotelTypeLabel, 0, 6);
+        gp.add(hotelType, 1, 6);
+        gp.add(roomLabel, 2, 6);
+        gp.add(roomType, 3, 6);
+
+        gp.add(occupancyLabel, 0, 7);
+        gp.add(occupancy, 1, 7);
+        gp.add(addRoom, 3, 7);
+
+        rooms = new Text();
+        gp.add(rooms, 0, 8);
+
+        gp.add(errorText, 0, 9);
 
         Button saveButton = new Button("Make Reservation");
         saveButton.setOnMouseClicked((event) -> {
@@ -155,56 +209,6 @@ public class MakeBookingUI extends VBox {
         setSpacing(UI.DEFAULT_SPACING);
         setPadding(new Insets(UI.DEFAULT_SPACING));
     }
-
-    
-    /** 
-     * @return HBox
-     */
-    HBox createHotelSelection() {
-        Label fiveStar = new Label ("5 Star Hotel");
-        Label  fourStar = new Label ("4 Star Hotel");
-        Label  threeStar = new Label ("3 Star Hotel");
-        fiveStar.getStyleClass().add("hotel-label");
-        fourStar.getStyleClass().add("hotel-label");
-        threeStar.getStyleClass().add("hotel-label");
-
-        HBox centeredFiveStar = new HBox(fiveStar);
-        centeredFiveStar.setAlignment(Pos.CENTER);
-        HBox centeredFourStar = new HBox(fourStar);
-        centeredFourStar.setAlignment(Pos.CENTER);
-        HBox centeredThreeStar = new HBox(threeStar);
-        centeredThreeStar.setAlignment(Pos.CENTER);
-
-        deluxeDouble = new CheckBox("Deluxe Double");
-        deluxeTwin = new CheckBox("Deluxe Twin");
-        deluxeSingle = new CheckBox("Deluxe Single");
-        deluxeFamily = new CheckBox("Deluxe Family");
-        VBox fiveStarCheckBoxBox = new VBox(centeredFiveStar, deluxeDouble, deluxeTwin, deluxeSingle, deluxeFamily);
-
-        executiveDouble = new CheckBox("Executive Double");
-        executiveTwin = new CheckBox("Executive Twin");
-        executiveSingle = new CheckBox("Executive Single");
-        VBox fourStarCheckBoxBox = new VBox(centeredFourStar, executiveDouble, executiveTwin, executiveSingle);
-
-        classicDouble = new CheckBox("Classic Double");
-        classicTwin = new CheckBox("Classic Twin");
-        classicSingle = new CheckBox("Classic Single");
-        VBox threeStarCheckBoxBox = new VBox(centeredThreeStar, classicDouble, classicTwin, classicSingle);
-
-        Region spacer1 = new Region();
-        HBox.setHgrow(spacer1, Priority.ALWAYS);
-        Region spacer2 = new Region();
-        HBox.setHgrow(spacer2, Priority.ALWAYS);
-        
-        HBox finalBox = new HBox(fiveStarCheckBoxBox, spacer1, fourStarCheckBoxBox, spacer2, threeStarCheckBoxBox);
-        finalBox.setAlignment(Pos.TOP_CENTER);
-        finalBox.setPadding(new Insets(10, 30, 10, 30));
-
-        GridPane.setHgrow(finalBox, Priority.ALWAYS);
-
-        return finalBox;
-    }
-
     
     /** 
      * @return Booking
@@ -212,32 +216,18 @@ public class MakeBookingUI extends VBox {
     Booking getState () {
         Booking state = new Booking();
 
-        
         state.email = emailTxtField.getText();
         state.name = nameTxtField.getText();
 
         state.checkInDate = checkIn.getValue();
         state.checkOutDate = checkOut.getValue();
 
-        if (deluxeDouble.isSelected()) state.addRoom(new Room("Deluxe Double;" + 10));
-        if (deluxeFamily.isSelected()) state.addRoom(new Room("Deluxe Family;" + 10));
-        if (deluxeSingle.isSelected()) state.addRoom(new Room("Deluxe Single;" + 10));
-        if (deluxeTwin.isSelected()) state.addRoom(new Room("Deluxe Twin;" + 10));
+        if(apBooking.isSelected())
+            state.isApPurchase = true;
+        else
+            state.isApPurchase = false;
 
-        /*
-        state.DeluxeDouble = deluxeDouble.isSelected();
-        state.DeluxeFamily = deluxeFamily.isSelected();
-        state.DeluxeSingle = deluxeSingle.isSelected();
-        state.DeluxeTwin = deluxeTwin.isSelected();
-
-        state.ExecutiveDouble = executiveDouble.isSelected();
-        state.ExecutiveSingle = executiveSingle.isSelected());
-        state.ExecutiveTwin = executiveTwin.isSelected();
-
-        state.ClassicDouble = classicDouble.isSelected());
-        state.ClassicSingle = classicSingle.isSelected());
-        state.ClassicTwin = classicTwin.isSelected();
-        */
+        state.setRooms(bookedRooms);
         return state;
     }
 
@@ -248,18 +238,10 @@ public class MakeBookingUI extends VBox {
         checkIn.setValue(null);
         checkOut.setValue(null);
 
-        deluxeDouble.setSelected(false);
-        deluxeFamily.setSelected(false);
-        deluxeSingle.setSelected(false);
-        deluxeTwin.setSelected(false);
+        bookedRooms.clear();
+        rooms.setText("");
 
-        executiveDouble.setSelected(false);
-        executiveSingle.setSelected(false);
-        executiveTwin.setSelected(false);
-
-        classicDouble.setSelected(false);
-        classicSingle.setSelected(false);
-        classicTwin.setSelected(false);
+        bookedRooms.clear();
 
         errorText.setText("");
     }

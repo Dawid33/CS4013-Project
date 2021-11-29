@@ -20,8 +20,10 @@ public class Program extends Application {
     public static final String RESOURCES_PATH = "src/main/resources/";
     public static final String SAVE_FILE_PATH = "settings.save";
     public static final String BOOKINGS_PATH = RESOURCES_PATH + "bookings.csv";
+    public static final String ARCHIVE_PATH = RESOURCES_PATH + "archive.csv";
+    public static final String USERS_PATH = RESOURCES_PATH + "users.csv";
     public static final String CSS_FOLDER_PATH = "css/";
-    public static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");;
+    public static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     Login login;
 
@@ -37,7 +39,7 @@ public class Program extends Application {
     public void start(Stage primaryStage) throws Exception {
         // Setup booking system.
         // Import bookings from file
-        bookingSystem = new BookingSystem(new File(BOOKINGS_PATH));
+        bookingSystem = new BookingSystem(new File(BOOKINGS_PATH), new File(ARCHIVE_PATH));
         // Add reservations to booking system.
 
         // Setup UI
@@ -55,8 +57,8 @@ public class Program extends Application {
 
         // Apply CSS.
         onThemeChange(IO.loadSettings().theme);
-
-        primaryStage.setScene(login);
+        
+        primaryStage.setScene(ui);
         primaryStage.show();
     }
 
@@ -68,7 +70,6 @@ public class Program extends Application {
         launch(args);
     }
 
-    
     /** 
      * @param theme
      * @return String
@@ -100,7 +101,9 @@ public class Program extends Application {
      * @return boolean
      * @throws BookingFormSaveExeception
      */
-    public boolean saveData(Booking newBooking) throws BookingFormSaveExeception {
+    public void saveData(Booking newBooking) throws BookingFormSaveExeception {
+        StringBuilder errors = new StringBuilder();
+
         File f = new File(BOOKINGS_PATH);
         if (!f.exists()) {
             try {
@@ -111,8 +114,14 @@ public class Program extends Application {
             }
         }
 
-        // Make sure dates are in the correct format.
-        System.out.println(newBooking.checkOutDate.toString());
+        if(newBooking.name == "" || newBooking.name == null) {
+            errors.append("Name cannot be null.");
+
+        }
+
+        if(newBooking.email == "" || newBooking.email == null) {
+            errors.append("Email cannot be null.");
+        }
 
         try (FileWriter fw = new FileWriter(BOOKINGS_PATH, true)) {
             fw.append(newBooking.toCSV().toString());
@@ -121,7 +130,10 @@ public class Program extends Application {
             throw new BookingFormSaveExeception("Cannot append booking to reservations file.");
         }
 
-        bookingSystem.addBooking(newBooking);
-        return true;
+        if (!errors.toString().equals("")) {
+            throw new BookingFormSaveExeception(errors.toString());
+        } else {
+            bookingSystem.addBooking(newBooking);
+        }
     }
 }
