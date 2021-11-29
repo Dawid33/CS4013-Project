@@ -71,7 +71,6 @@ public class Program extends Application {
         primaryStage.show();
     }
 
-    
     /** 
      * @param args
      */
