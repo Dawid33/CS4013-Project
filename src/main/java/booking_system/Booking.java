@@ -1,21 +1,21 @@
 package booking_system;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import core.Program;
+import javafx.util.converter.LocalDateStringConverter;
 
 public class Booking {
     public String email = null;
     public String name = null;
     public LocalDate checkInDate = null;
     public LocalDate checkOutDate = null;
+    public LocalDate creationDate = LocalDate.now();
     public boolean isApPurchase = false;
     public int numberOfRooms = 0;
     public int totalCost = 0;
     ArrayList<Room> rooms = new ArrayList<>();
 
-    
     /** 
      * @return String Get the email fo the client who booked this booking.
      */
@@ -35,6 +35,7 @@ public class Booking {
      * @return LocalDate Get the checkout date of the booking.
      */
     public LocalDate getCheckOutDate() { return checkOutDate; }
+    public LocalDate getCreationDate() { return creationDate; }
     
     /** 
      * @return String Returns "Yes" if the booking is an advanced purchase, "No" if it is not.
@@ -66,6 +67,10 @@ public class Booking {
     public void addRoom(Room room) {
         rooms.add(room);
     }
+
+    public void setRooms(ArrayList<Room> rooms) {
+        this.rooms = rooms;
+    }
     
     /** 
      * @return String Print the Booking as a string for debug purposes.
@@ -83,11 +88,12 @@ public class Booking {
         builder.append(email + ",");
         builder.append(checkInDate.format(Program.formatter) + ",");
         builder.append(checkOutDate.format(Program.formatter) +  ",");
+        builder.append(creationDate.format(Program.formatter) +  ",");
         builder.append(isApPurchase + ",");
         builder.append(numberOfRooms + ",");
         builder.append(totalCost);
         for(Room room : rooms) {
-            builder.append("," + room.toString());
+            builder.append("," + room.toCSV());
         }
         builder.append("\n");
         return new CSV(builder.toString());
@@ -129,5 +135,6 @@ public class Booking {
                 rooms.add(new Room(s));
             }
         }
+        numberOfRooms = rooms.size();
     }
 }
