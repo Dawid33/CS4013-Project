@@ -173,6 +173,7 @@ public class Program extends Application {
                 }
             }
             newBooking.totalCost = totalCost;
+            newBooking.numberOfRooms = newBooking.getRooms().size();
 
             try (FileWriter fw = new FileWriter(BOOKINGS_PATH, true)) {
                 fw.append(newBooking.toCSV().toString());
