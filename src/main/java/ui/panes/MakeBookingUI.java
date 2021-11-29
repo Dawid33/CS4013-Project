@@ -5,13 +5,11 @@ import java.util.ArrayList;
 import booking_system.Booking;
 import booking_system.BookingFormSaveExeception;
 import booking_system.Room;
-import core.Program;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -22,10 +20,8 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
-import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import javafx.util.Pair;
 /*
 Hotel type 	Room type	     Number of Rooms	Occupancy-min	Occupancy-max	Rates						
                                                                                 Mon Tue Wed Thur Fri  Sat  Sun
@@ -137,12 +133,28 @@ public class MakeBookingUI extends VBox {
         hotelType.getSelectionModel().select(0);
 
         roomType = new ChoiceBox<>();
-        roomType.getItems().addAll(
-            "Deluxe Double", "Deluxe Twin", "Deluxe Single", "Deluxe Family",
-            "Executive Double", "Executive Twin", "Executive Single",
-            "Classic Double", "Classic Twin", "Classic Single"
-        );
+        roomType.getItems().addAll("Classic Double", "Classic Twin", "Classic Single");
+        roomType.setValue("Classic Double");
         
+        hotelType.valueProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, 
+                String newValue) {
+                roomType.getItems().clear();
+                
+                if(newValue.equals("3 Star")) {
+                    roomType.getItems().addAll("Classic Double", "Classic Twin", "Classic Single");
+                    roomType.setValue("Classic Double");
+                } else if (newValue.equals("4 Star")) {
+                    roomType.getItems().addAll("Executive Double", "Executive Twin", "Executive Single");
+                    roomType.setValue("Executive Double");
+                } else if (newValue.equals("5 Star")) {
+                    roomType.getItems().addAll("Deluxe Double", "Deluxe Twin", "Deluxe Single", "Deluxe Family");
+                    roomType.setValue("Deluxe Double");
+                }
+            }
+        });
+
         occupancy = new TextField();
 
         // force the field to be numeric only
@@ -158,6 +170,10 @@ public class MakeBookingUI extends VBox {
 
         Button addRoom = new Button("Add Room");
         addRoom.setOnAction((event) -> {
+            if (occupancy.getText().equals("")) {
+                errorText.setText("Please input occupancy.");
+                return;
+            }
             bookedRooms.add(new Room(hotelType.getValue() + ";" + roomType.getValue() + ";" + occupancy.getText()));
             StringBuilder builder = new StringBuilder();
             for(Room r : bookedRooms) {
@@ -176,9 +192,10 @@ public class MakeBookingUI extends VBox {
         gp.add(addRoom, 3, 7);
 
         rooms = new Text();
-        gp.add(rooms, 0, 8);
+        //HBox errors = new HBox(rooms);
+        gp.add(rooms, 0, 8, 5, 1);
 
-        gp.add(errorText, 0, 9);
+        gp.add(errorText, 0, 9, 5 ,1);
 
         Button saveButton = new Button("Make Reservation");
         saveButton.setOnMouseClicked((event) -> {

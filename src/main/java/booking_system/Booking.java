@@ -3,7 +3,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 import core.Program;
-import javafx.util.converter.LocalDateStringConverter;
 
 public class Booking {
     public String email = null;

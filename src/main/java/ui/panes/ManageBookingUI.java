@@ -8,14 +8,12 @@ import booking_system.Booking;
 import booking_system.Room;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TableView.TableViewSelectionModel;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -26,6 +24,7 @@ public class ManageBookingUI extends VBox{
 
     TableView<Booking> table = new TableView<>();
     TableView<Room> rooms = new TableView<>();
+    
 
     ArrayList<Booking> currentlySelectedCells = null;
 
@@ -55,8 +54,8 @@ public class ManageBookingUI extends VBox{
         checkOutCol.setCellValueFactory(new PropertyValueFactory<>("checkOutDate"));
         creationDateCol.setCellValueFactory(new PropertyValueFactory<>("creationDate"));
         isApPurchase.setCellValueFactory(new PropertyValueFactory<>("isApPurchase"));
-        numberOfRooms.setCellValueFactory(new PropertyValueFactory<>("totalCost"));
-        totalCost.setCellValueFactory(new PropertyValueFactory<>("numberOfRooms"));
+        numberOfRooms.setCellValueFactory(new PropertyValueFactory<>("numberOfRooms"));
+        totalCost.setCellValueFactory(new PropertyValueFactory<>("totalCost"));
         
         table.getColumns().addAll(nameCol, emailCol, checkInCol, checkOutCol, creationDateCol, isApPurchase, numberOfRooms, totalCost);
         table.getItems().addAll(baseUI.getBookingSystem().getBookings());
