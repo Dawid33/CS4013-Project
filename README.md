@@ -1,5 +1,10 @@
 # CS4013 Project
 
+## Folder structure
+The `diagrams` folder contains the UML and CRC diagrams.
+The `src` folder contains the java source files.
+The `javadocs` folder contains the generated javadocs.
+
 ## How to compile
 ```
 ./gradlew build
