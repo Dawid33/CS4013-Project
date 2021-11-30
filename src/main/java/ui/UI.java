@@ -136,9 +136,6 @@ public class UI extends Scene {
 
         contentPane = new VBox();
         HBox.setHgrow(contentPane, Priority.SOMETIMES);
-        //contentPane.setMinHeight(Program.MIN_APPLICATION_HEIGHT);
-        //If contentPane is a vbox
-        //contentPane.setFitToWidth(true);
         contentPane.getStyleClass().add("content-pane");
         
         HBox hbox = new HBox(contentPane);
