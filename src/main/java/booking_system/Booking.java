@@ -42,10 +42,12 @@ public class Booking {
      * @return String Returns "Yes" if the booking is an advanced purchase, "No" if it is not.
      */
     public String getIsApPurchase() {
-        if (isApPurchase)
+        if (isApPurchase){
+            totalCost *= 0.95;      //advance purchase 5% off;
             return "Yes";
-        else
-            return "No";        
+        }else{
+            return "No";  
+        }      
     }
     
     /** 
@@ -72,6 +74,8 @@ public class Booking {
     public void setRooms(ArrayList<Room> rooms) {
         this.rooms = rooms;
     }
+
+    
     
     /** 
      * @return String Print the Booking as a string for debug purposes.
