@@ -9,7 +9,6 @@ import java.util.Collection;
 import core.IO;
 
 public class BookingSystem {
-    public static int bookingIDCount = 0;
     ArrayList<Booking> bookings = new ArrayList<>();
     ArrayList<Booking> bookingsArchive = new ArrayList<>();
     File bookingFile;
@@ -23,11 +22,11 @@ public class BookingSystem {
     public BookingSystem(File bookingFile, File bookingArchive) throws IOException{
         this.bookingFile = bookingFile;
         this.bookingArchive = bookingArchive;
-        bookings = readArrayIntoFile(bookingFile);
-        bookingsArchive = readArrayIntoFile(bookingArchive);
+        bookings = readFileIntoArray(bookingFile);
+        bookingsArchive = readFileIntoArray(bookingArchive);
     }
 
-    private ArrayList<Booking> readArrayIntoFile(File file) throws IOException{
+    private ArrayList<Booking> readFileIntoArray(File file) throws IOException{
         ArrayList<Booking> bookings = new ArrayList<>();
         // Read file
         String fileContents = "";
@@ -38,7 +37,7 @@ public class BookingSystem {
                 try {
                     file.createNewFile();
                 } catch (IOException e2) {
-                    System.out.println(e2.getMessage());
+                    throw e2;
                 }
             }
         }

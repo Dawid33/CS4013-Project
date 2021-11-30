@@ -8,31 +8,6 @@ If you have the latest version of gradle installed:
 gradle build
 ```
 
-If you dont have gradle installed
-
-Linux
-```
-./gradlew build
-```
-
-Windows
-```
-gradlew.bat build
-```
-
-## How to compile and run
-
-Linux
-```
-./gradlew run
-```
-
-Windows
-```
-gradlew.bat run
-```
-
-## Final Checklist
 - [x] fromCSV function in Booking.java
 - [x] updateBookingsInFile in BookingSystem.java
 - [ ] Analysis UI
