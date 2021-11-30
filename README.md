@@ -10,6 +10,7 @@
 ./gradlew run
 ```
 
+## Final check list
 - [x] fromCSV function in Booking.java
 - [x] updateBookingsInFile in BookingSystem.java
 - [x] Analysis UI
