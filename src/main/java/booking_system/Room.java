@@ -30,7 +30,8 @@ public class Room {
     }
 
     /** check if the number of required room is available */
-    public String CheckAvailability(int numOfRoom){
+    public String CheckAvailability(int numOfRoom) {
+        
         if(hotelType.equals("5 star")){
             if(name.toLowerCase().equals("deluxe double")){
                 if(numOfRoom < noOfRooms_5[0]){
@@ -40,17 +41,17 @@ public class Room {
             }else if(name.toLowerCase().equals("deluxe Twin")){
                 if(numOfRoom < noOfRooms_5[1]){
                     noOfRooms_5[1] -= numOfRoom;
-                    returnF"The number of room you required are available";
+                    return "The number of room you required are available";
                 }
             }else if(name.toLowerCase().equals("deluxe Single")){
                 if(numOfRoom < noOfRooms_5[2]){
                     noOfRooms_5[2] -= numOfRoom;
-                    returnF"The number of room you required are available";
+                    return "The number of room you required are available";
                 }
             }else if(name.toLowerCase().equals("deluxe Family")){
                 if(numOfRoom < noOfRooms_5[2]){
                     noOfRooms_5[2] -= numOfRoom;
-                    returnF"The number of room you required are available";
+                    return "The number of room you required are available";
                 }
             }
 
@@ -75,8 +76,7 @@ public class Room {
             if(name.toLowerCase().equals("Executive double")){
                 if(numOfRoom < noOfRooms_3[0]){
                     noOfRooms_3[0] -= numOfRoom;
-                    return "The number of room you required are available";;
-                    }
+                    return "The number of room you required are available";
                 }else if(name.toLowerCase().equals("Excutive Twin")){
                     if(numOfRoom < noOfRooms_3[1]){
                         noOfRooms_3[1] -= numOfRoom;
@@ -92,10 +92,9 @@ public class Room {
                 }
             }
         }
-            
         
-        }
-    
+        return "";
+    }
 
     /**
      * @return String Get the string representation for the room.
