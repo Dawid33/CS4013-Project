@@ -3,6 +3,7 @@ package ui;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -79,7 +80,7 @@ public class Login extends Scene {
     public ArrayList<Credentials> getUsers() {
         ArrayList<Credentials> output = new ArrayList<>();
         try {
-            CSV file = new CSV(core.IO.readFile(new File(Program.USERS_PATH)));
+            CSV file = new CSV(core.IO.readFile(new File(Program.USERS_PATH.toURI())));
             for(CSV row : file.getSplitBy("\n")) {
                 Iterator<String> iter = row.iterator();
                 String username = iter.next();
@@ -87,9 +88,10 @@ public class Login extends Scene {
                 Credentials user = new Credentials(username, password);
                 output.add(user);
             }
-            
         } catch (IOException e) {
             System.out.println(e.getMessage());
+        } catch (URISyntaxException e) {
+
         }
         return output;
     }
@@ -97,9 +99,13 @@ public class Login extends Scene {
     public void addUser(Credentials user) {
         String s = "\n" + user.username + "," + user.password;
         try {
-            FileWriter writer = new FileWriter(new File(Program.USERS_PATH),true);
-            writer.append(s);
-            writer.close();
+            try {
+                FileWriter writer = new FileWriter(new File(Program.USERS_PATH.toURI()),true);
+                writer.append(s);
+                writer.close();
+            } catch (URISyntaxException e) {
+
+            }
         } catch (IOException e) {
             System.out.println(e);
         }

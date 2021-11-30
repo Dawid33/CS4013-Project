@@ -21,3 +21,9 @@ test {
 }
 
 mainClassName = 'core.Program'
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'core.Program'
+    }
+}
