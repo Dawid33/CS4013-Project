@@ -1,5 +1,7 @@
 # CS4013 Project
 
+github link : https://github.com/Dawid33/CS4013-Project
+
 ## Folder structure
 The `diagrams` folder contains the UML and CRC diagrams.
 The `src` folder contains the java source files.
