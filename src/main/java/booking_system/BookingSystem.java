@@ -16,7 +16,8 @@ public class BookingSystem {
     File bookingArchive;
 
     /** 
-     * @param file File object that represents the file that contains booking information as a CSV.
+     * @param bookingFile File object that represents the file that contains booking information as a CSV.
+     * @param bookingArchive File object that represents the file that contains booking archive information as a CSV.
      * @throws IOException
      */
     public BookingSystem(File bookingFile, File bookingArchive) throws IOException{
@@ -71,9 +72,9 @@ public class BookingSystem {
     /** 
      * @param booking Remove booking from the booking system.
      */
-    public void removeBooking(Booking b) {
-        bookings.remove(b);
-        bookingsArchive.add(b);
+    public void removeBooking(Booking booking) {
+        bookings.remove(booking);
+        bookingsArchive.add(booking);
         try {
             updateArchiveToFile();
             updateBookingsToFile();
@@ -97,7 +98,6 @@ public class BookingSystem {
     }
 
     /** 
-     * @param file Update bookings in the file represented by the file object.
      * @throws IOException
      */
     public void updateBookingsToFile() throws IOException {
