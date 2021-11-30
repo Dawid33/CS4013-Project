@@ -2,7 +2,9 @@ import booking_system.BookingSystem;
 
 public class test {
     int totalProfit;
-    
+    public static void main(String args[]) {
+        
+    }
     public test(BookingSystem system) {
         // Populate fields with information from booking system.
     }

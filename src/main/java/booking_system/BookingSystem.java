@@ -31,6 +31,7 @@ public class BookingSystem {
         // Read file
         String fileContents = "";
         try {
+            System.out.println(file.getAbsolutePath());
             fileContents = IO.readFile(file);
         } catch (IOException e) {
             if (!file.exists()) {
