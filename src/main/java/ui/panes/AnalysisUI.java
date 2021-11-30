@@ -24,8 +24,8 @@ import ui.UI;
 
 public class AnalysisUI extends VBox {
 
-    TableView<Booking> analysisTable = new TableView<>();
-    TableView<Room> rooms = new TableView<>();
+    TableView<Booking> analyticsTable = new TableView<>();
+    
     ArrayList<Booking> currentlySelectedCells = null;
 
     @SuppressWarnings("unchecked")
@@ -36,52 +36,25 @@ public class AnalysisUI extends VBox {
         HBox centeredTitle = new HBox(title);
         centeredTitle.setAlignment(Pos.CENTER);
         
-        analysisTable.setEditable(true);
-        analysisTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        analyticsTable.setEditable(true);
+        analyticsTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
-        TableColumn<Booking, String> nameCol = new TableColumn<>("Name");
-        TableColumn<Booking, String> emailCol = new TableColumn<>("Email");
-        TableColumn<Booking, LocalDate> checkInCol = new TableColumn<>("Check In");
-        TableColumn<Booking, LocalDate> checkOutCol = new TableColumn<>("Check Out");
-        TableColumn<Booking, LocalDate> creationDateCol = new TableColumn<>("Booking Creation Date");
-        TableColumn<Booking, LocalDate> isApPurchase = new TableColumn<>("Advanced Purchase");
-        TableColumn<Booking, LocalDate> numberOfRooms = new TableColumn<>("Total Rooms");
-        TableColumn<Booking, LocalDate> totalCost = new TableColumn<>("Total Cost");
+        TableColumn<Booking, String> htypeCol = new TableColumn<>("Hotel type");
+        TableColumn<Booking, String> rtypeCol = new TableColumn<>("Room type");
+        TableColumn<Booking, Integer> occupancyCol = new TableColumn<>("Total occupancy");
+        TableColumn<Booking, Integer> profitCol = new TableColumn<>("Total profit");
+        TableColumn<Booking, Integer> averageCol = new TableColumn<>("Profit average");
 
-        nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
-        emailCol.setCellValueFactory(new PropertyValueFactory<>("email"));
-        checkInCol.setCellValueFactory(new PropertyValueFactory<>("checkInDate"));
-        checkOutCol.setCellValueFactory(new PropertyValueFactory<>("checkOutDate"));
-        creationDateCol.setCellValueFactory(new PropertyValueFactory<>("creationDate"));
-        isApPurchase.setCellValueFactory(new PropertyValueFactory<>("isApPurchase"));
-        numberOfRooms.setCellValueFactory(new PropertyValueFactory<>("totalCost"));
-        totalCost.setCellValueFactory(new PropertyValueFactory<>("numberOfRooms"));
+        htypeCol.setCellValueFactory(new PropertyValueFactory<>("hotel"));
+        rtypeCol.setCellValueFactory(new PropertyValueFactory<>("room"));
+        occupancyCol.setCellValueFactory(new PropertyValueFactory<>("totalOccupancy"));
+        profitCol.setCellValueFactory(new PropertyValueFactory<>("totalProfit"));
+        averageCol.setCellValueFactory(new PropertyValueFactory<>("profitAverage"));
         
-        analysisTable.getColumns().addAll(nameCol, emailCol, checkInCol, checkOutCol, creationDateCol, isApPurchase, numberOfRooms, totalCost);
-        analysisTable.getItems().addAll(baseUI.getBookingSystem().getBookings());
-
-        TableColumn<Room, String> roomCol = new TableColumn<>("Room Type");
-        TableColumn<Room, String> roomOccupancyCol = new TableColumn<>("Number of People");
-
-        roomCol.setCellValueFactory(new PropertyValueFactory<>("name"));
-        roomOccupancyCol.setCellValueFactory(new PropertyValueFactory<>("occupancy"));
-
-        rooms.getColumns().addAll(roomCol, roomOccupancyCol);
-
-        analysisTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
-            @Override
-            public void changed(ObservableValue observableValue, Object oldValue, Object newValue) {
-                currentlySelectedCells = new ArrayList<>(analysisTable.getSelectionModel().getSelectedItems());
-                if (currentlySelectedCells.size() == 1) {
-                    rooms.getItems().clear();
-                    rooms.getItems().addAll(currentlySelectedCells.get(0).getRooms());
-                }
-
-            }
-        });
-
+        analyticsTable.getColumns().addAll(htypeCol, rtypeCol, occupancyCol, profitCol);
+        analyticsTable.getItems().addAll(baseUI.getBookingSystem().getBookings());
         
-        getChildren().addAll(centeredTitle,analysisTable);
+        getChildren().addAll(centeredTitle,analyticsTable);
 
         }
 
