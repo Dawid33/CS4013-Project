@@ -58,6 +58,7 @@ public class ManageBookingUI extends VBox{
         totalCost.setCellValueFactory(new PropertyValueFactory<>("totalCost"));
         
         table.getColumns().addAll(nameCol, emailCol, checkInCol, checkOutCol, creationDateCol, isApPurchase, numberOfRooms, totalCost);
+
         table.getItems().addAll(baseUI.getBookingSystem().getBookings());
 
         TableColumn<Room, String> roomCol = new TableColumn<>("Room Type");

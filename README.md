@@ -1,14 +1,12 @@
 # CS4013 Project
 
+## How to compile
 
-# Requirements
+If you have the latest version of gradle installed:
 
-* CRC cards - nova^lunosis
-* UML diagram - Carlos
-* Application GUI - Mallard
-* reservations.csv - danuis
-* analytics.csv  - Carlos
-* CSV file for every transaction - nova^lunosis 
+```
+gradle build
+```
 
 - [x] fromCSV function in Booking.java
 - [x] updateBookingsInFile in BookingSystem.java
@@ -26,8 +24,3 @@
 - [ ] CRC cards
 - [ ] Generated javadocs
 - [ ] Make contributions.xlsx
-
-Program.java extends the javafx application 
-Program.java has UI object as field
-UI object extends Scene class
-UI object is set as the main scene in the java fx stage

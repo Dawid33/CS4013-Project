@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"booking_system"},{"l":"core"},{"l":"reservations"},{"l":"ui"},{"l":"ui.interfaces"},{"l":"ui.panes"}]
