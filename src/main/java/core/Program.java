@@ -194,7 +194,7 @@ public class Program extends Application {
     int getRate(String room_type, DayOfWeek day) throws IndexOutOfBoundsException {
         if(rates.containsKey(room_type)) {
             int[] ratesForDay = rates.get(room_type);
-            return ratesForDay[day.getValue()];
+            return ratesForDay[day.getValue() - 1];
         }
         
         throw new IndexOutOfBoundsException();
