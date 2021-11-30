@@ -1,4 +1,9 @@
 package booking_system;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -30,6 +35,50 @@ public class Booking {
      * @return LocalDate Get the checkin date of the booking
      */
     public LocalDate getCheckInDate() { return checkInDate; }
+
+    
+
+    /** Innsert a new row in the file */
+    public void insertNewRow(File file) throws IOException {
+
+        FileWriter fw = new FileWriter(file, true);
+
+
+        fw.append(this.email);
+        fw.append(",");
+        fw.append(this.name);
+        fw.append(",");
+        fw.append(String.valueOf(this.checkInDate));
+        fw.append(",");
+        fw.append(String.valueOf(this.checkOutDate));
+        fw.append(",");
+        fw.append(getIsApPurchase());
+        fw.append("\n");
+
+
+        fw.close();
+    }
+
+    
+    /**
+     * search name in csv.file and print out check in and out date
+     */
+    
+    public static void checkIn(File file, String bookedName) throws IOException {
+        BufferedReader br = new BufferedReader(new FileReader(file));
+        String line;
+        while ((line = br.readLine()) != null) {
+            String[] parts = line.split(",");
+
+            if ((parts[1].equals(bookedName))) {
+                System.out.println("Check in date: " + parts[2] + "\n");
+                System.out.println("Check out date: " + parts[3] + "\n");
+                break;
+            }
+        }
+        br.close();
+    }
+
     
     /** 
      * @return LocalDate Get the checkout date of the booking.
@@ -74,6 +123,43 @@ public class Booking {
         this.rooms = rooms;
     }
 
+       /**
+     * delete specific row from file
+     */
+    /*
+    public static void deleteRow(File file, String bookedName) throws IOException {
+
+        List<String> contents = new ArrayList<>();      //initialist a list to store all the data without the matched name
+        FileReader fr = new FileReader(file);
+        BufferedReader br = new BufferedReader(fr);
+        String line = "";
+
+        try {
+            while ((line = br.readLine()) != null) {
+                String[] args = line.split(",");
+
+                if (!(args[1].equals(bookedName))) {
+                    contents.add(line);
+                }
+            }
+            br.close();
+
+            //add contents to file again without the match name;
+            FileWriter fw = new FileWriter(file);
+            BufferedWriter bw = new BufferedWriter(fw);
+
+            for (String li : contents) {
+                bw.write(li + "\n");
+            }
+            bw.flush();
+            bw.close();
+
+        } catch (Exception e) {
+
+        }
+
+    }
+    */
     
     
     /** 

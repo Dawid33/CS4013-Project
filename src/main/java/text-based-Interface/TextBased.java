@@ -4,17 +4,22 @@ import java.util.*;
 
 import static java.time.LocalDate.parse;
 
-
 public class TextBased {
     public Scanner scan;
     private ArrayList<String> hotels = new ArrayList<String>();
+
     int noOfRoom;
     int occupancy;
     String roomType = "";
     String hotelType = "";
     LocalDate checkInDate;
     LocalDate checkOutDate;
+    LocalDate creationDate = LocalDate.now();
     Boolean ap = false;
+    int totalCost = 0;
+
+    int in5;
+    int in6;
 
 
     /**
@@ -27,8 +32,7 @@ public class TextBased {
 
     /**
      * Runs the system.
-     */
-    /*
+     
     public void run() throws IOException {
         boolean begin = true;
 
@@ -204,7 +208,7 @@ public class TextBased {
 
                     if (ad.equals("Y")) {
                         ap = true;
-
+                        totalCost *= 0.95;
                     } else if (ad.equals("N")) {
                         ap = false;
                     }
@@ -222,17 +226,17 @@ public class TextBased {
                     String date1 = scan.next();
 
 
-                    checkInDate = LocalDate.parse(date1);
+                    checkInDate = parse(date1);
 
 
                     System.out.println("Check out date: (yyyy-mm-dd)");
 
-                    checkOutDate = LocalDate.parse(scan.next());
+                    checkOutDate = parse(scan.next());
 
                     System.out.println("");
 
 
-                    Booking user = new Booking(email, name, checkInDate, checkOutDate, ap, roomType, noOfRoom);
+                    Booking user = new Booking(name, email, checkInDate, checkOutDate, creationDate, ap, room);
 
                     user.insertNewRow(new File("booking.csv"));
 
@@ -310,8 +314,7 @@ public class TextBased {
                         } else if (in4 == 4) {
                             roomType = "Deluxe Family";
                         }
-                        int in5;
-                        int in6;
+
 
                         if (in4 != 4) {
                             System.out.println("Note: Maximum of 2 people allow in this type of room.");
@@ -415,13 +418,13 @@ public class TextBased {
                     }
                     System.out.println("Check in date: (yyyy-mm-dd)");
                     String date1 = scan.next();
-                    checkInDate = LocalDate.parse(date1);
+                    checkInDate = parse(date1);
                     System.out.println("Check out date: (yyyy-mm-dd)");
-                    checkOutDate = LocalDate.parse(scan.next());
+                    checkOutDate = parse(scan.next());
 
                     System.out.println("");
 
-                    Booking user = new Booking(email1, name1, checkInDate, checkOutDate, ap, roomType, noOfRoom);
+                    Booking user = new Booking(name1, email1, checkInDate, checkOutDate,creationDate, ap, roomType, noOfRoom);
 
                     user.insertNewRow(new File("booking.csv"));
 
@@ -449,7 +452,7 @@ public class TextBased {
                 //manager mode:============================================================================
             } else if (input.equals("M")) {
                 System.out.println("This is Manager mode: ***********************************************************");
-                System.out.println("M)make a reservation | C)ancellation  | B)ooking log | A)nalysis csv file | Q)uit");
+                System.out.println("M)make a reservation | C)ancellation  S)et Prices | G)et price in hotel B)ooking log | A)nalysis csv file | Q)uit");
 
                 String in1 = scan.nextLine().toUpperCase();
                 if (in1.equals("Q")) {
@@ -616,7 +619,7 @@ public class TextBased {
                         }
                     }
 
-                    Booking user = new Booking(email1, name1, checkIn, checkOut, ap, roomType, noOfRoom);
+                    Booking user = new Booking(email1, name1, checkIn, checkOut,creationDate, ap, roomType, noOfRoom);
 
                     user.insertNewRow(new File("booking.csv"));
 
@@ -646,7 +649,82 @@ public class TextBased {
                     System.out.println("End of the file.");
                 } else if (in1.equals("A")) {
                     System.out.println("This is a analysis file");
+                } else if (in1.equals("S")) {
+                    System.out.println("which type of hotel do you want to set prices ?");
+                    System.out.println("5)star hotel  |  4)star Hotel  |  3)star Hotel");
+                    int star = scan.nextInt();
+
+                    if (star == 5) {
+                        System.out.println("Enter the price for the following room types:");
+                        System.out.print("Set Price to Deluxe Double:  ");
+                        int rp = scan.nextInt();
+                        System.out.print("Set Price to Deluxe Twin:  ");
+                        int rp1 = scan.nextInt();
+                        System.out.print("Set Price to Deluxe Single:  ");
+                        int rp2 = scan.nextInt();
+                        System.out.print("Set Price to Deluxe Family: ");
+                        int rp3 = scan.nextInt();
+
+                        Room.setPrice(star, rp, rp1, rp2, rp3);
+                        System.out.println("****** Prices are set! ******");
+
+                    } else if (star == 4) {
+                        System.out.println("Enter the price you want to set for the following room types:");
+                        System.out.print("Set Price to Executive Double:  ");
+                        int rp = scan.nextInt();
+                        System.out.print("Set Price to Executive Twin:  ");
+                        int rp1 = scan.nextInt();
+                        System.out.print("Set Price to Executive Single: ");
+                        int rp2 = scan.nextInt();
+
+
+                        Room.setPrice1(star, rp, rp1, rp2);
+                        System.out.println("****** Prices are set! ******");
+                        System.out.println("");
+
+
+                    } else if (star == 3) {
+
+
+                        System.out.println("Enter the price you want to set for the following room types:");
+                        System.out.print("Set Price to Classic Double:  ");
+                        int rp = scan.nextInt();
+                        System.out.print("Set Price to Classic Twin:  ");
+                        int rp1 = scan.nextInt();
+                        System.out.print("Set Price to Classic Single:  ");
+                        int rp2 = scan.nextInt();
+
+
+                        Room.setPrice1(star, rp, rp1, rp2);
+                        System.out.println("****** Prices are set! ******");
+                        System.out.println("");
+
+                    }
+                }else if(in1.equals("G")){
+                    System.out.println("Which type of hotel do you want to see the prices?");
+                    System.out.println("5)-star  | 4)-star  |  3)-star");
+
+                    int type = scan.nextInt();
+
+                    if(type == 5){
+                        System.out.println("Price of 5-star Hotel: ");
+                        System.out.println("Deluxe Double | Deluxe Twin | Deluxe Single | Deluxe Family");
+                        Room.getPrice(type);
+                    }else if(type == 4){
+                        System.out.println("Price of 4-star Hotel: ");
+                        System.out.println("Executive Double | Executive Twin | Executive Single ");
+                        Room.getPrice(type);
+                    }else if(type == 3){
+                        System.out.println("Price of 3-star Hotel: ");
+                        System.out.println("Classic Double | Classic Twin | Classic Single ");
+                        Room.getPrice(type);
+                    }
+
+
+
                 }
+
+
 
 
             }
@@ -654,8 +732,6 @@ public class TextBased {
     }
     */
 }
-
-
 
 
 
