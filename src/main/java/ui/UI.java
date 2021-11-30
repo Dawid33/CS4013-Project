@@ -128,7 +128,7 @@ public class UI extends Scene {
         });
     
         
-        VBox sidebar = new VBox(centeredCompanyLabel, manageReservation, makeReservation, viewAnalysis, viewSettings, exit);
+        VBox sidebar = new VBox(centeredCompanyLabel, makeReservation, manageReservation, viewAnalysis, viewSettings, exit);
         sidebar.setSpacing(UI.DEFAULT_SPACING);
         sidebar.setPadding(new Insets(UI.DEFAULT_SPACING));
         sidebar.getStyleClass().add("sidebar");
@@ -153,7 +153,6 @@ public class UI extends Scene {
         setRoot(wholeScene);
     }
 
-    
     /** 
      * This function resets the content pane to a new node. The content pane is the right hand side blank area that contains most UI functions. It is changed by the buttons in the sidebar.
      * @param node Node to set the content pane to.
