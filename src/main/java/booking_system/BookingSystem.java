@@ -68,6 +68,10 @@ public class BookingSystem {
     public ArrayList<Booking> getBookings() {
         return bookings;
     }
+    
+    public ArrayList<Booking> getBookingsArchives() {
+        return bookingsArchive;
+    }
 
     /** 
      * @param booking Remove booking from the booking system.
@@ -141,5 +145,7 @@ public class BookingSystem {
         for(Booking b : bookings) {
             System.out.println(b.toString());
         }
+
+    
     }
 }

@@ -15,6 +15,7 @@ public class Booking {
     public int totalCost = 0;
     ArrayList<Room> rooms = new ArrayList<>();
 
+
     /** 
      * @return String Get the email fo the client who booked this booking.
      */
