@@ -1,11 +1,13 @@
 # CS4013 Project
 
 ## How to compile
-
-If you have the latest version of gradle installed:
-
 ```
-gradle build
+./gradlew build
+```
+
+## How to run
+```
+./gradlew run
 ```
 
 - [x] fromCSV function in Booking.java
