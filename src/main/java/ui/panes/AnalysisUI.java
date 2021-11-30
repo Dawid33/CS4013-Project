@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import analytic.Analytics;
 import booking_system.Booking;
 import booking_system.Room;
 import javafx.beans.value.ChangeListener;
@@ -24,9 +25,9 @@ import ui.UI;
 
 public class AnalysisUI extends VBox {
 
-    TableView<Booking> analyticsTable = new TableView<>();
+    TableView<Analytics> analyticsTable = new TableView<>();
     
-    ArrayList<Booking> currentlySelectedCells = null;
+    ArrayList<Analytics> currentlySelectedCells = null;
 
     @SuppressWarnings("unchecked")
     public AnalysisUI(UI baseUI) {
@@ -39,11 +40,11 @@ public class AnalysisUI extends VBox {
         analyticsTable.setEditable(true);
         analyticsTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
-        TableColumn<Booking, String> htypeCol = new TableColumn<>("Hotel type");
-        TableColumn<Booking, String> rtypeCol = new TableColumn<>("Room type");
-        TableColumn<Booking, Integer> occupancyCol = new TableColumn<>("Total occupancy");
-        TableColumn<Booking, Integer> profitCol = new TableColumn<>("Total profit");
-        TableColumn<Booking, Integer> averageCol = new TableColumn<>("Profit average");
+        TableColumn<Analytics, String> htypeCol = new TableColumn<>("Hotel type");
+        TableColumn<Analytics, String> rtypeCol = new TableColumn<>("Room type");
+        TableColumn<Analytics, Integer> occupancyCol = new TableColumn<>("Total occupancy");
+        TableColumn<Analytics, Integer> profitCol = new TableColumn<>("Total profit");
+        TableColumn<Analytics, Integer> averageCol = new TableColumn<>("Profit average");
 
         htypeCol.setCellValueFactory(new PropertyValueFactory<>("hotel"));
         rtypeCol.setCellValueFactory(new PropertyValueFactory<>("room"));
@@ -51,11 +52,12 @@ public class AnalysisUI extends VBox {
         profitCol.setCellValueFactory(new PropertyValueFactory<>("totalProfit"));
         averageCol.setCellValueFactory(new PropertyValueFactory<>("profitAverage"));
         
-        analyticsTable.getColumns().addAll(htypeCol, rtypeCol, occupancyCol, profitCol);
-        analyticsTable.getItems().addAll(baseUI.getBookingSystem().getBookings());
+        analyticsTable.getColumns().addAll(htypeCol, rtypeCol, occupancyCol, profitCol, averageCol);
+        analyticsTable.getItems().addAll();
         
         getChildren().addAll(centeredTitle,analyticsTable);
-
+        
+        
         }
 
 }
