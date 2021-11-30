@@ -69,7 +69,7 @@ public class Program extends Application {
         // Apply CSS.
         onThemeChange(IO.loadSettings().theme);
         
-        primaryStage.setScene(ui);
+        primaryStage.setScene(login);
         primaryStage.show();
     }
 
