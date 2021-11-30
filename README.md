@@ -9,12 +9,12 @@ The `javadocs` folder contains the generated javadocs.
 
 ## How to compile
 ```
-./gradlew build
+gradlew build
 ```
 
 ## How to run
 ```
-./gradlew run
+gradlew run
 ```
 
 ## Final check list
