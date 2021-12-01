@@ -32,7 +32,7 @@ public class TextBased {
 
     /**
      * Runs the system.
-     */
+     
     public void run() throws IOException {
         boolean begin = true;
 
@@ -208,6 +208,10 @@ public class TextBased {
 
                     if (ad.equals("Y")) {
                         ap = true;
+<<<<<<< HEAD:src/main/java/text-based-Interface/TextBased
+=======
+                        totalCost *= 0.95;
+>>>>>>> 70f07d9074e4e2353505fc52926a3e10c38f45cb:src/main/java/text-based-Interface/TextBased.java
                     } else if (ad.equals("N")) {
                         ap = false;
                     }
@@ -234,8 +238,11 @@ public class TextBased {
 
 
 
+<<<<<<< HEAD:src/main/java/text-based-Interface/TextBased
                     String str = hotelType + ";" + roomType + ";" + occupancy;
                     Room room = new Room(str);
+=======
+>>>>>>> 70f07d9074e4e2353505fc52926a3e10c38f45cb:src/main/java/text-based-Interface/TextBased.java
                     Booking user = new Booking(name, email, checkInDate, checkOutDate, creationDate, ap, room);
 
                     user.insertNewRow(new File("booking.csv"));
@@ -424,10 +431,14 @@ public class TextBased {
 
                     System.out.println("");
 
+<<<<<<< HEAD:src/main/java/text-based-Interface/TextBased
                     String str = hotelType + ";" + roomType + ";" + occupancy + ";";
                     Room room = new Room(str);
 
                     Booking user = new Booking(name1, email1, checkInDate, checkOutDate, creationDate, ap, room);
+=======
+                    Booking user = new Booking(name1, email1, checkInDate, checkOutDate,creationDate, ap, roomType, noOfRoom);
+>>>>>>> 70f07d9074e4e2353505fc52926a3e10c38f45cb:src/main/java/text-based-Interface/TextBased.java
 
                     user.insertNewRow(new File("booking.csv"));
 
@@ -623,9 +634,13 @@ public class TextBased {
                         }
                     }
 
+<<<<<<< HEAD:src/main/java/text-based-Interface/TextBased
                     String str = hotelType + ";" + roomType + ";" + occupancy;
                     Room room = new Room(str);
                     Booking user = new Booking(name1, email1, checkInDate, checkOutDate, creationDate, ap, room);
+=======
+                    Booking user = new Booking(email1, name1, checkIn, checkOut,creationDate, ap, roomType, noOfRoom);
+>>>>>>> 70f07d9074e4e2353505fc52926a3e10c38f45cb:src/main/java/text-based-Interface/TextBased.java
 
                     user.insertNewRow(new File("booking.csv"));
 
@@ -655,6 +670,7 @@ public class TextBased {
                     scanner.close();
                     System.out.println("End of the file.");
                 } else if (in1.equals("A")) {
+<<<<<<< HEAD:src/main/java/text-based-Interface/TextBased
                     System.out.println("-- This is a reservation file: -- ");
                     Scanner scanner = new Scanner(new File("analysis.csv"));
 
@@ -665,6 +681,9 @@ public class TextBased {
 
                     scanner.close();
                     System.out.println("End of the file.");
+=======
+                    System.out.println("This is a analysis file");
+>>>>>>> 70f07d9074e4e2353505fc52926a3e10c38f45cb:src/main/java/text-based-Interface/TextBased.java
                 } else if (in1.equals("S")) {
                     System.out.println("which type of hotel do you want to set prices ?");
                     System.out.println("5)star hotel  |  4)star Hotel  |  3)star Hotel");
@@ -716,12 +735,17 @@ public class TextBased {
                         System.out.println("");
 
                     }
+<<<<<<< HEAD:src/main/java/text-based-Interface/TextBased
                 } else if (in1.equals("G")) {
+=======
+                }else if(in1.equals("G")){
+>>>>>>> 70f07d9074e4e2353505fc52926a3e10c38f45cb:src/main/java/text-based-Interface/TextBased.java
                     System.out.println("Which type of hotel do you want to see the prices?");
                     System.out.println("5)-star  | 4)-star  |  3)-star");
 
                     int type = scan.nextInt();
 
+<<<<<<< HEAD:src/main/java/text-based-Interface/TextBased
                     if (type == 5) {
                         System.out.println("Price of 5-star Hotel: ");
                         System.out.println("Deluxe Double | Deluxe Twin | Deluxe Single | Deluxe Family");
@@ -731,12 +755,26 @@ public class TextBased {
                         System.out.println("Executive Double | Executive Twin | Executive Single ");
                         Room.getPrice(type);
                     } else if (type == 3) {
+=======
+                    if(type == 5){
+                        System.out.println("Price of 5-star Hotel: ");
+                        System.out.println("Deluxe Double | Deluxe Twin | Deluxe Single | Deluxe Family");
+                        Room.getPrice(type);
+                    }else if(type == 4){
+                        System.out.println("Price of 4-star Hotel: ");
+                        System.out.println("Executive Double | Executive Twin | Executive Single ");
+                        Room.getPrice(type);
+                    }else if(type == 3){
+>>>>>>> 70f07d9074e4e2353505fc52926a3e10c38f45cb:src/main/java/text-based-Interface/TextBased.java
                         System.out.println("Price of 3-star Hotel: ");
                         System.out.println("Classic Double | Classic Twin | Classic Single ");
                         Room.getPrice(type);
                     }
 
+<<<<<<< HEAD:src/main/java/text-based-Interface/TextBased
                     System.out.println("prices are set");
+=======
+>>>>>>> 70f07d9074e4e2353505fc52926a3e10c38f45cb:src/main/java/text-based-Interface/TextBased.java
 
 
                 }
@@ -747,10 +785,14 @@ public class TextBased {
             }
         }
     }
+    */
 }
 
 
 
+<<<<<<< HEAD:src/main/java/text-based-Interface/TextBased
 
 
 
+=======
+>>>>>>> 70f07d9074e4e2353505fc52926a3e10c38f45cb:src/main/java/text-based-Interface/TextBased.java
