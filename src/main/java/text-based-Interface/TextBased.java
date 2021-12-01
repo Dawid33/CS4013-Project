@@ -1,798 +1,151 @@
-import java.io.*;
-import java.time.LocalDate;
-import java.util.*;
+package booking_system;
 
-import static java.time.LocalDate.parse;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
 
-public class TextBased {
-    public Scanner scan;
-    private ArrayList<String> hotels = new ArrayList<String>();
+import core.IO;
 
-    int noOfRoom;
-    int occupancy;
-    String roomType = "";
-    String hotelType ;
-    LocalDate checkInDate;
-    LocalDate checkOutDate;
-    LocalDate creationDate = LocalDate.now();
-    Boolean ap = false;
-    int totalCost = 0;
+public class BookingSystem {
+    ArrayList<Booking> bookings = new ArrayList<>();
+    ArrayList<Booking> bookingsArchive = new ArrayList<>();
+    File bookingFile;
+    File bookingArchive;
 
-    int in5;
-    int in6;
-
-
-    /**
-     * Constructs an HotelReservationMenu object.
+    /** 
+     * @param bookingFile File object that represents the file that contains booking information as a CSV.
+     * @param bookingArchive File object that represents the file that contains booking archive information as a CSV.
+     * @throws IOException
      */
-    public TextBased() {
-        scan = new Scanner(System.in);
+    public BookingSystem(File bookingFile, File bookingArchive) throws IOException{
+        this.bookingFile = bookingFile;
+        this.bookingArchive = bookingArchive;
+        bookings = readFileIntoArray(bookingFile);
+        bookingsArchive = readFileIntoArray(bookingArchive);
     }
 
-
-    /**
-     * Runs the system.
-     
-    public void run() throws IOException {
-        boolean begin = true;
-
-        //add hotel types:
-        hotels.add("5-star");
-        hotels.add("4-star");
-        hotels.add("3-star");
-
-
-        while (begin) {
-            System.out.println("---------------------------------------------------");
-            System.out.println("******* Welcome to Hotel Reservation System *******");
-            System.out.println("---------------------------------------------------");
-            System.out.println("Login:  C)ustomer  |  S)taff  |  M)anager  |  Q)uit");
-            System.out.print("ENTER --> ");
-            String input = scan.nextLine().toUpperCase();
-
-            if (input.equals("Q")) {
-                break;
-
-            }
-
-            if (input.equals("C")) {
-                System.out.println("Do you want to make a 1)Reservation or 2)Cancellation?");
-                int input2 = scan.nextInt();
-
-                if (input2 == 1) {
-                    System.out.println("Choose a Type of Hotel you want to stay");
-                    System.out.println("5)-star | 4)-star | 3)-star");
-
-                    int input3 = scan.nextInt();
-                    System.out.println("Choose a room type");
-
-                    if (input3 == 5) {
-                        hotelType = "5-star hotel";
-                        System.out.println("1)Deluxe Double | 2)Deluxe Twin | 3) Deluxe Single | 4)Deluxe Family");
-
-                    } else if (input3 == 4) {
-                        hotelType = "4-star hotel";
-                        System.out.println("1)Executive Double | 2)Executive Twin | 3) Executive Single");
-
-                    } else if (input3 == 3) {
-                        hotelType = "3-star hotel";
-                        System.out.println("1)Classic Double | 2)Classic Twin | 3) Classic Single");
-
-                    }
-
-
-                    //5 star hotel:
-                    if (input3 == 5) {
-
-                        int in4 = scan.nextInt();
-
-                        if (in4 == 1) {
-                            roomType = "Deluxe Double";
-                        } else if (in4 == 2) {
-                            roomType = "Deluxe Twin";
-                        } else if (in4 == 3) {
-                            roomType = "Deluxe Single";
-                        } else if (in4 == 4) {
-                            roomType = "Deluxe Family";
-                        }
-                        int in5;
-                        int in6;
-
-                        if (in4 != 4) {
-                            System.out.println("Note: Maximum of 2 people allow in this type of room.");
-                            System.out.println("Enter how many rooms you want to book?");
-                            in5 = scan.nextInt();
-                            noOfRoom = in5;
-                            System.out.println("Enter how many people want to stay in the hotel");
-                            in6 = scan.nextInt();
-                            occupancy = in6;
-
-                            if (noOfRoom * 2 < occupancy) {
-                                System.out.println("The amount of people you entered exceed the occupancy of the amount of room you required.");
-                                System.out.println("Note: Maximum of 2 people allow in this type of room.");
-                                System.out.println("Enter how many rooms you want to book?");
-                                in5 = scan.nextInt();
-                                noOfRoom = in5;
-                                System.out.println("Enter how many people want to stay in the hotel");
-                                in6 = scan.nextInt();
-                                occupancy = in6;
-                            }
-
-                        } else {
-                            System.out.println("Note: Maximum of 3 people allow in this type of room.");
-                            System.out.println("Enter how many rooms you want to book?");
-                            in5 = scan.nextInt();
-                            noOfRoom = in5;
-                            System.out.println("Enter how many people want to stay in the hotel");
-                            in6 = scan.nextInt();
-                            occupancy = in6;
-
-                            if (noOfRoom * 3 < occupancy) {
-                                System.out.println("The amount of people you entered exceed the occupancy of the amount of room you required.");
-                                System.out.println("Note: Maximum of 2 people allow in this type of room.");
-                                System.out.println("Enter how many rooms you want to book?");
-                                in5 = scan.nextInt();
-                                noOfRoom = in5;
-                                System.out.println("Enter how many people want to stay in the hotel");
-                                in6 = scan.nextInt();
-                                occupancy = in6;
-                            }
-                        }
-
-
-                    } else if (input3 == 4 || input3 == 3) {
-
-                        int in7 = scan.nextInt();
-
-                        if (input3 == 4 && in7 == 1) {
-                            roomType = "Executive Double";
-                            System.out.println("Note: Maximum of 2 people allow in this type of room.");
-                        } else if (input3 == 4 && in7 == 2) {
-                            roomType = "Executive Twin";
-                            System.out.println("Note: Maximum of 2 people allow in this type of room.");
-                        } else if (input3 == 4 && in7 == 3) {
-                            roomType = "Executive Single";
-                            System.out.println("Note: Maximum of 1 people allow in this type of room.");
-                        } else if (input3 == 3 && in7 == 1) {
-                            roomType = "Classic Double";
-                            System.out.println("Note: Maximum of 2 people allow in this type of room.");
-                        } else if (input3 == 3 && in7 == 2) {
-                            roomType = "Classic Twin";
-                            System.out.println("Note: Maximum of 2 people allow in this type of room.");
-                        } else if (input3 == 3 && in7 == 3) {
-                            roomType = "Classic Single";
-                            System.out.println("Note: Maximum of 1 people allow in this type of room.");
-                        }
-
-                        int in5, in6;
-                        System.out.println("Enter how many rooms you want to book?");
-                        in5 = scan.nextInt();
-                        noOfRoom = in5;
-                        System.out.println("Enter how many people want to stay in the hotel");
-                        in6 = scan.nextInt();
-                        occupancy = in6;
-
-                        if (in7 == 1 || in7 == 2) {
-                            if (noOfRoom * 2 < occupancy) {
-                                System.out.println("The amount of people you entered exceed the occupancy of the amount of room you required.");
-                                System.out.println("Note: Maximum of 2 people allow in this type of room.");
-                                System.out.println("Enter how many rooms you want to book?");
-                                in5 = scan.nextInt();
-                                noOfRoom = in5;
-                                System.out.println("Enter how many people want to stay in the hotel");
-                                in6 = scan.nextInt();
-                                occupancy = in6;
-                            }
-
-
-                        } else if (in7 == 3) {
-                            if (noOfRoom < occupancy) {
-                                System.out.println("The amount of people you entered exceed the occupancy of the amount of room you required.");
-                                System.out.println("Note: Maximum of 1 people allow in this type of room.");
-                                System.out.println("Enter how many rooms you want to book?");
-                                in5 = scan.nextInt();
-                                noOfRoom = in5;
-                                System.out.println("Enter how many people want to stay in the hotel");
-                                in6 = scan.nextInt();
-                                occupancy = in6;
-                            }
-                        }
-                    }
-
-
-                    System.out.println("A 5% off applied to an advanced purchase.");
-                    System.out.println("Would you like to pay in advance? [Y/N]");
-
-                    String ad = scan.next().toUpperCase();
-
-
-                    if (ad.equals("Y")) {
-                        ap = true;
-<<<<<<< HEAD:src/main/java/text-based-Interface/TextBased
-=======
-                        totalCost *= 0.95;
->>>>>>> 70f07d9074e4e2353505fc52926a3e10c38f45cb:src/main/java/text-based-Interface/TextBased.java
-                    } else if (ad.equals("N")) {
-                        ap = false;
-                    }
-
-
-                    System.out.println("What is your name?");
-                    String in8 = scan.next();
-                    String name = in8;
-
-                    System.out.println("What is your email?");
-                    String in9 = scan.next();
-                    String email = in9;
-
-                    System.out.println("Check in date: (yyyy-mm-dd)");
-                    String date1 = scan.next();
-
-
-                    checkInDate = parse(date1);
-
-
-                    System.out.println("Check out date: (yyyy-mm-dd)");
-
-                    checkOutDate = parse(scan.next());
-
-
-
-<<<<<<< HEAD:src/main/java/text-based-Interface/TextBased
-                    String str = hotelType + ";" + roomType + ";" + occupancy;
-                    Room room = new Room(str);
-=======
->>>>>>> 70f07d9074e4e2353505fc52926a3e10c38f45cb:src/main/java/text-based-Interface/TextBased.java
-                    Booking user = new Booking(name, email, checkInDate, checkOutDate, creationDate, ap, room);
-
-                    user.insertNewRow(new File("booking.csv"));
-
-                    System.out.println("******Thank you for using Hotel Reservation System!******");
-                    System.out.println();
-
-
-                } else {//make a cancellation
-
-                    System.out.println("Please enter your name");
-                    String in10 = scan.next();
-
-                    Booking.deleteRow(new File("booking.csv"), in10);
-                    System.out.println("******Cancellation successful! Thank you for using our system!******");
+    private ArrayList<Booking> readFileIntoArray(File file) throws IOException{
+        ArrayList<Booking> bookings = new ArrayList<>();
+        // Read file
+        String fileContents = "";
+        try {
+            System.out.println(file.getAbsolutePath());
+            fileContents = IO.readFile(file);
+        } catch (IOException e) {
+            if (!file.exists()) {
+                try {
+                    file.createNewFile();
+                } catch (IOException e2) {
+                    throw e2;
                 }
-
-//staff mode============================================================================================================
-            } else if (input.equals("S")) {
-                System.out.println("This is Staff mode: ****************************************************");
-                System.out.println("M)make a resrvation | C)ancellation  |  CH)eck date for customer |  Q)uit");
-
-                String in1 = scan.nextLine().toUpperCase();
-                if (in1.equals("Q")) {
-                    break;
-                }
-
-                if (in1.equals("M")) {
-                    boolean ap = false;
-
-                    System.out.println("Please enter the following detail:");
-                    System.out.println("Email:");
-                    String email1 = scan.nextLine();
-                    System.out.println("Name:");
-                    String name1 = scan.nextLine();
-                    System.out.println("A)dvanced purchase or S)tandard purchase");
-                    String in2 = scan.next().toUpperCase();
-                    if (in2.equals("A")) {
-                        ap = true;
-                    } else {
-                        ap = false;
-                    }
-
-                    System.out.println("Choose a Type of Hotel you want to stay");
-                    System.out.println("5)-star | 4)-star | 3)-star");
-
-                    int input3 = scan.nextInt();
-                    System.out.println("Choose a room type");
-
-                    if (input3 == 5) {
-                        hotelType = "5-star";
-                        System.out.println("1)Deluxe Double | 2)Deluxe Twin | 3) Deluxe Single | 4)Deluxe Family");
-
-                    } else if (input3 == 4) {
-                        hotelType = "4-star";
-                        System.out.println("1)Executive Double | 2)Executive Twin | 3) Executive Single");
-
-                    } else if (input3 == 3) {
-                        hotelType = "3-star";
-                        System.out.println("1)Classic Double | 2)Classic Twin | 3) Classic Single");
-
-                    }
-
-
-                    //5 star hotel:
-                    if (input3 == 5) {
-
-                        int in4 = scan.nextInt();
-
-                        if (in4 == 1) {
-                            roomType = "Deluxe Double";
-                        } else if (in4 == 2) {
-                            roomType = "Deluxe Twin";
-                        } else if (in4 == 3) {
-                            roomType = "Deluxe Single";
-                        } else if (in4 == 4) {
-                            roomType = "Deluxe Family";
-                        }
-
-
-                        if (in4 != 4) {
-                            System.out.println("Note: Maximum of 2 people allow in this type of room.");
-                            System.out.println("Enter how many rooms you want to book?");
-                            in5 = scan.nextInt();
-                            noOfRoom = in5;
-                            System.out.println("Enter how many people want to stay in the hotel");
-                            in6 = scan.nextInt();
-                            occupancy = in6;
-
-                            if (noOfRoom * 2 < occupancy) {
-                                System.out.println("The amount of people you entered exceed the occupancy of the amount of room you required.");
-                                System.out.println("Note: Maximum of 2 people allow in this type of room.");
-                                System.out.println("Enter how many rooms you want to book?");
-                                in5 = scan.nextInt();
-                                noOfRoom = in5;
-                                System.out.println("Enter how many people want to stay in the hotel");
-                                in6 = scan.nextInt();
-                                occupancy = in6;
-                            }
-
-                        } else {
-                            System.out.println("Note: Maximum of 3 people allow in this type of room.");
-                            System.out.println("Enter how many rooms you want to book?");
-                            in5 = scan.nextInt();
-                            noOfRoom = in5;
-                            System.out.println("Enter how many people want to stay in the hotel");
-                            in6 = scan.nextInt();
-                            occupancy = in6;
-
-                            if (noOfRoom * 3 < occupancy) {
-                                System.out.println("The amount of people you entered exceed the occupancy of the amount of room you required.");
-                                System.out.println("Note: Maximum of 2 people allow in this type of room.");
-                                System.out.println("Enter how many rooms you want to book?");
-                                in5 = scan.nextInt();
-                                noOfRoom = in5;
-                                System.out.println("Enter how many people want to stay in the hotel");
-                                in6 = scan.nextInt();
-                                occupancy = in6;
-                            }
-                        }
-
-
-                    } else if (input3 == 4 || input3 == 3) {
-
-                        int in7 = scan.nextInt();
-
-                        if (input3 == 4 && in7 == 1) {
-                            roomType = "Executive Double";
-                            System.out.println("Note: Maximum of 2 people allow in this type of room.");
-                        } else if (input3 == 4 && in7 == 2) {
-                            roomType = "Executive Twin";
-                            System.out.println("Note: Maximum of 2 people allow in this type of room.");
-                        } else if (input3 == 4 && in7 == 3) {
-                            roomType = "Executive Single";
-                            System.out.println("Note: Maximum of 1 people allow in this type of room.");
-                        } else if (input3 == 3 && in7 == 1) {
-                            roomType = "Classic Double";
-                            System.out.println("Note: Maximum of 2 people allow in this type of room.");
-                        } else if (input3 == 3 && in7 == 2) {
-                            roomType = "Classic Twin";
-                            System.out.println("Note: Maximum of 2 people allow in this type of room.");
-                        } else if (input3 == 3 && in7 == 3) {
-                            roomType = "Classic Single";
-                            System.out.println("Note: Maximum of 1 people allow in this type of room.");
-                        }
-
-                        int in5, in6;
-                        System.out.println("Enter how many rooms you want to book?");
-                        in5 = scan.nextInt();
-                        noOfRoom = in5;
-                        System.out.println("Enter how many people want to stay in the hotel");
-                        in6 = scan.nextInt();
-                        occupancy = in6;
-
-                        if (in7 == 1 || in7 == 2) {
-                            if (noOfRoom * 2 < occupancy) {
-                                System.out.println("The amount of people you entered exceed the occupancy of the amount of room you required.");
-                                System.out.println("Note: Maximum of 2 people allow in this type of room.");
-                                System.out.println("Enter how many rooms you want to book?");
-                                in5 = scan.nextInt();
-                                noOfRoom = in5;
-                                System.out.println("Enter how many people want to stay in the hotel");
-                                in6 = scan.nextInt();
-                                occupancy = in6;
-                            }
-
-
-                        } else if (in7 == 3) {
-                            if (noOfRoom < occupancy) {
-                                System.out.println("The amount of people you entered exceed the occupancy of the amount of room you required.");
-                                System.out.println("Note: Maximum of 1 people allow in this type of room.");
-                                System.out.println("Enter how many rooms you want to book?");
-                                in5 = scan.nextInt();
-                                noOfRoom = in5;
-                                System.out.println("Enter how many people want to stay in the hotel");
-                                in6 = scan.nextInt();
-                                occupancy = in6;
-                            }
-                        }
-                    }
-                    System.out.println("Check in date: (yyyy-mm-dd)");
-                    String date1 = scan.next();
-                    checkInDate = parse(date1);
-                    System.out.println("Check out date: (yyyy-mm-dd)");
-                    checkOutDate = parse(scan.next());
-
-                    System.out.println("");
-
-<<<<<<< HEAD:src/main/java/text-based-Interface/TextBased
-                    String str = hotelType + ";" + roomType + ";" + occupancy + ";";
-                    Room room = new Room(str);
-
-                    Booking user = new Booking(name1, email1, checkInDate, checkOutDate, creationDate, ap, room);
-=======
-                    Booking user = new Booking(name1, email1, checkInDate, checkOutDate,creationDate, ap, roomType, noOfRoom);
->>>>>>> 70f07d9074e4e2353505fc52926a3e10c38f45cb:src/main/java/text-based-Interface/TextBased.java
-
-                    user.insertNewRow(new File("booking.csv"));
-
-
-                    System.out.println("******Thank you for using Hotel Reservation System!******");
-                    System.out.println();
-
-                    //make a cancellation=====================================================================================================
-                } else if (in1.equals("C")) {
-
-                    System.out.println("Please enter your name");
-                    String in10 = scan.next();
-
-                    Booking.deleteRow(new File("booking.csv"), in10);
-                    System.out.println("******Cancellation successful! Thank you for using our system!******");
-                    System.out.println();
-
-                } else if (in1.equals("CH")) {
-                    System.out.println("Please enter your name: ");
-                    String in11 = scan.nextLine();
-                    System.out.println("Result: ");
-                    Booking.checkIn(new File("booking.csv"), in11);
-
-
-                }
-                //manager mode:============================================================================
-            } else if (input.equals("M")) {
-                System.out.println("This is Manager mode: ***********************************************************");
-                System.out.println("M)make a reservation | C)ancellation  S)et Prices | G)et price in hotel B)ooking log | A)nalysis csv file | Q)uit");
-
-                String in1 = scan.nextLine().toUpperCase();
-                if (in1.equals("Q")) {
-                    break;
-                }
-
-                if (in1.equals("M")) {
-                    boolean ap = false;
-
-                    System.out.println("Please enter the following detail:");
-                    System.out.println("Email:");
-                    String email1 = scan.nextLine();
-                    System.out.println("Name:");
-                    String name1 = scan.nextLine();
-                    System.out.println("Check in date (yyyy-mm-dd) format");
-                    LocalDate checkIn = parse(scan.nextLine());
-                    System.out.println("Check out date (yyyy-mm-dd) format");
-                    LocalDate checkOut = parse(scan.nextLine());
-
-                    System.out.println("A)dvanced purchase or S)tandard purchase");
-                    String in2 = scan.nextLine().toUpperCase();
-                    if (in2.equals("A")) {
-                        ap = true;
-                    } else {
-                        ap = false;
-                    }
-
-                    System.out.println("Choose a Type of Hotel you want to stay");
-                    System.out.println("5)-star | 4)-star | 3)-star");
-
-                    int input3 = scan.nextInt();
-                    System.out.println("Choose a room type");
-
-                    if (input3 == 5) {
-                        hotelType = "5-star hotel";
-                        System.out.println("1)Deluxe Double | 2)Deluxe Twin | 3) Deluxe Single | 4)Deluxe Family");
-
-                    } else if (input3 == 4) {
-                        hotelType = "4-star hotel";
-                        System.out.println("1)Executive Double | 2)Executive Twin | 3) Executive Single");
-
-                    } else if (input3 == 3) {
-                        hotelType = "3-star hotel";
-                        System.out.println("1)Classic Double | 2)Classic Twin | 3) Classic Single");
-
-                    }
-
-
-                    //5 star hotel:
-                    if (input3 == 5) {
-
-                        int in4 = scan.nextInt();
-
-                        if (in4 == 1) {
-                            roomType = "Deluxe Double";
-                        } else if (in4 == 2) {
-                            roomType = "Deluxe Twin";
-                        } else if (in4 == 3) {
-                            roomType = "Deluxe Single";
-                        } else if (in4 == 4) {
-                            roomType = "Deluxe Family";
-                        }
-                        int in5;
-                        int in6;
-
-                        if (in4 != 4) {
-                            System.out.println("Note: Maximum of 2 people allow in this type of room.");
-                            System.out.println("Enter how many rooms you want to book?");
-                            in5 = scan.nextInt();
-                            noOfRoom = in5;
-                            System.out.println("Enter how many people want to stay in the hotel");
-                            in6 = scan.nextInt();
-                            occupancy = in6;
-
-                            if (noOfRoom * 2 < occupancy) {
-                                System.out.println("The amount of people you entered exceed the occupancy of the amount of room you required.");
-                                System.out.println("Note: Maximum of 2 people allow in this type of room.");
-                                System.out.println("Enter how many rooms you want to book?");
-                                in5 = scan.nextInt();
-                                noOfRoom = in5;
-                                System.out.println("Enter how many people want to stay in the hotel");
-                                in6 = scan.nextInt();
-                                occupancy = in6;
-                            }
-
-                        } else {
-                            System.out.println("Note: Maximum of 3 people allow in this type of room.");
-                            System.out.println("Enter how many rooms you want to book?");
-                            in5 = scan.nextInt();
-                            noOfRoom = in5;
-                            System.out.println("Enter how many people want to stay in the hotel");
-                            in6 = scan.nextInt();
-                            occupancy = in6;
-
-                            if (noOfRoom * 3 < occupancy) {
-                                System.out.println("The amount of people you entered exceed the occupancy of the amount of room you required.");
-                                System.out.println("Note: Maximum of 2 people allow in this type of room.");
-                                System.out.println("Enter how many rooms you want to book?");
-                                in5 = scan.nextInt();
-                                noOfRoom = in5;
-                                System.out.println("Enter how many people want to stay in the hotel");
-                                in6 = scan.nextInt();
-                                occupancy = in6;
-                            }
-                        }
-
-
-                    } else if (input3 == 4 || input3 == 3) {
-
-                        int in7 = scan.nextInt();
-
-                        if (input3 == 4 && in7 == 1) {
-                            roomType = "Executive Double";
-                            System.out.println("Note: Maximum of 2 people allow in this type of room.");
-                        } else if (input3 == 4 && in7 == 2) {
-                            roomType = "Executive Twin";
-                            System.out.println("Note: Maximum of 2 people allow in this type of room.");
-                        } else if (input3 == 4 && in7 == 3) {
-                            roomType = "Executive Single";
-                            System.out.println("Note: Maximum of 1 people allow in this type of room.");
-                        } else if (input3 == 3 && in7 == 1) {
-                            roomType = "Classic Double";
-                            System.out.println("Note: Maximum of 2 people allow in this type of room.");
-                        } else if (input3 == 3 && in7 == 2) {
-                            roomType = "Classic Twin";
-                            System.out.println("Note: Maximum of 2 people allow in this type of room.");
-                        } else if (input3 == 3 && in7 == 3) {
-                            roomType = "Classic Single";
-                            System.out.println("Note: Maximum of 1 people allow in this type of room.");
-                        }
-
-                        int in5, in6;
-                        System.out.println("Enter how many rooms you want to book?");
-                        in5 = scan.nextInt();
-                        noOfRoom = in5;
-                        System.out.println("Enter how many people want to stay in the hotel");
-                        in6 = scan.nextInt();
-                        occupancy = in6;
-
-                        if (in7 == 1 || in7 == 2) {
-                            if (noOfRoom * 2 < occupancy) {
-                                System.out.println("The amount of people you entered exceed the occupancy of the amount of room you required.");
-                                System.out.println("Note: Maximum of 2 people allow in this type of room.");
-                                System.out.println("Enter how many rooms you want to book?");
-                                in5 = scan.nextInt();
-                                noOfRoom = in5;
-                                System.out.println("Enter how many people want to stay in the hotel");
-                                in6 = scan.nextInt();
-                                occupancy = in6;
-                            }
-
-
-                        } else if (in7 == 3) {
-                            if (noOfRoom < occupancy) {
-                                System.out.println("The amount of people you entered exceed the occupancy of the amount of room you required.");
-                                System.out.println("Note: Maximum of 1 people allow in this type of room.");
-                                System.out.println("Enter how many rooms you want to book?");
-                                in5 = scan.nextInt();
-                                noOfRoom = in5;
-                                System.out.println("Enter how many people want to stay in the hotel");
-                                in6 = scan.nextInt();
-                                occupancy = in6;
-                            }
-                        }
-                    }
-
-<<<<<<< HEAD:src/main/java/text-based-Interface/TextBased
-                    String str = hotelType + ";" + roomType + ";" + occupancy;
-                    Room room = new Room(str);
-                    Booking user = new Booking(name1, email1, checkInDate, checkOutDate, creationDate, ap, room);
-=======
-                    Booking user = new Booking(email1, name1, checkIn, checkOut,creationDate, ap, roomType, noOfRoom);
->>>>>>> 70f07d9074e4e2353505fc52926a3e10c38f45cb:src/main/java/text-based-Interface/TextBased.java
-
-                    user.insertNewRow(new File("booking.csv"));
-
-
-                    System.out.println("******Thank you for using Hotel Reservation System!******");
-                    System.out.println();
-
-
-                } else if (in1.equals("C")) {
-                    System.out.println("Please enter your name: ");
-                    String in10 = scan.nextLine();
-
-                    Booking.deleteRow(new File("booking.csv"), in10);
-                    System.out.println("******Cancellation successful! Thank you for using our system!******");
-                    System.out.println();
-
-                    //booking log allows to open a reservation detail
-                } else if (in1.equals("B")) {
-                    System.out.println("-- This is a reservation file: -- ");
-                    Scanner scanner = new Scanner(new File("booking.csv"));
-
-                    while (scanner.hasNext()) {
-                        System.out.println(scanner.next() + ",");
-
-                    }
-
-                    scanner.close();
-                    System.out.println("End of the file.");
-                } else if (in1.equals("A")) {
-<<<<<<< HEAD:src/main/java/text-based-Interface/TextBased
-                    System.out.println("-- This is a reservation file: -- ");
-                    Scanner scanner = new Scanner(new File("analysis.csv"));
-
-                    while (scanner.hasNext()) {
-                        System.out.println(scanner.next() + ",");
-
-                    }
-
-                    scanner.close();
-                    System.out.println("End of the file.");
-=======
-                    System.out.println("This is a analysis file");
->>>>>>> 70f07d9074e4e2353505fc52926a3e10c38f45cb:src/main/java/text-based-Interface/TextBased.java
-                } else if (in1.equals("S")) {
-                    System.out.println("which type of hotel do you want to set prices ?");
-                    System.out.println("5)star hotel  |  4)star Hotel  |  3)star Hotel");
-                    int star = scan.nextInt();
-
-                    if (star == 5) {
-                        System.out.println("Enter the price for the following room types:");
-                        System.out.print("Set Price to Deluxe Double:  ");
-                        int rp = scan.nextInt();
-                        System.out.print("Set Price to Deluxe Twin:  ");
-                        int rp1 = scan.nextInt();
-                        System.out.print("Set Price to Deluxe Single:  ");
-                        int rp2 = scan.nextInt();
-                        System.out.print("Set Price to Deluxe Family: ");
-                        int rp3 = scan.nextInt();
-
-                        Room.setPrice(star, rp, rp1, rp2, rp3);
-                        System.out.println("****** Prices are set! ******");
-
-                    } else if (star == 4) {
-                        System.out.println("Enter the price you want to set for the following room types:");
-                        System.out.print("Set Price to Executive Double:  ");
-                        int rp = scan.nextInt();
-                        System.out.print("Set Price to Executive Twin:  ");
-                        int rp1 = scan.nextInt();
-                        System.out.print("Set Price to Executive Single: ");
-                        int rp2 = scan.nextInt();
-
-
-                        Room.setPrice1(star, rp, rp1, rp2);
-                        System.out.println("****** Prices are set! ******");
-                        System.out.println("");
-
-
-                    } else if (star == 3) {
-
-
-                        System.out.println("Enter the price you want to set for the following room types:");
-                        System.out.print("Set Price to Classic Double:  ");
-                        int rp = scan.nextInt();
-                        System.out.print("Set Price to Classic Twin:  ");
-                        int rp1 = scan.nextInt();
-                        System.out.print("Set Price to Classic Single:  ");
-                        int rp2 = scan.nextInt();
-
-
-                        Room.setPrice1(star, rp, rp1, rp2);
-                        System.out.println("****** Prices are set! ******");
-                        System.out.println("");
-
-                    }
-<<<<<<< HEAD:src/main/java/text-based-Interface/TextBased
-                } else if (in1.equals("G")) {
-=======
-                }else if(in1.equals("G")){
->>>>>>> 70f07d9074e4e2353505fc52926a3e10c38f45cb:src/main/java/text-based-Interface/TextBased.java
-                    System.out.println("Which type of hotel do you want to see the prices?");
-                    System.out.println("5)-star  | 4)-star  |  3)-star");
-
-                    int type = scan.nextInt();
-
-<<<<<<< HEAD:src/main/java/text-based-Interface/TextBased
-                    if (type == 5) {
-                        System.out.println("Price of 5-star Hotel: ");
-                        System.out.println("Deluxe Double | Deluxe Twin | Deluxe Single | Deluxe Family");
-                        Room.getPrice(type);
-                    } else if (type == 4) {
-                        System.out.println("Price of 4-star Hotel: ");
-                        System.out.println("Executive Double | Executive Twin | Executive Single ");
-                        Room.getPrice(type);
-                    } else if (type == 3) {
-=======
-                    if(type == 5){
-                        System.out.println("Price of 5-star Hotel: ");
-                        System.out.println("Deluxe Double | Deluxe Twin | Deluxe Single | Deluxe Family");
-                        Room.getPrice(type);
-                    }else if(type == 4){
-                        System.out.println("Price of 4-star Hotel: ");
-                        System.out.println("Executive Double | Executive Twin | Executive Single ");
-                        Room.getPrice(type);
-                    }else if(type == 3){
->>>>>>> 70f07d9074e4e2353505fc52926a3e10c38f45cb:src/main/java/text-based-Interface/TextBased.java
-                        System.out.println("Price of 3-star Hotel: ");
-                        System.out.println("Classic Double | Classic Twin | Classic Single ");
-                        Room.getPrice(type);
-                    }
-
-<<<<<<< HEAD:src/main/java/text-based-Interface/TextBased
-                    System.out.println("prices are set");
-=======
->>>>>>> 70f07d9074e4e2353505fc52926a3e10c38f45cb:src/main/java/text-based-Interface/TextBased.java
-
-
-                }
-
-
-
-
             }
         }
+        // The fileContents variable contains the entire file as one long String
+        // Loop over each line of the file by splitting it up at every new line character.
+        for(String line : fileContents.split("\n")) {
+            // Create csv object from the current line
+            CSV rawBooking = new CSV(line);
+            Booking booking = new Booking();
+            try {
+                // Populate booking with data from csv
+                booking.fromCSV(rawBooking);
+            } catch (Exception e) {
+                System.out.println("Cannot parse csv file into booking object : " + e.getMessage());
+                // If an exception occurs, booking is empty so we move on to the next booking.
+                continue;
+            }
+            bookings.add(booking);
+        }
+        return bookings;
     }
-    */
+
+    
+    /** 
+     * @return ArrayList Get bookings in the booking system.
+     */
+    public ArrayList<Booking> getBookings() {
+        return bookings;
+    }
+    
+    public ArrayList<Booking> getBookingsArchives() {
+        return bookingsArchive;
+    }
+
+    /** 
+     * @param booking Remove booking from the booking system.
+     */
+    public void removeBooking(Booking booking) {
+        bookings.remove(booking);
+        bookingsArchive.add(booking);
+        try {
+            updateArchiveToFile();
+            updateBookingsToFile();
+        } catch(IOException e) {
+            System.out.println(e);
+        }
+    }
+
+    /** 
+     * @param booking A booking to add to the booking system.
+     */
+    public void addBooking(Booking booking) {
+        this.bookings.add(booking);
+    }
+
+    /** 
+     * @param bookings Bookings to add into the booking system.
+     */
+    public void addAllBookings(Collection<? extends Booking> bookings) {
+        this.bookings.addAll(bookings);
+    }
+
+    /** 
+     * @throws IOException
+     */
+    public void updateBookingsToFile() throws IOException {
+        bookingFile.delete();
+        bookingFile.createNewFile();
+        FileWriter writer = new FileWriter(bookingFile);
+        for(Booking b : bookings) {
+            writer.append(b.toString() + "\n");
+        }
+        writer.close();
+    }
+
+    public void updateArchiveToFile() throws IOException{
+        bookingArchive.delete();
+        bookingArchive.createNewFile();
+        FileWriter writer = new FileWriter(bookingArchive);
+        for(Booking b : bookingsArchive) {
+            writer.append(b.toString());
+        }
+        writer.close();
+    }
+
+    public void purgeOldBookingsFromArchive() throws IOException{
+        ArrayList<Booking> toDelete = new ArrayList<>();
+        for(Booking b : bookingsArchive) {
+            if (b.creationDate.isBefore(b.checkInDate.minusYears(7))) {
+                toDelete.add(b);
+            }
+        }
+        if(!toDelete.isEmpty()) {
+            System.out.print("Has updated archive");
+            bookingsArchive.removeAll(toDelete);
+            updateArchiveToFile();
+        }
+    }
+
+    /**
+     * Print all bookings for debug purposes.
+     */
+    public void printBookings() {
+        for(Booking b : bookings) {
+            System.out.println(b.toString());
+        }
+
+    
+    }
 }
-
-
-
-<<<<<<< HEAD:src/main/java/text-based-Interface/TextBased
-
-
-
-=======
->>>>>>> 70f07d9074e4e2353505fc52926a3e10c38f45cb:src/main/java/text-based-Interface/TextBased.java
