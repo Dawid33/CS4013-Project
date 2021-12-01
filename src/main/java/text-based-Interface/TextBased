@@ -11,7 +11,7 @@ public class TextBased {
     int noOfRoom;
     int occupancy;
     String roomType = "";
-    String hotelType = "";
+    String hotelType ;
     LocalDate checkInDate;
     LocalDate checkOutDate;
     LocalDate creationDate = LocalDate.now();
@@ -208,7 +208,6 @@ public class TextBased {
 
                     if (ad.equals("Y")) {
                         ap = true;
-                        totalCost *= 0.95;
                     } else if (ad.equals("N")) {
                         ap = false;
                     }
@@ -233,16 +232,17 @@ public class TextBased {
 
                     checkOutDate = parse(scan.next());
 
-                    System.out.println("");
 
 
+                    String str = hotelType + ";" + roomType + ";" + occupancy;
+                    Room room = new Room(str);
                     Booking user = new Booking(name, email, checkInDate, checkOutDate, creationDate, ap, room);
 
                     user.insertNewRow(new File("booking.csv"));
 
                     System.out.println("******Thank you for using Hotel Reservation System!******");
                     System.out.println();
-                    break;
+
 
                 } else {//make a cancellation
 
@@ -286,15 +286,15 @@ public class TextBased {
                     System.out.println("Choose a room type");
 
                     if (input3 == 5) {
-                        hotelType = "5-star hotel";
+                        hotelType = "5-star";
                         System.out.println("1)Deluxe Double | 2)Deluxe Twin | 3) Deluxe Single | 4)Deluxe Family");
 
                     } else if (input3 == 4) {
-                        hotelType = "4-star hotel";
+                        hotelType = "4-star";
                         System.out.println("1)Executive Double | 2)Executive Twin | 3) Executive Single");
 
                     } else if (input3 == 3) {
-                        hotelType = "3-star hotel";
+                        hotelType = "3-star";
                         System.out.println("1)Classic Double | 2)Classic Twin | 3) Classic Single");
 
                     }
@@ -424,9 +424,13 @@ public class TextBased {
 
                     System.out.println("");
 
-                    Booking user = new Booking(name1, email1, checkInDate, checkOutDate,creationDate, ap, roomType, noOfRoom);
+                    String str = hotelType + ";" + roomType + ";" + occupancy + ";";
+                    Room room = new Room(str);
+
+                    Booking user = new Booking(name1, email1, checkInDate, checkOutDate, creationDate, ap, room);
 
                     user.insertNewRow(new File("booking.csv"));
+
 
                     System.out.println("******Thank you for using Hotel Reservation System!******");
                     System.out.println();
@@ -619,9 +623,12 @@ public class TextBased {
                         }
                     }
 
-                    Booking user = new Booking(email1, name1, checkIn, checkOut,creationDate, ap, roomType, noOfRoom);
+                    String str = hotelType + ";" + roomType + ";" + occupancy;
+                    Room room = new Room(str);
+                    Booking user = new Booking(name1, email1, checkInDate, checkOutDate, creationDate, ap, room);
 
                     user.insertNewRow(new File("booking.csv"));
+
 
                     System.out.println("******Thank you for using Hotel Reservation System!******");
                     System.out.println();
@@ -648,7 +655,16 @@ public class TextBased {
                     scanner.close();
                     System.out.println("End of the file.");
                 } else if (in1.equals("A")) {
-                    System.out.println("This is a analysis file");
+                    System.out.println("-- This is a reservation file: -- ");
+                    Scanner scanner = new Scanner(new File("analysis.csv"));
+
+                    while (scanner.hasNext()) {
+                        System.out.println(scanner.next() + ",");
+
+                    }
+
+                    scanner.close();
+                    System.out.println("End of the file.");
                 } else if (in1.equals("S")) {
                     System.out.println("which type of hotel do you want to set prices ?");
                     System.out.println("5)star hotel  |  4)star Hotel  |  3)star Hotel");
@@ -700,26 +716,27 @@ public class TextBased {
                         System.out.println("");
 
                     }
-                }else if(in1.equals("G")){
+                } else if (in1.equals("G")) {
                     System.out.println("Which type of hotel do you want to see the prices?");
                     System.out.println("5)-star  | 4)-star  |  3)-star");
 
                     int type = scan.nextInt();
 
-                    if(type == 5){
+                    if (type == 5) {
                         System.out.println("Price of 5-star Hotel: ");
                         System.out.println("Deluxe Double | Deluxe Twin | Deluxe Single | Deluxe Family");
                         Room.getPrice(type);
-                    }else if(type == 4){
+                    } else if (type == 4) {
                         System.out.println("Price of 4-star Hotel: ");
                         System.out.println("Executive Double | Executive Twin | Executive Single ");
                         Room.getPrice(type);
-                    }else if(type == 3){
+                    } else if (type == 3) {
                         System.out.println("Price of 3-star Hotel: ");
                         System.out.println("Classic Double | Classic Twin | Classic Single ");
                         Room.getPrice(type);
                     }
 
+                    System.out.println("prices are set");
 
 
                 }
