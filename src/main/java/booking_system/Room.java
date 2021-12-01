@@ -119,24 +119,9 @@ public class Room {
         }
         return "The number of required rooms are not available";
     }
-  
-
 
 
     /**
-     * @return String Get the string representation for the room.
-     */
-    public String toString() {
-        return name + ";" + occupancy;
-    }
-
-
-    public String toCSV() {
-        return hotelType + ";" + name + ";" + occupancy;
-    }
-
-
-      /**
      * set price of rooms in 5 star hotel
      */
     public static void setPrice(int star, int roomPrice, int roomPrice1, int roomPrice2, int roomPirce3) {
@@ -211,5 +196,18 @@ public class Room {
 
         }
 
+    }
+
+
+    /**
+     * @return String Get the string representation for the room.
+     */
+    public String toString() {
+        return name + ";" + occupancy;
+    }
+
+
+    public String toCSV() {
+        return hotelType + ";" + name + ";" + occupancy;
     }
 }
