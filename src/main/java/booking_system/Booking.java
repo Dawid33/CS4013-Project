@@ -1,15 +1,5 @@
-<<<<<<< HEAD
 import java.io.*;
-=======
-package booking_system;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
->>>>>>> 70f07d9074e4e2353505fc52926a3e10c38f45cb
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
